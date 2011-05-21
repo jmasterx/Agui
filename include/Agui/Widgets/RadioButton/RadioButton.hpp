@@ -52,7 +52,7 @@ namespace agui {
 	 *
 	 * ActionEvent when:
 	 *
-	 * Checked changes.
+	 * State becomes Checked.
 	 *
      * @author Joshua Larouche
      * @since 0.1.0

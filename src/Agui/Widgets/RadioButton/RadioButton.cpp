@@ -167,6 +167,7 @@ namespace agui {
 				(*it)->checkedStateChanged(this,state);
 		}
 
+		if(checkedState == CHECKED)
 		dispatchActionEvent(ActionEvent(this));
 	}
 
