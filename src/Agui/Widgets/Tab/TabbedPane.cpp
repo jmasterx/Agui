@@ -42,7 +42,7 @@
 namespace agui {
 	TabbedPane::TabbedPane( Widget * tabContainer /*= NULL*/,
 								   Widget *widgetContainer /*= NULL*/ )
-	 : selectedTab(NULL,NULL),highestTab(0),resizeTabContent(false),
+	 : selectedTab(nullptr,nullptr),highestTab(0),resizeTabContent(false),
 	 tabPadding(0)
 	{
 		if(tabContainer)

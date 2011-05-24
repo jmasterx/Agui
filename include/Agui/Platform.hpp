@@ -67,4 +67,8 @@
 #define AGUI_BACKEND_DECLSPEC
 #endif
 
+#ifndef nullptr
+#define nullptr 0
+#endif
+
 
