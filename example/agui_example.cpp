@@ -279,6 +279,11 @@ void initializeAllegro() {
 		throw std::exception("Allegro image addon failed to initialize");
 	}
 
+	if(!al_init_font_addon())
+	{
+		throw std::exception("Allegro font addon failed to initialize");
+	}
+
 	if(!al_init_ttf_addon())
 	{
 		throw std::exception("Allegro ttf addon failed to initialize");
