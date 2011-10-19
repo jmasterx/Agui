@@ -721,7 +721,7 @@ namespace agui {
 			return;
 		}
 		dragged = false;
-		int x = mouseEvent.getX() - getTextOffset();
+		int x = mouseEvent.getX() - getTextOffset() + getMargin(SIDE_LEFT);
 		positionCaret(getFont()->getStringIndexFromPosition(getText(),x));
 
 		internalSelStart = getCaretPosition();
