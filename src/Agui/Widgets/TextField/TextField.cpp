@@ -752,7 +752,8 @@ namespace agui {
 	void TextField::resizeHeightToContents()
 	{
 		setSize(getSize().getWidth(), getFont()->getLineHeight()
-			+ getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM));
+			+ getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM) 
+			+ 4); //added 4 to ensure everything shows up comfortably
 	}
 
 	void TextField::resizeWidthToContents()
