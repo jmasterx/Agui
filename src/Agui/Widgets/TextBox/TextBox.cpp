@@ -995,6 +995,7 @@ namespace agui {
 
 		y += pChildVScroll->getValue();
 		y -= getTopPadding();
+		y -= getMargin(SIDE_TOP);
 
 		int row = y / getLineHeight();
 		int column = 0;
@@ -1010,6 +1011,7 @@ namespace agui {
 			row = 0;
 		}
 		x -= getLeftPadding();
+		x -= getMargin(SIDE_LEFT);
 		x += pChildHScroll->getValue();
 		x -= getLineOffset(row);
 
