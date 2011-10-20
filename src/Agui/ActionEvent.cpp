@@ -56,7 +56,6 @@ namespace agui
 
 	ActionEvent::ActionEvent()
 	{
-		id = "";
 		source = NULL;
 	}
 
