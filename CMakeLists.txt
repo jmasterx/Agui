@@ -110,7 +110,7 @@ if(WANT_SHARED)
   add_library(agui SHARED ${AGUI_SOURCES})
   
    if(MACOSX)
-  target_link_libraries (agui "-framework Cocoa" )
+  target_link_libraries (agui ${COCOA_LIBRARY} )
   endif(MACOSX)
   
   set_target_properties(agui PROPERTIES DEFINE_SYMBOL "AGUI_BUILD")
@@ -123,7 +123,7 @@ else()
   add_library(agui STATIC ${AGUI_SOURCES})
   
   if(MACOSX)
-  target_link_libraries (agui "-framework Cocoa" )
+  target_link_libraries (agui ${COCOA_LIBRARY} )
   endif(MACOSX)
   
     if(WANT_ALLEGRO5_BACKEND)
