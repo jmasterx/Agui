@@ -848,7 +848,7 @@ namespace agui {
 		return KeyEvent(keyEvent.getKey(),keyEvent.getExtendedKey(),
 			keyEvent.getBackendKeycode(),keyEvent.getBackendModifierKeyFlags(),
 			keyEvent.getUnichar(),keyEvent.getTimeStamp(),
-			keyEvent.alt(),keyEvent.control(),keyEvent.shift(),
+			keyEvent.alt(),keyEvent.control(),keyEvent.shift(),keyEvent.meta(),
 			this,keyEvent.isConsumed());
 	}
 

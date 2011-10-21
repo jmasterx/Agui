@@ -2287,19 +2287,24 @@ namespace agui {
 			return false;
 		}
 
-		if(keyEvent.getUnichar() == 1 )
+		#ifdef __APPLE__
+		if(keyEvent.meta() && 
+			(keyEvent.getKey() == KEY_LOWERCASE_A || keyEvent.getKey() == KEY_UPPERCASE_A) )
 		{
 			selectAll();
 		}
-		else if(keyEvent.getUnichar() == 3 )
+		else 	if(keyEvent.meta() && 
+			(keyEvent.getKey() == KEY_LOWERCASE_C || keyEvent.getKey() == KEY_UPPERCASE_C) )
 		{
 			copy();
 		}
-		else if(keyEvent.getUnichar() == 24 )
+		else 	if(keyEvent.meta() && 
+			(keyEvent.getKey() == KEY_LOWERCASE_X || keyEvent.getKey() == KEY_UPPERCASE_X) )
 		{
 			cut();
 		}
-		else if(keyEvent.getUnichar() == 22 )
+		else if(keyEvent.meta() && 
+			(keyEvent.getKey() == KEY_LOWERCASE_V || keyEvent.getKey() == KEY_UPPERCASE_V) )
 		{
 			paste();
 		}
@@ -2307,6 +2312,29 @@ namespace agui {
 		{
 			return false;
 		}
+		#else
+
+				if(keyEvent.getUnichar() == 1 )
+				{
+					selectAll();
+				}
+				else if(keyEvent.getUnichar() == 3 )
+				{
+					copy();
+				}
+				else if(keyEvent.getUnichar() == 24 )
+				{
+					cut();
+				}
+				else if(keyEvent.getUnichar() == 22 )
+				{
+					paste();
+				}
+				else
+				{
+					return false;
+				}
+		#endif
 
 		return true;
 

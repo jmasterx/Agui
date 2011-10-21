@@ -129,6 +129,11 @@ namespace agui {
      */
 		bool shift() const;
 	/**
+     * @return True if meta was pressed when the event occurred.
+     * @since 0.1.1
+     */
+		bool meta() const;
+	/**
      * @return True if the event has been consumed.
      * @since 0.1.0
      */
@@ -175,6 +180,7 @@ namespace agui {
 		bool isAlt;
 		bool isControl;
 		bool isShift;
+		bool isMeta;
 		bool handled;
 
 		Widget* source;
@@ -200,6 +206,11 @@ namespace agui {
      * @since 0.1.0
      */
 		bool shift() const;
+	/**
+     * @return True if meta was pressed when the event occurred.
+     * @since 0.1.0
+     */
+		bool meta() const;
 	/**
      * Consumes the event. When an event is consumed, it allows the listeners to make decisions based on this.
      * @since 0.1.0
@@ -264,7 +275,7 @@ namespace agui {
 		KeyEvent(KeyEnum key, ExtendedKeyEnum extKey,
 			int _key, int _modKey, 
 			unsigned int unichar, double timeStamp, bool isAlt,
-			bool isControl, bool isShift,
+			bool isControl, bool isShift, bool isMeta,
 			Widget* source = 0, bool handled = false);
 	};
 
@@ -365,10 +376,11 @@ namespace agui {
 		bool isAlt;
 		bool isShift;
 		bool isControl;
+		bool isMeta;
 
 		KeyboardInput(KeyEvent::KeyboardEventEnum event, KeyEnum key, ExtendedKeyEnum extKey,
 			unsigned int unichar,
-			double timeStamp, bool isAlt, bool isShift, bool isControl,
+			double timeStamp, bool isAlt, bool isShift, bool isControl, bool isMeta,
 			int _key = 0, 
 			int _modifierKey = 0)
 		{
@@ -381,6 +393,7 @@ namespace agui {
 			this->isAlt = isAlt;
 			this->isShift = isShift;
 			this->isControl = isControl;
+			this->isMeta = isMeta;
 			this->type = event;
 		}
 

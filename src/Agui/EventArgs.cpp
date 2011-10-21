@@ -149,6 +149,7 @@ namespace agui {
 		isAlt = false;
 		isControl = false;
 		isShift = false;
+		isMeta = false;
 		timeStamp = 0;
 		unichar = 0;
 
@@ -164,7 +165,8 @@ namespace agui {
 									   unsigned int unichar,
 									   double timeStamp,
 									   bool isAlt, bool isControl,
-									   bool isShift, Widget* source /*= 0*/, 
+									   bool isShift, bool isMeta,
+									   Widget* source /*= 0*/, 
 									   bool handled /*= false*/ )
 	{
 		this->key = key;
@@ -177,6 +179,7 @@ namespace agui {
 		this->isAlt = isAlt;
 		this->isControl = isControl;
 		this->isShift = isShift;
+		this->isMeta = isMeta;
 		this->source = source;
 	}
 
@@ -243,6 +246,11 @@ namespace agui {
 	KeyEnum KeyEvent::getKey() const
 	{
 		return key;
+	}
+
+	bool KeyEvent::meta() const
+	{
+		return isMeta;
 	}
 
 	PaintEvent::PaintEvent()

@@ -53,6 +53,7 @@ namespace agui
 		bool shift;
 		bool alt;
 		bool control;
+		bool meta;
 
 		ALLEGRO_KEYBOARD_EVENT prevEvent;
 		std::vector<ALLEGRO_KEYBOARD_EVENT> keyEvents;

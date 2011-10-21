@@ -1221,6 +1221,33 @@ namespace agui {
 			return false;
 		}
 
+#ifdef __APPLE__
+		if(keyEvent.meta() && 
+			(keyEvent.getKey() == KEY_LOWERCASE_A || keyEvent.getKey() == KEY_UPPERCASE_A) )
+		{
+			selectAll();
+		}
+		else 	if(keyEvent.meta() && 
+			(keyEvent.getKey() == KEY_LOWERCASE_C || keyEvent.getKey() == KEY_UPPERCASE_C) )
+		{
+			copy();
+		}
+		else 	if(keyEvent.meta() && 
+			(keyEvent.getKey() == KEY_LOWERCASE_X || keyEvent.getKey() == KEY_UPPERCASE_X) )
+		{
+			cut();
+		}
+		else if(keyEvent.meta() && 
+			(keyEvent.getKey() == KEY_LOWERCASE_V || keyEvent.getKey() == KEY_UPPERCASE_V) )
+		{
+			paste();
+		}
+		else
+		{
+			return false;
+		}
+#else
+
 		if(keyEvent.getUnichar() == 1 )
 		{
 			selectAll();
@@ -1241,8 +1268,10 @@ namespace agui {
 		{
 			return false;
 		}
+#endif
 
 		return true;
+
 
 	}
 

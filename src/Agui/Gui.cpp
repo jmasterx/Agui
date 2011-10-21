@@ -660,7 +660,7 @@ namespace agui
 		keyEvent = KeyEvent(keyboard.key,keyboard.extKey,(int)keyboard._key,
 			(int)keyboard._modifierKey,
 			keyboard.unichar,keyboard.timeStamp,keyboard.isAlt,
-			keyboard.isControl,keyboard.isShift);
+			keyboard.isControl,keyboard.isShift,keyboard.isMeta);
 
 		if(handled)
 		keyEvent.consume();

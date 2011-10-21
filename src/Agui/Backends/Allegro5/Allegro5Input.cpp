@@ -44,7 +44,7 @@ namespace agui
 {
 
 	Allegro5Input::Allegro5Input(void)
-		: shift(false), control(false), alt(false)
+		: shift(false), control(false), alt(false), meta(false)
 	{
 	}
 
@@ -91,6 +91,12 @@ namespace agui
 					alt = true;
 				}
 
+				if(event.keyboard.keycode == ALLEGRO_KEY_LWIN || event.keyboard.keycode == ALLEGRO_KEY_RWIN)
+				{
+					meta = true;
+				}
+
+
 				if(event.type == ALLEGRO_EVENT_KEY_DOWN && (
 					!isModifierKey(event.keyboard.keycode) && event.keyboard.unichar == 0))
 					break;
@@ -116,6 +122,12 @@ namespace agui
 			{
 				alt = false;
 			}
+
+			if(event.keyboard.keycode == ALLEGRO_KEY_LWIN || event.keyboard.keycode == ALLEGRO_KEY_RWIN)
+			{
+				meta = false;
+			}
+
 			if(isKeyboardEnabled())
 				pushKeyboardEvent(createKeyboard(&event.keyboard,false,false));
 				break;
@@ -123,6 +135,7 @@ namespace agui
 			shift = false;
 			alt = false;
 			control = false;
+			meta = false;
 			break;
 		default:
 			break;
@@ -267,6 +280,7 @@ namespace agui
 			alt,
 			shift,
 			control,
+			meta,
 			event->keycode,
 			event->modifiers);
 	}
