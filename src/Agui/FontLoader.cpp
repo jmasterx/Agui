@@ -40,11 +40,4 @@
 
 #include "Agui/FontLoader.hpp"
 namespace agui {
-	FontLoader::FontLoader(void)
-	{
-	}
-
-	FontLoader::~FontLoader(void)
-	{
-	}
 }

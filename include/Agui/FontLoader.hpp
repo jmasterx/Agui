@@ -60,12 +60,12 @@ namespace agui {
 	 * Default constructor.
      * @since 0.1.0
      */
-		FontLoader(void);
+		FontLoader(void) {}
 	/**
 	 * Default destructor.
      * @since 0.1.0
      */
-		virtual ~FontLoader(void);
+		virtual ~FontLoader(void) {}
 	/**
 	 * @return A pointer to the back end specific font or NULL if failed and no exception was thrown.
 	 * @param fileName The path of the font. Must be compatible with the back end loader.

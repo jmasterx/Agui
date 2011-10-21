@@ -46,13 +46,4 @@ namespace agui {
 		return new Allegro5Font(fileName,height);
 	}
 
-	Allegro5FontLoader::Allegro5FontLoader( void )
-	{
-
-	}
-
-	Allegro5FontLoader::~Allegro5FontLoader( void )
-	{
-
-	}
 }

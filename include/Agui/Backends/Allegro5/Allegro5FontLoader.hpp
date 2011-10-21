@@ -58,8 +58,8 @@ namespace agui {
 		public FontLoader
 	{
 	public:
-		Allegro5FontLoader(void);
-		~Allegro5FontLoader(void);
+		Allegro5FontLoader(void) {}
+		~Allegro5FontLoader(void) {}
 
 		virtual Font* loadFont(const std::string &fileName, int height);
 	};
