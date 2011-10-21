@@ -44,7 +44,7 @@
 #include <string>
 namespace agui
 {
-	class Clipboard
+	class AGUI_CORE_DECLSPEC Clipboard
 	{
 		static std::string inClipboard;
 		static std::string _filter(const std::string& str);

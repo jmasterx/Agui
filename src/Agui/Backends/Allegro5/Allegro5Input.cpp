@@ -233,7 +233,12 @@ namespace agui
 		KeyEnum key = KEY_NONE;
 		if(prevEvent.unichar < 128)
 		{
-			key = (KeyEnum)prevEvent.unichar;
+			key = getKeyFromKeycode(prevEvent.keycode);
+
+			if(key == KEY_NONE)
+			{
+				key = (KeyEnum)prevEvent.unichar;
+			}
 		}
 
 		if(prevEvent.keycode == ALLEGRO_KEY_DELETE)
@@ -423,6 +428,169 @@ namespace agui
 			return false;
 		break;
 		}
+	}
+
+	KeyEnum Allegro5Input::getKeyFromKeycode( int keycode ) const
+	{
+		KeyEnum k = KEY_NONE;
+		switch(keycode)
+		{
+		case ALLEGRO_KEY_TAB:
+			k = KEY_TAB;
+			break;
+		case ALLEGRO_KEY_ENTER:
+			k = KEY_ENTER;
+			break;
+		case ALLEGRO_KEY_ESCAPE:
+			k = KEY_ESCAPE;
+			break;
+		case ALLEGRO_KEY_SPACE:
+			k = KEY_SPACE;
+			break;
+		case ALLEGRO_KEY_TILDE:
+			k = KEY_TIDLE;
+			break;
+		case ALLEGRO_KEY_MINUS:
+			k = KEY_HYPHEN;
+			break;
+		case ALLEGRO_KEY_EQUALS:
+			k = KEY_EQUALS;
+			break;
+		case ALLEGRO_KEY_FULLSTOP:
+			k = KEY_PERIOD;
+			break;
+		case ALLEGRO_KEY_COMMA:
+			k = KEY_COMMA;
+			break;
+		case ALLEGRO_KEY_QUOTE:
+			k = KEY_SINGLE_QUOTATION;
+			break;
+		case ALLEGRO_KEY_SLASH:
+			k = KEY_FORWARDSLASH;
+			break;
+		case ALLEGRO_KEY_BACKSLASH:
+			k = KEY_BACKSLASH;
+			break;
+		case ALLEGRO_KEY_BACKSLASH2:
+			k = KEY_BACKSLASH;
+			break;
+		case ALLEGRO_KEY_OPENBRACE:
+			k = KEY_OPEN_BRACE;
+			break;
+		case ALLEGRO_KEY_CLOSEBRACE:
+			k = KEY_CLOSING_BRACE;
+			break;
+		case ALLEGRO_KEY_A:
+			k = KEY_A;
+			break;
+		case ALLEGRO_KEY_B:
+			k = KEY_B;
+			break;
+		case ALLEGRO_KEY_C:
+			k = KEY_C;
+			break;
+		case ALLEGRO_KEY_D:
+			k = KEY_D;
+			break;
+		case ALLEGRO_KEY_E:
+			k = KEY_E;
+			break;
+		case ALLEGRO_KEY_F:
+			k = KEY_F;
+			break;
+		case ALLEGRO_KEY_G:
+			k = KEY_G;
+			break;
+		case ALLEGRO_KEY_H:
+			k = KEY_H;
+			break;
+		case ALLEGRO_KEY_I:
+			k = KEY_I;
+			break;
+		case ALLEGRO_KEY_J:
+			k = KEY_J;
+			break;
+		case ALLEGRO_KEY_K:
+			k = KEY_K;
+			break;
+		case ALLEGRO_KEY_L:
+			k = KEY_L;
+			break;
+		case ALLEGRO_KEY_M:
+			k = KEY_M;
+			break;
+		case ALLEGRO_KEY_N:
+			k = KEY_N;
+			break;
+		case ALLEGRO_KEY_O:
+			k = KEY_O;
+			break;
+		case ALLEGRO_KEY_P:
+			k = KEY_P;
+			break;
+		case ALLEGRO_KEY_Q:
+			k = KEY_Q;
+			break;
+		case ALLEGRO_KEY_R:
+			k = KEY_R;
+			break;
+		case ALLEGRO_KEY_S:
+			k = KEY_S;
+			break;
+		case ALLEGRO_KEY_T:
+			k = KEY_T;
+			break;
+		case ALLEGRO_KEY_U:
+			k = KEY_U;
+			break;
+		case ALLEGRO_KEY_V:
+			k = KEY_V;
+			break;
+		case ALLEGRO_KEY_W:
+			k = KEY_W;
+			break;
+		case ALLEGRO_KEY_X:
+			k = KEY_X;
+			break;
+		case ALLEGRO_KEY_Y:
+			k = KEY_Y;
+			break;
+		case ALLEGRO_KEY_Z:
+			k = KEY_Z;
+			break;
+		case ALLEGRO_KEY_0:
+			k = KEY_0;
+			break;
+		case ALLEGRO_KEY_1:
+			k = KEY_1;
+			break;
+		case ALLEGRO_KEY_2:
+			k = KEY_2;
+			break;
+		case ALLEGRO_KEY_3:
+			k = KEY_3;
+			break;
+		case ALLEGRO_KEY_4:
+			k = KEY_4;
+			break;
+		case ALLEGRO_KEY_5:
+			k = KEY_5;
+			break;
+		case ALLEGRO_KEY_6:
+			k = KEY_6;
+			break;
+		case ALLEGRO_KEY_7:
+			k = KEY_7;
+			break;
+		case ALLEGRO_KEY_8:
+			k = KEY_8;
+			break;
+		case ALLEGRO_KEY_9:
+			k = KEY_9;
+			break;
+		}
+
+		return k;
 	}
 
 }

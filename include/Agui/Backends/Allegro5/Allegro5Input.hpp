@@ -64,6 +64,7 @@ namespace agui
 
 	 ExtendedKeyEnum getExtendedKey(int key) const;
 	 bool isModifierKey(int key);
+	 KeyEnum getKeyFromKeycode(int keycode) const;
 	public:
 		Allegro5Input(void);
 		virtual double getTime() const;

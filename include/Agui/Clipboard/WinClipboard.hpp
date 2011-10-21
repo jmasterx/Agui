@@ -44,7 +44,7 @@
 #include <string>
 namespace agui
 {
-	class WinClipboard
+	class AGUI_CORE_DECLSPEC WinClipboard
 	{	
 		static std::string _winUTF16ToUTF8(const std::wstring& input);
 		static std::wstring _winUTF8ToUTF16(const std::string& input);
