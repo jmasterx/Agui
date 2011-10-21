@@ -52,7 +52,8 @@ namespace agui {
 	  wordWrap(false),readOnly(false),maxSkip(10),numSelLines(0), mouseDownIndex(0),
 	  dragged(false),splittingWords(true),standardArrowKeyRules(true),
 	  textAlignment(ALIGN_LEFT),selectionBackColor(Color(169,193,214)),
-	  hideSelection(true),selfSetText(false),maxLength(100000),selectable(true)
+	  hideSelection(true),selfSetText(false),maxLength(100000),selectable(true),
+	  hotkeys(true)
 	{
 		if(hScroll)
 		{
@@ -1375,6 +1376,11 @@ namespace agui {
 	{
 
 
+		if(handleHotkeys(keyEvent))
+		{
+			return;
+		}
+
 		if(keyEvent.getExtendedKey() == EXT_KEY_UP)
 		{
 			handleArrowKey(keyEvent,getCaretColumn(),getCaretRow() - 1);
@@ -2004,6 +2010,14 @@ namespace agui {
 	void TextBox::appendText( const std::string &text, bool atCurrentPosition /*= true*/,
 								 bool repositionCaret /*= true*/ )
 	{
+		int length = unicodeFunctions.length(text);
+		int numRemainingChar = getMaxLength() - getTextLength() + getSelectionLength();
+
+		if(numRemainingChar == 0)
+		{
+			return;
+		}
+
 		size_t index = 0;
 		if(atCurrentPosition)
 		{
@@ -2013,9 +2027,21 @@ namespace agui {
 		{
 			index = getTextLength();
 		}
-
+	
+		//ensure we don't go over the max length
 		std::string *txt = (std::string*)&getText();
-		unicodeFunctions.insert(*txt,index,text);
+		if(numRemainingChar < length)
+		{
+			std::string shrunk = text;
+			shrunk = unicodeFunctions.subStr(shrunk,0,numRemainingChar);
+			length = numRemainingChar;
+			unicodeFunctions.insert(*txt,index,shrunk);
+		}
+		else
+		{
+			unicodeFunctions.insert(*txt,index,text);
+		}
+		
 		setThisText(*txt);
 
 		if(repositionCaret)
@@ -2105,6 +2131,7 @@ namespace agui {
 	void TextBox::selectAll()
 	{
 		setSelection(0,getTextLength());
+		mousePositionCaret(columnRowFromIndex(getTextLength()));
 	}
 
 	bool TextBox::isHidingSelection() const
@@ -2241,6 +2268,84 @@ namespace agui {
 				getMargin(SIDE_BOTTOM) +
 				hscroll);
 		}
+	}
+
+	bool TextBox::wantsHotkeys() const
+	{
+		return hotkeys;
+	}
+
+	void TextBox::setWantHotkeys( bool hotkeysEnabled )
+	{
+		hotkeys = hotkeysEnabled;
+	}
+
+	bool TextBox::handleHotkeys(const KeyEvent &keyEvent )
+	{
+		if(!wantsHotkeys())
+		{
+			return false;
+		}
+
+		if(keyEvent.getUnichar() == 1 )
+		{
+			selectAll();
+		}
+		else if(keyEvent.getUnichar() == 3 )
+		{
+			copy();
+		}
+		else if(keyEvent.getUnichar() == 24 )
+		{
+			cut();
+		}
+		else if(keyEvent.getUnichar() == 22 )
+		{
+			paste();
+		}
+		else
+		{
+			return false;
+		}
+
+		return true;
+
+	}
+
+	void TextBox::cut()
+	{
+		if(getSelectionLength() > 0)
+		{
+			Clipboard::copy(getSelectedText());
+			deleteSelection();
+		}
+	}
+
+	void TextBox::copy()
+	{
+		if(getSelectionLength() > 0)
+		{
+			Clipboard::copy(getSelectedText());
+		}
+	}
+
+	void TextBox::paste()
+	{
+		if(isReadOnly())
+		{
+			return;
+		}
+
+		std::string pasteResult = Clipboard::paste();
+
+		if(pasteResult.length() == 0)
+		{
+			return;
+		}
+
+		deleteSelection();
+		appendText(pasteResult,true,true);
+		
 	}
 
 }

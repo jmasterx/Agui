@@ -47,6 +47,7 @@
 #include "Agui/MouseListener.hpp"
 #include "Agui/BlinkingEvent.hpp"
 #include "Agui/Widgets/TextBox/TextBoxListener.hpp"
+#include "Agui/Clipboard/Clipboard.hpp"
 
 namespace agui {
 	/**
@@ -107,6 +108,7 @@ namespace agui {
 		bool wordWrap;
 		bool readOnly;
 		int maxLength;
+		bool hotkeys;
 
 		ScrollPolicy hScrollPolicy;
 		ScrollPolicy vScrollPolicy;
@@ -308,7 +310,42 @@ namespace agui {
      */
 		virtual int getLineOffset(int line) const;
 
+	/**
+	 * Handles hotkeys.
+     * @since 0.1.1
+     */
+		virtual bool handleHotkeys(const KeyEvent &keyEvent);
+
 	public:
+			/**
+	 * Copies the selected text to the clipboard and clears the selected text in the box
+     * @since 0.1.1
+     */
+
+		virtual void cut();
+	/**
+	 * Copies the selected text to the clipboard
+     * @since 0.1.1
+     */
+
+		virtual void copy();
+	/**
+	 * Pastes the contents of the clipboard at the selection start
+     * @since 0.1.1
+     */
+
+		virtual void paste();
+	/**
+	 * Sets whether or not this TextField will respond to ctrl a, c, x, v.
+     * @since 0.1.1
+     */
+
+		virtual void setWantHotkeys(bool hotkeysEnabled);
+	/**
+	 * @return True if this TextField will respond to ctrl a, c, x, v.
+     * @since 0.1.1
+     */
+		virtual bool wantsHotkeys() const;
 	/**
      * Sets whether or not the text can be selected / highlighted by dragging the mouse.
      * @since 0.1.0

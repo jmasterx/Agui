@@ -43,12 +43,12 @@ namespace agui {
 	TextField::TextField(void)
 	: caretLocation(0),caretPosition(0), showCaret(false),
 	 textOffset(0),leftPadding(5),rightPadding(5), maxCharacterSkip(8),
-	 selfSetText(false), maxLength(32000),selStart(0),selEnd(0),
+	 selfSetText(false), maxLength(100),selStart(0),selEnd(0),
 	 internalSelStart(0), selWidth(0),selLength(0),dragged(false),
 	 selectable(true),readOnly(false),numeric(false),wantDecimal(false),
 	 wantNegetive(false), hideSelection(true), alignOffset(0),tOffset(0),
 	 textAlign(ALIGN_LEFT),selectionBackColor(Color(169,193,214)),
-	 password(false)
+	 password(false), hotkeys(true)
 
 	{
 		setFocusable(true);
@@ -458,6 +458,11 @@ namespace agui {
 
 		
 
+		if(handleHotkeys(keyEvent))
+		{
+			return;
+		}
+
 		//delete the next character
 		if(keyEvent.getKey() == KEY_DELETE)
 		{
@@ -573,18 +578,11 @@ namespace agui {
 			invalidateBlink();
 			return;
 		}
-		int caretPos;
+
 		switch (keyEvent.getExtendedKey())
 		{
 		case EXT_KEY_RIGHT:
-
-			caretPos = getCaretPosition();
-
 			positionCaret(getCaretPosition() + 1);
-			if(getCaretPosition() == caretPos)
-			{
-				return;
-			}
 
 			if(keyEvent.shift())
 			{
@@ -602,7 +600,9 @@ namespace agui {
 			}
 			else if(getSelectionStart() != getSelectionEnd())
 			{
+				int caretPos = getSelectionEnd();
 				setSelection(0,0);
+				positionCaret(caretPos);
 			}
 
 			setBlinking(true);
@@ -610,14 +610,7 @@ namespace agui {
 			break;
 		case EXT_KEY_LEFT:
 
-			caretPos = getCaretPosition();
-
 			positionCaret(getCaretPosition() - 1);
-
-			if(getCaretPosition() == caretPos)
-			{
-				return;
-			}
 
 			if(keyEvent.shift())
 			{
@@ -636,7 +629,9 @@ namespace agui {
 
 			else if(getSelectionStart() != getSelectionEnd())
 			{
+				int caretPos = getSelectionStart();
 				setSelection(0,0);
+				positionCaret(caretPos);
 			}
 
 			setBlinking(true);
@@ -929,7 +924,10 @@ namespace agui {
 
 	void TextField::selectAll()
 	{
+		
 		setSelection(-1,-1);
+		caretPosition = getTextLength();
+		relocateCaret();
 	}
 
 	void TextField::setReadOnly( bool readOny )
@@ -1203,6 +1201,110 @@ namespace agui {
 		else
 		{
 			return initialAmount;
+		}
+	}
+
+	void TextField::setWantHotkeys( bool hotkeysEnabled )
+	{
+		hotkeys = hotkeysEnabled;
+	}
+
+	bool TextField::wantsHotkeys() const
+	{
+		return hotkeys;
+	}
+
+	bool TextField::handleHotkeys(const KeyEvent &keyEvent )
+	{
+		if(!wantsHotkeys())
+		{
+			return false;
+		}
+
+		if(keyEvent.getUnichar() == 1 )
+		{
+			selectAll();
+		}
+		else if(keyEvent.getUnichar() == 3 )
+		{
+			copy();
+		}
+		else if(keyEvent.getUnichar() == 24 )
+		{
+			cut();
+		}
+		else if(keyEvent.getUnichar() == 22 )
+		{
+			paste();
+		}
+		else
+		{
+			return false;
+		}
+
+		return true;
+
+	}
+
+	void TextField::cut()
+	{
+		if(getSelectionLength() > 0)
+		{
+			Clipboard::copy(getSelectedText());
+			deleteSelection();
+		}
+		
+	}
+
+	void TextField::copy()
+	{
+		if(getSelectionLength() > 0)
+		{
+			Clipboard::copy(getSelectedText());
+		}
+	}
+
+	void TextField::paste()
+	{
+		if(isReadOnly())
+		{
+			return;
+		}
+
+
+		std::string pasteResult = Clipboard::paste();
+
+		if(pasteResult.length() == 0 || getTextLength() - getSelectionLength() == getMaxLength())
+		{
+			return;
+		}
+
+		deleteSelection();
+		int start = getCaretPosition();
+		
+		std::string noNewLine;
+
+		for(size_t i = 0; i < pasteResult.size(); ++i)
+		{
+			if(pasteResult[i] != '\n')
+			{
+				noNewLine += pasteResult[i];
+			}
+		}
+
+		int length = unicodeFunctions.length(noNewLine);
+		int numRemainingChar = getMaxLength() - getTextLength();
+		if(numRemainingChar < length)
+		{
+			noNewLine = unicodeFunctions.subStr(noNewLine,0,numRemainingChar);
+			length = numRemainingChar;
+		}
+		if(length > 0)
+		{
+			std::string* cText = (std::string*)&getText();
+			unicodeFunctions.insert(*cText,start,noNewLine);
+			setThisText(*cText);
+			positionCaret(caretPosition + length);
 		}
 	}
 

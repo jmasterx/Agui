@@ -44,6 +44,7 @@
 #include "Agui/Widget.hpp"
 #include "Agui/Widgets/TextField/TextFieldListener.hpp"
 #include "Agui/BlinkingEvent.hpp"
+#include "Agui/Clipboard/Clipboard.hpp"
 namespace agui {
 	/**
 	 * Class that represents a TextField.
@@ -87,6 +88,7 @@ namespace agui {
 		int alignOffset;
 		AlignmentEnum textAlign;
 		int tOffset;
+		bool hotkeys;
 		
 
 		int selStart;
@@ -164,6 +166,11 @@ namespace agui {
      */
 		virtual void handleKeyboard(KeyEvent &keyEvent);
 	/**
+	 * Handles hotkeys.
+     * @since 0.1.1
+     */
+		virtual bool handleHotkeys(const KeyEvent &keyEvent);
+	/**
 	 * @return The number of UTF8 characters selected / highlighted.
      * @since 0.1.0
      */
@@ -182,9 +189,39 @@ namespace agui {
 
 	public:
 	/**
+	 * Copies the selected text to the clipboard and clears the selected text in the box
+     * @since 0.1.1
+     */
+
+		virtual void cut();
+	/**
+	 * Copies the selected text to the clipboard
+     * @since 0.1.1
+     */
+
+		virtual void copy();
+	/**
+	 * Pastes the contents of the clipboard at the selection start
+     * @since 0.1.1
+     */
+
+		virtual void paste();
+	/**
+	 * Sets whether or not this TextField will respond to ctrl a, c, x, v.
+     * @since 0.1.1
+     */
+
+		virtual void setWantHotkeys(bool hotkeysEnabled);
+	/**
+	 * @return True if this TextField will respond to ctrl a, c, x, v.
+     * @since 0.1.1
+     */
+		virtual bool wantsHotkeys() const;
+	/**
 	 * Sets whether or not this TextField will be used to store a password.
      * @since 0.1.0
      */
+
 		virtual void setIsPassword(bool password);
 	/**
 	 * @return True if this TextField will be used to store a password.
