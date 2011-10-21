@@ -60,7 +60,7 @@ namespace agui {
 	{
 	public:
 		Allegro5ImageLoader(void);
-		~Allegro5ImageLoader(void);
+		virtual ~Allegro5ImageLoader(void);
 		virtual Image* loadImage(const std::string &fileName, bool convertMask = false,
 			bool converToDisplayFormat = false);
 	};

@@ -44,8 +44,9 @@ namespace agui {
 	{
 	}
 
-	Allegro5ImageLoader::~Allegro5ImageLoader(void)
+	Allegro5ImageLoader::~Allegro5ImageLoader( void )
 	{
+
 	}
 
 	Image* Allegro5ImageLoader::loadImage( const std::string &fileName, 
@@ -53,6 +54,4 @@ namespace agui {
 	{
 		return new Allegro5Image(fileName,convertMask);
 	}
-
-
 }

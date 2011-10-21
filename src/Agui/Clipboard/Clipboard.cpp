@@ -97,4 +97,6 @@ namespace agui
 
 	}
 
+	std::string Clipboard::inClipboard;
+
 }
