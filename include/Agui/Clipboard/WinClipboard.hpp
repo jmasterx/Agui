@@ -42,6 +42,7 @@
 #define AGUI_WIN_CLIPBOARD_HPP
 #include <stdlib.h>
 #include <string>
+#include "Agui/Platform.hpp"
 namespace agui
 {
 	class AGUI_CORE_DECLSPEC WinClipboard
