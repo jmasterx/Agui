@@ -59,7 +59,8 @@ namespace agui
 		NSPasteboard *pasteBoard = [NSPasteboard generalPasteboard];
 		[pasteBoard declareTypes:[NSArray arrayWithObjects:NSStringPboardType, nil] owner:nil];
 		[pasteBoard setString:string forType:NSStringPboardType];
-
+		
+		[string release];
 		[pool release];
 
 	}
