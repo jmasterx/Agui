@@ -316,6 +316,8 @@ namespace agui {
 			handleToggleClick();
 			mouseEvent.consume();
 		}
+
+		if(mouseEvent.getButton() == MOUSE_BUTTON_LEFT)
 		dispatchActionEvent(ActionEvent(this));
 	}
 
