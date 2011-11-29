@@ -46,12 +46,10 @@ set(AGUI_SOURCES
 	src/Agui/FocusListener.cpp
 	src/Agui/FocusManager.cpp
 	src/Agui/Font.cpp
-	src/Agui/FontLoader.cpp
 	src/Agui/Graphics.cpp
 	src/Agui/GridLayout.cpp
 	src/Agui/Gui.cpp
 	src/Agui/Image.cpp
-	src/Agui/ImageLoader.cpp
 	src/Agui/Input.cpp
 	src/Agui/KeyboardListener.cpp
 	src/Agui/Layout.cpp

@@ -59,12 +59,12 @@
 	 * Default constructor.
      * @since 0.1.0
      */
-		ImageLoader(void);
+		ImageLoader(void) {}
 	/**
 	 * Default destructor.
      * @since 0.1.0
      */
-		virtual ~ImageLoader(void);
+		virtual ~ImageLoader(void) {}
 	/**
 	 * @return A back end specific Image or NULL.
 	 * @param fileName The path to the image.
