@@ -848,7 +848,7 @@ namespace agui {
 		return KeyEvent(keyEvent.getKey(),keyEvent.getExtendedKey(),
 			keyEvent.getBackendKeycode(),keyEvent.getBackendModifierKeyFlags(),
 			keyEvent.getUnichar(),keyEvent.getTimeStamp(),
-			keyEvent.alt(),keyEvent.control(),keyEvent.shift(),keyEvent.meta(),
+			keyEvent.alt(),keyEvent.control(),keyEvent.shift(),
 			this,keyEvent.isConsumed());
 	}
 
@@ -1614,9 +1614,9 @@ namespace agui {
 
 		if(root != this)
 		{
-			root->clip(PaintEvent(enabled,graphicsContext));
+			root->clip(PaintEvent(widgetEnabled,graphicsContext));
 
-			root->paint(PaintEvent(enabled,graphicsContext));
+			root->paint(PaintEvent(widgetEnabled,graphicsContext));
 
 			if(root->isPaintingChildren())
 			{
