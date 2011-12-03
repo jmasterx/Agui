@@ -463,6 +463,11 @@ namespace agui {
 		//delete the next character
 		if(keyEvent.getKey() == KEY_DELETE)
 		{
+			if(getCaretPosition() == getTextLength())
+			{
+				return;
+			}
+
 			if(isReadOnly())
 			{
 				setBlinking(true);
@@ -486,6 +491,11 @@ namespace agui {
 		//delete the previous character
 		if(keyEvent.getKey() == KEY_BACKSPACE)
 		{
+			if(getCaretPosition() == 0)
+			{
+				return;
+			}
+
 			if(isReadOnly())
 			{
 				setBlinking(true);
