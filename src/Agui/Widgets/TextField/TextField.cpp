@@ -455,9 +455,6 @@ namespace agui {
 
 	void TextField::handleKeyboard( KeyEvent &keyEvent )
 	{
-
-		
-
 		if(handleHotkeys(keyEvent))
 		{
 			return;
@@ -582,6 +579,19 @@ namespace agui {
 		switch (keyEvent.getExtendedKey())
 		{
 		case EXT_KEY_RIGHT:
+
+			if(getCaretPosition() == getTextLength() 
+				&& getSelectionStart() != getSelectionEnd() &&
+				keyEvent.shift())
+			{
+				return;
+			}
+			else if(getCaretPosition() == getTextLength() 
+				&& getSelectionStart() == getSelectionEnd())
+			{
+				return;
+			}
+
 			positionCaret(getCaretPosition() + 1);
 
 			if(keyEvent.shift())
@@ -609,6 +619,18 @@ namespace agui {
 			invalidateBlink();
 			break;
 		case EXT_KEY_LEFT:
+
+			if(getCaretPosition() == 0 
+				&& getSelectionStart() != getSelectionEnd() &&
+				keyEvent.shift())
+			{
+				return;
+			}
+			else if(getCaretPosition() == 0
+				&& getSelectionStart() == getSelectionEnd())
+			{
+				return;
+			}
 
 			positionCaret(getCaretPosition() - 1);
 
