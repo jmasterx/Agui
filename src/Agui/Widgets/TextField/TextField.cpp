@@ -470,8 +470,6 @@ namespace agui {
 
 			if(isReadOnly())
 			{
-				setBlinking(true);
-				invalidateBlink();
 				return;
 			}
 
@@ -498,8 +496,6 @@ namespace agui {
 
 			if(isReadOnly())
 			{
-				setBlinking(true);
-				invalidateBlink();
 				return;
 			}
 

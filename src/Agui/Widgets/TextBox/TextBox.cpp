@@ -1403,6 +1403,11 @@ namespace agui {
 		}
 		else if(keyEvent.getKey() == KEY_BACKSPACE && !isReadOnly())
 		{
+			if(getCaretColumn() == 0 && getCaretRow() == 0)
+			{
+				return;
+			}
+
 			setBlinking(true);
 			invalidateBlink();
 
@@ -1415,6 +1420,12 @@ namespace agui {
 		}
 		else if(keyEvent.getKey() == KEY_DELETE && !isReadOnly())
 		{
+			if(indexFromColumnRow(
+				getCaretColumn(),getCaretRow()) == getTextLength() - 1)
+			{
+				return;
+			}
+
 			setBlinking(true);
 			invalidateBlink();
 
