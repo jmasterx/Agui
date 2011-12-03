@@ -463,7 +463,8 @@ namespace agui {
 		//delete the next character
 		if(keyEvent.getKey() == KEY_DELETE)
 		{
-			if(getCaretPosition() == getTextLength())
+			if(getCaretPosition() == getTextLength()
+				&& getSelectionStart() == getSelectionEnd())
 			{
 				return;
 			}
@@ -489,7 +490,7 @@ namespace agui {
 		//delete the previous character
 		if(keyEvent.getKey() == KEY_BACKSPACE)
 		{
-			if(getCaretPosition() == 0)
+			if(getCaretPosition() == 0 && getSelectionStart() == getSelectionEnd())
 			{
 				return;
 			}

@@ -1403,7 +1403,7 @@ namespace agui {
 		}
 		else if(keyEvent.getKey() == KEY_BACKSPACE && !isReadOnly())
 		{
-			if(getCaretColumn() == 0 && getCaretRow() == 0)
+			if(getCaretColumn() == 0 && getCaretRow() == 0 && isSelectionEmpty())
 			{
 				return;
 			}
@@ -1421,7 +1421,8 @@ namespace agui {
 		else if(keyEvent.getKey() == KEY_DELETE && !isReadOnly())
 		{
 			if(indexFromColumnRow(
-				getCaretColumn(),getCaretRow()) == getTextLength() - 1)
+				getCaretColumn(),getCaretRow()) == getTextLength() - 1 
+				&& isSelectionEmpty())
 			{
 				return;
 			}
