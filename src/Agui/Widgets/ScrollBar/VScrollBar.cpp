@@ -130,8 +130,12 @@ namespace agui {
 		{
 			(*it)->removeMouseListener(this);
 		}
+
+		if(isMaintainingThumb)
 		delete pChildThumb;
+		if(isMaintainingTopArrow)
 		delete pChildTopArrow;
+		if(isMaintainingBottomArrow)
 		delete pChildBottomArrow;
 	}
 
