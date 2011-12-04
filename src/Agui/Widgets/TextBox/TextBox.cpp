@@ -862,7 +862,7 @@ namespace agui {
 
 		int rowLoc = (getCaretRow() * getLineHeight()) + getLineHeight();
 
-		if(rowLoc + getVerticalOffset() - getTopPadding() > getAdjustedHeight())
+		if(rowLoc + getVerticalOffset() - getTopPadding() + hoffset > getAdjustedHeight())
 		{
 			pChildVScroll->setValue((rowLoc - getAdjustedHeight()) + hoffset);
 		}
