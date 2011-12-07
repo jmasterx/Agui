@@ -88,6 +88,7 @@ namespace agui
 		TopContainer* baseWidget;
 		double lasttickTime;
 		std::stack<Widget*> q;
+		std::queue<MouseInput> queuedMouseDown;
 		MouseInput emptyMouse;
 		MouseEvent relArgs;
 		bool destroyingFlaggedWidgets;

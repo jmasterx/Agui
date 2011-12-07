@@ -1256,9 +1256,11 @@ namespace agui
 
 	void Gui::_dispatchMouseEvents()
 	{
-		while(!input->isMouseQueueEmpty())
+		while(!queuedMouseDown.empty())
 		{
-			MouseInput mi = input->dequeueMouseInput();
+			MouseInput mi = queuedMouseDown.back();
+			queuedMouseDown.pop();
+
 			if(
 				mi.type == MouseEvent::MOUSE_MOVE ||
 				mi.type == MouseEvent::MOUSE_WHEEL_DOWN ||
@@ -1275,6 +1277,34 @@ namespace agui
 				handleMouseUp(mi);
 			}
 		}
+
+		while(!input->isMouseQueueEmpty())
+		{
+			MouseInput mi = input->dequeueMouseInput();
+			if(
+				mi.type == MouseEvent::MOUSE_MOVE ||
+				mi.type == MouseEvent::MOUSE_WHEEL_DOWN ||
+				mi.type == MouseEvent::MOUSE_WHEEL_UP)
+			{
+				handleMouseAxes(mi,false);
+			}
+			else if(mi.type == MouseEvent::MOUSE_DOWN)
+			{
+				//queue it for later to fix click bug
+				if(!queuedMouseDown.empty())
+				{
+					queuedMouseDown.pop();
+				}
+				queuedMouseDown.push(mi);
+				return;
+			}
+			else if(mi.type == MouseEvent::MOUSE_UP)
+			{
+				handleMouseUp(mi);
+			}
+		}
+
+		
 	}
 
 	void Gui::_dispatchWidgetDestroyed( Widget* widget )
