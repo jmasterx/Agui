@@ -43,7 +43,7 @@
 namespace agui {
 	CheckBox::CheckBox()
 	:	mouseIsDown(false), mouseIsInside(false),isDoingKeyAction(false),
-		sidePadding(6)
+		sidePadding(6), checkBoxState(DEFAULT)
 	{
 		setMargins(1,1,1,1);
 		setBackColor(Color(240,240,240));
@@ -84,10 +84,6 @@ namespace agui {
 	{
 		return checkBoxSize;
 	}
-
-
-
-
 
 	void CheckBox::changeCheckBoxState( CheckBoxStateEnum state )
 	{
