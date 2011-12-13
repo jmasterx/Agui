@@ -1035,6 +1035,11 @@ namespace agui {
 		int y = p.getY();
 		y -= getVerticalOffset();
 
+		if(y < 0)
+		{
+			return -1;
+		}
+
 		int itemIndex = y / getItemHeight();
 
 		if(indexExists(itemIndex))
