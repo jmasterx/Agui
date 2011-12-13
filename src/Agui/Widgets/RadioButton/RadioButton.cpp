@@ -43,7 +43,7 @@
 namespace agui {
 	RadioButton::RadioButton()
 	:	mouseIsDown(false), mouseIsInside(false),isDoingKeyAction(false),
-	sidePadding(6)
+	sidePadding(6), radioButtonState(DEFAULT)
 	{
 
 		setMargins(1,1,1,1);
