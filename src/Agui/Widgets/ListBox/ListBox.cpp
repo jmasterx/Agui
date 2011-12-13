@@ -235,6 +235,7 @@ namespace agui {
 			{
 				widestItem = iWidth;
 			}
+			setWidestItem();
 			updateScrollBars();
 			for(std::vector<ListBoxListener*>::iterator it = listboxListeners.begin();
 				it != listboxListeners.end(); ++it)
@@ -342,6 +343,7 @@ namespace agui {
 		}
 		
 		items.clear();
+		setWidestItem();
 		updateScrollBars();
 	}
 
@@ -1254,6 +1256,7 @@ namespace agui {
 		{
 			sort();
 		}
+		setWidestItem();
 		updateScrollBars();
 	}
 
@@ -1282,6 +1285,7 @@ namespace agui {
 			sort();
 		}
 
+		setWidestItem();
 		updateScrollBars();
 	}
 
