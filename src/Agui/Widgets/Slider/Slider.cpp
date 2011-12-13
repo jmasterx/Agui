@@ -233,8 +233,11 @@ namespace agui {
 
 	int Slider::positionToValue( int position ) const
 	{
+		position -= getOrientation() == HORIZONTAL ?
+			pChildMarker->getWidth() / 2 : pChildMarker->getHeight() / 2;
 		float sz = getOrientation() == 
-			HORIZONTAL ? (float)getInnerSize().getWidth() : (float)getInnerSize().getHeight();
+			HORIZONTAL ? (float)getInnerSize().getWidth() - pChildMarker->getWidth()
+			: (float)getInnerSize().getHeight() - pChildMarker->getHeight();
 
 		if(getOrientation() == VERTICAL)
 		{
@@ -412,6 +415,20 @@ namespace agui {
 		}
 
 		focus();
+
+		int mousePos = getOrientation() == HORIZONTAL ? 
+			mouseEvent.getPosition().getX() + mouseEvent.getSourceWidget()->getLocation().getX() :
+		mouseEvent.getPosition().getY() + mouseEvent.getSourceWidget()->getLocation().getY();
+
+		int val = getValue();
+		setValue(positionToValue(mousePos));
+		if(val != getValue())
+		{
+			dispatchActionEvent(ActionEvent(
+				this));
+		}
+
+		mouseEvent.consume();
 		mouseEvent.consume();
 	}
 
