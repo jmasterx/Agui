@@ -693,11 +693,11 @@ namespace agui {
 		}
 
 		//set vertical value
-		pChildVScroll->setRangeFromPage(getSize().getHeight() - extraH,getContentHeight());
+		pChildVScroll->setRangeFromPage(getInnerSize().getHeight() - extraH,getContentHeight());
 
 
 		//set horizontal value
-		pChildHScroll->setRangeFromPage(getSize().getWidth() - extraV,getContentWidth());
+		pChildHScroll->setRangeFromPage(getInnerSize().getWidth() - extraV,getContentWidth());
 	}
 
 	void ListBox::updateScrollBars()
@@ -935,13 +935,13 @@ namespace agui {
 		{
 			return false;
 		}
-		if(getContentWidth() > getSize().getWidth())
+		if(getContentWidth() > getInnerSize().getWidth())
 		{
 			return true;
 		}
 		else if(getVScrollPolicy() != SHOW_NEVER &&
-			(getContentHeight() >  getSize().getHeight()  &&
-			getContentWidth() > (getSize().getWidth() - pChildVScroll->getWidth() )))
+			(getContentHeight() >  getInnerSize().getHeight()  &&
+			getContentWidth() > (getInnerSize().getWidth() - pChildVScroll->getWidth() )))
 		{
 			return true;
 		}
@@ -954,13 +954,13 @@ namespace agui {
 		{
 			return false;
 		}
-		if(getContentHeight() > getSize().getHeight())
+		if(getContentHeight() > getInnerSize().getHeight())
 		{
 			return true;
 		}
 		else if(getHScrollPolicy() != SHOW_NEVER &&
-			(getContentWidth() >  getSize().getWidth()  &&
-			getContentHeight() > (getSize().getHeight() - pChildHScroll->getHeight() )))
+			(getContentWidth() >  getInnerSize().getWidth()  &&
+			getContentHeight() > (getInnerSize().getHeight() - pChildHScroll->getHeight() )))
 		{
 			return true;
 		}
@@ -1300,7 +1300,7 @@ namespace agui {
 		int itemY = selection * getItemHeight();
 		itemY += getVerticalOffset();
 
-		int fixedheight = getSize().getHeight();
+		int fixedheight = getInnerSize().getHeight();
 		if(pChildHScroll->isVisible())
 		{
 			fixedheight -= pChildHScroll->getHeight();
@@ -1685,7 +1685,7 @@ namespace agui {
 		setSize(getMargin(SIDE_LEFT) +
 			getMargin(SIDE_RIGHT) +
 			widestItem +
-			vscroll,
+			vscroll + (vscroll != 0 ? 2 : 0),
 			getHeight());
 
 		if(pChildVScroll->isVisible())
@@ -1695,7 +1695,7 @@ namespace agui {
 			setSize(getMargin(SIDE_LEFT) +
 				getMargin(SIDE_RIGHT) +
 				widestItem +
-				vscroll,
+				vscroll + (vscroll != 0 ? 2 : 0),
 				getHeight());
 		}
 	}
