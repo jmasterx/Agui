@@ -375,6 +375,11 @@ namespace agui {
 			return;
 		}
 
+		if(mouseEvent.getButton() != MOUSE_BUTTON_LEFT)
+		{
+			return;
+		}
+
 		int mousePos = getOrientation() == HORIZONTAL ? 
 		mouseEvent.getPosition().getX() + mouseEvent.getSourceWidget()->getLocation().getX() :
 		mouseEvent.getPosition().getY() + mouseEvent.getSourceWidget()->getLocation().getY();
@@ -391,6 +396,11 @@ namespace agui {
 
 	void Slider::mouseDown( MouseEvent &mouseEvent )
 	{
+		if(mouseEvent.getButton() != MOUSE_BUTTON_LEFT)
+		{
+			return;
+		}
+
 		int mousePos = getOrientation() == HORIZONTAL ? 
 			mouseEvent.getPosition().getX():
 		mouseEvent.getPosition().getY();
@@ -410,6 +420,11 @@ namespace agui {
 	void Slider::mouseDownCB( MouseEvent &mouseEvent )
 	{
 		if(mouseEvent.getSourceWidget() != pChildMarker)
+		{
+			return;
+		}
+
+		if(mouseEvent.getButton() != MOUSE_BUTTON_LEFT)
 		{
 			return;
 		}
