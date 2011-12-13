@@ -1687,6 +1687,17 @@ namespace agui {
 			widestItem +
 			vscroll,
 			getHeight());
+
+		if(pChildVScroll->isVisible())
+		{
+			vscroll = pChildVScroll->getWidth();
+
+			setSize(getMargin(SIDE_LEFT) +
+				getMargin(SIDE_RIGHT) +
+				widestItem +
+				vscroll,
+				getHeight());
+		}
 	}
 
 	void ListBox::resizeHeightToContents()
