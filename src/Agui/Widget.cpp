@@ -1016,9 +1016,6 @@ namespace agui {
 		if(keyboardListeners.empty())
 			return false;
 
-		if(keyEvent.isConsumed())
-			return true;
-
 		KeyEvent kArgs = addSourceToKeyEvent(keyEvent);
 
 		for(std::vector<KeyboardListener*>::iterator it 

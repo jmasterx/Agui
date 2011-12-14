@@ -412,13 +412,9 @@ namespace agui {
 	{
 		if(keyEvent.getKey() == KEY_SPACE)
 		{
-			if(pChildListBox->getSelectedIndex() != getSelectedIndex())
-			{
-				setSelectedIndex(pChildListBox->getSelectedIndex());
-
-				keyEvent.consume();
-				return;
-			}
+			showDropDown();
+			keyEvent.consume();
+			return;
 		}
 		if(keyEvent.getExtendedKey() == EXT_KEY_DOWN ||
 			keyEvent.getExtendedKey() == EXT_KEY_RIGHT)
