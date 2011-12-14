@@ -232,7 +232,8 @@ namespace agui {
 			sizeY = getMaxDropDownHeight();
 		}
 
-		pChildListBox->setSize(sizeX,sizeY);
+		pChildListBox->setSize(
+			sizeX + getListSizePadding().getWidth(),sizeY + getListSizePadding().getHeight());
 	}
 
 	void DropDown::modalMouseDownCB( MouseEvent &mouseEvent )
@@ -609,6 +610,16 @@ namespace agui {
 	void DropDown::setListPositionOffset( const Point& offset )
 	{
 		listPosOffset = offset;
+	}
+
+	void DropDown::setListSizePadding( const Dimension& padding )
+	{
+		listSizeIncrease = padding;
+	}
+
+	const Dimension& DropDown::getListSizePadding() const
+	{
+		return listSizeIncrease;
 	}
 
 
