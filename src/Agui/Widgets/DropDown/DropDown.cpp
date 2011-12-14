@@ -223,8 +223,8 @@ namespace agui {
 		}
 		if(pChildListBox->getLength() > 0)
 		{
-			sizeY = pChildListBox->getLength() * 
-				pChildListBox->getItemHeight();
+			pChildListBox->resizeHeightToContents();
+			sizeY = pChildListBox->getHeight();
 		}
 
 		if(sizeY > getMaxDropDownHeight())
