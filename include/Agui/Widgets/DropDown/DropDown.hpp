@@ -63,6 +63,7 @@ namespace agui {
 		protected ListBoxListener
 	{
 	private:
+		Point listPosOffset;
 		int selIndex;
 		bool isMaintainingListBox;
 		ListBox *pChildListBox;
@@ -207,6 +208,16 @@ namespace agui {
      * @since 0.1.0
      */
 		int getMaxDropDownHeight() const;
+
+		/**
+     * Sets the offset for the position of the ListBox when it is shown.
+     * @since 0.1.0
+     */void setListPositionOffset(const Point& offset);
+	/**
+     * @return The offset for the position of the ListBox when it is shown.
+     * @since 0.1.0
+     */
+		const Point& getListPositionOffset() const;
 	/**
      * Construct with optional ListBox.
      * @since 0.1.0

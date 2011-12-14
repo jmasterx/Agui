@@ -123,8 +123,8 @@ namespace agui {
 
 	void DropDown::positionListBox()
 	{
-		pChildListBox->setLocation(getAbsolutePosition().getX(),
-			getAbsolutePosition().getY() + getHeight());
+		pChildListBox->setLocation(getAbsolutePosition().getX() + getListPositionOffset().getX(),
+			getAbsolutePosition().getY() + getHeight() + getListPositionOffset().getY());
 	}
 
 	void DropDown::setSize( const Dimension &size )
@@ -599,6 +599,16 @@ namespace agui {
 			std::remove(dropDownListeners.begin(),
 			dropDownListeners.end(), listener),
 			dropDownListeners.end());
+	}
+
+	const Point& DropDown::getListPositionOffset() const
+	{
+		return listPosOffset;
+	}
+
+	void DropDown::setListPositionOffset( const Point& offset )
+	{
+		listPosOffset = offset;
 	}
 
 
