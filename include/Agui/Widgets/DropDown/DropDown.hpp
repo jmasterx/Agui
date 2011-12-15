@@ -70,6 +70,7 @@ namespace agui {
 		ListBox *pChildListBox;
 		int listBoxHeight;
 		bool resizeToWidestItem;
+		bool mouseInside;
 		std::vector<SelectionListener*> selectionListeners;
 		std::vector<DropDownListener*> dropDownListeners;
 	protected:
@@ -229,6 +230,15 @@ namespace agui {
      * @since 0.1.0
      */
 		const Dimension& getListSizePadding() const;
+
+		virtual void mouseEnter(MouseEvent &mouseEvent);
+		virtual void mouseLeave(MouseEvent &mouseEvent);
+
+	/**
+     * @return True if mouse is currently in the Widget.
+     * @since 0.2.0
+     */
+		virtual bool isMouseInside() const;
 	/**
      * Construct with optional ListBox.
      * @since 0.1.0

@@ -42,7 +42,8 @@
 
 namespace agui {
 	DropDown::DropDown( ListBox *listbox /*= NULL*/ )
-	: listBoxHeight(400),selIndex(-1),resizeToWidestItem(false)
+	: listBoxHeight(400),selIndex(-1),resizeToWidestItem(false),
+	mouseInside(false)
 	{
 		if(listbox)
 		{
@@ -616,6 +617,23 @@ namespace agui {
 	const Dimension& DropDown::getListSizePadding() const
 	{
 		return listSizeIncrease;
+	}
+
+	void DropDown::mouseEnter( MouseEvent &mouseEvent )
+	{
+		agui::Widget::mouseEnter(mouseEvent);
+		mouseInside = true;
+	}
+
+	void DropDown::mouseLeave( MouseEvent &mouseEvent )
+	{
+		agui::Widget::mouseLeave(mouseEvent);
+		mouseInside = false;
+	}
+
+	bool DropDown::isMouseInside() const
+	{
+		return mouseInside;
 	}
 
 
