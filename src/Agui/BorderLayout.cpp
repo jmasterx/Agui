@@ -170,18 +170,26 @@ namespace agui
 		if(!isWidgetSet(NORTH))
 		{
 			north = widget;
+			if(getBorderMargin(NORTH) < widget->getHeight())
+				setBorderMargin(NORTH,widget->getHeight());
 		}
 		else if(!isWidgetSet(SOUTH))
 		{
 			south = widget;
+			if(getBorderMargin(SOUTH) < widget->getHeight())
+				setBorderMargin(SOUTH,widget->getHeight());
 		}
 		else if(!isWidgetSet(EAST))
 		{
 			east = widget;
+			if(getBorderMargin(EAST) < widget->getWidth())
+				setBorderMargin(EAST,widget->getWidth());
 		}
 		else if(!isWidgetSet(WEST))
 		{
 			west = widget;
+			if(getBorderMargin(WEST) < widget->getWidth())
+				setBorderMargin(WEST,widget->getWidth());
 		}
 		else if(!isWidgetSet(CENTER))
 		{
@@ -205,23 +213,32 @@ namespace agui
 			if(which == NORTH)
 			{
 				north = widget;
+				if(getBorderMargin(NORTH) < widget->getHeight())
+					setBorderMargin(NORTH,widget->getHeight());
 			}
 			else if(which == SOUTH)
 			{
 				south = widget;
+				if(getBorderMargin(SOUTH) < widget->getHeight())
+					setBorderMargin(SOUTH,widget->getHeight());
 			}
 			else if(which == EAST)
 			{
 				east = widget;
+				if(getBorderMargin(EAST) < widget->getWidth())
+					setBorderMargin(EAST,widget->getWidth());
 			}
 			else if(which == WEST)
 			{
 				west = widget;
+				if(getBorderMargin(WEST) < widget->getWidth())
+					setBorderMargin(WEST,widget->getWidth());
 			}
 			else if(which == CENTER)
 			{
 				center = widget;
 			}
+
 			Layout::add(widget);
 		}
 	}
