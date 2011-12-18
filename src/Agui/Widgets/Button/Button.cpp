@@ -45,7 +45,7 @@ namespace agui {
 	Button::Button()
 	: isDoingKeyAction(false),mouseIsDown(false),mouseIsInside(false),
 	isButtonToggleButton(false),toggled(false), buttonState(DEFAULT),
-	mouseLeaveState(HOVERED)
+	mouseLeaveState(HOVERED), autoUntoggle(true)
 	{
 		setFocusable(true);
 		setTabable(true);
@@ -121,6 +121,7 @@ namespace agui {
 		}
 		if(isToggleButton() && toggled)
 		{
+			
 			if(getButtonState() != CLICKED)
 			{
 				changeButtonState(CLICKED);
@@ -181,6 +182,11 @@ namespace agui {
 
 	void Button::handleToggleClick()
 	{
+
+		if(toggled && !isAutoUntoggling())
+		{
+			return;
+		}
 
 		modifyIsToggled(!toggled);
 		modifyButtonState();
@@ -446,6 +452,16 @@ namespace agui {
 	void Button::setButtonState( ButtonStateEnum state )
 	{
 		changeButtonState(state);
+	}
+
+	void Button::setAutoUntoggle( bool untoggle )
+	{
+		autoUntoggle = untoggle;
+	}
+
+	bool Button::isAutoUntoggling() const
+	{
+		return autoUntoggle;
 	}
 
 }

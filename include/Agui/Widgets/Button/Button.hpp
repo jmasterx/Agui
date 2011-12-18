@@ -73,6 +73,7 @@ namespace agui {
 		bool isDoingKeyAction;
 		bool isButtonToggleButton;
 		bool toggled;
+		bool autoUntoggle;
 		Button::ButtonStateEnum mouseLeaveState;
 
 	protected:
@@ -170,6 +171,17 @@ namespace agui {
      * @since 0.1.0
      */
 		void setToggleButton(bool toggleButton);
+
+	/**
+	 * @return True if the button will untoggle itself when it is toggled and then clicked.
+     * @since 0.2.0
+     */
+		bool isAutoUntoggling() const;
+	/**
+	 * Sets whether or not the button will untoggle itself when it is toggled and then clicked.
+     * @since 0.2.0
+     */
+		void setAutoUntoggle(bool untoggle);
 	/**
 	 * Manually sets the current button state. Will be changed when the button gets an event.
      * @since 0.1.0
