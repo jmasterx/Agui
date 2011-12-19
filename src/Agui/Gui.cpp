@@ -442,6 +442,8 @@ namespace agui
 		//invalidate the mouse button
 		setMouseButtonDown(MOUSE_BUTTON_NONE);
 
+		resetHoverTime();
+
 		widgetUnderMouse = recursiveGetWidgetUnderMouse(baseWidget,mouseEvent);
 
 
@@ -781,6 +783,11 @@ namespace agui
 
 	void Gui::handleHover()
 	{
+		if(controlWithLock != NULL)
+		{
+			return;
+		}
+
 		//dispatches a hover event
 		if(input->getTime() > timeUntilNextHover)
 		{
