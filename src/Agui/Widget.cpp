@@ -1000,6 +1000,11 @@ namespace agui {
 
 	void Widget::setOpacity( float opacity )
 	{
+		if(opacity > 1.0f)
+			opacity = 1.0f;
+		if(opacity < 0.0f)
+			opacity = 0.0f;
+
 		this->opacity = opacity;
 	}
 
