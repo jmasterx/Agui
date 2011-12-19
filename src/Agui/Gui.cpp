@@ -414,6 +414,9 @@ namespace agui
 			{
 				makeRelArgs(widgetUnderMouse);
 				widgetUnderMouse->mouseDown(relArgs);
+
+				if(mouseEvent.getButton() == MOUSE_BUTTON_LEFT)
+					hideToolTip();
 			}
 			if(widgetExists(baseWidget,widgetUnderMouse))
 			{
@@ -455,9 +458,6 @@ namespace agui
 				if( widgetExists(baseWidget,widgetUnderMouse))
 				{
 					makeRelArgs(widgetUnderMouse);
-
-					if(mouseEvent.getButton() == MOUSE_BUTTON_LEFT)
-					hideToolTip();
 
 					widgetUnderMouse->mouseClick(relArgs);
 				}
