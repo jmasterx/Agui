@@ -102,6 +102,7 @@ namespace agui {
 		Point stackOffset;
 		std::vector<Widget*> children;
 		std::vector<Widget*> privateChildren;
+		std::string toolTipText;
 
 
 		std::vector<MouseListener*> mouseListeners;
@@ -1010,6 +1011,17 @@ namespace agui {
 		* @since 0.1.0
 		*/
 		virtual bool			isFocused				() const;
+		/**
+		* Set the text used to display the ToolTip. 
+		* @since 0.2.0
+		*/
+		virtual void			setToolTipText			(const std::string& text);
+		/**
+		* @return The text used to display the ToolTip.
+		* @since 0.2.0
+		*/
+		virtual std::string		getToolTipText					();
+
 		/**
 		* Makes this widget visible.
 		* @see setVisibility

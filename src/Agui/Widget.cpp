@@ -1817,6 +1817,16 @@ namespace agui {
 			return (int)val;
 	}
 
+	std::string Widget::getToolTipText()
+	{
+		return toolTipText;
+	}
+
+	void Widget::setToolTipText( const std::string& text )
+	{
+		toolTipText = text;
+	}
+
 
 	int Widget::globalFontID = 789;
 

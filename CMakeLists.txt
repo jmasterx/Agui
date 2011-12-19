@@ -92,6 +92,7 @@ set(AGUI_SOURCES
 	src/Agui/Widgets/TextBox/ExtendedTextBox.cpp
 	src/Agui/Widgets/TextField/TextField.cpp
 	src/Agui/Widgets/TextField/TextFieldListener.cpp
+	src/Agui/Widgets/ToolTip/ToolTip.cpp
 	)
 
 set(ALLEGRO5_BACKEND_SOURCES

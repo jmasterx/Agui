@@ -52,6 +52,7 @@
 namespace agui
 {
 	class AGUI_CORE_DECLSPEC TopContainer;
+	class AGUI_CORE_DECLSPEC ToolTip;
 	/**
      * @mainpage
      * @section Welcome
@@ -87,6 +88,9 @@ namespace agui
 		std::stack<Widget*> flaggedWidgets;
 		TopContainer* baseWidget;
 		double lasttickTime;
+		double lastToolTipTime;
+		double toolTipShowLength;
+		bool hasHiddenToolTip;
 		std::stack<Widget*> q;
 		std::queue<MouseInput> queuedMouseDown;
 		MouseInput emptyMouse;
@@ -129,6 +133,9 @@ namespace agui
 
 		KeyEvent keyEvent;
 		MouseButtonEnum lastMouseButton;
+
+		ToolTip* toolTip;
+		int maxToolTipWidth;
 
 	/**
      * Converts the mouse event's position into one that is relative to the parameter widget.
@@ -188,6 +195,12 @@ namespace agui
      * @since 0.1.0
      */
 		void handleTimedEvents();
+
+		/**
+     * Handles the ToolTip hide logic.
+     * @since 0.2.0
+     */
+		void handleToolTip();
 
 	/**
      * @return last mouse down widget.
@@ -482,6 +495,56 @@ namespace agui
      * @since 0.1.0
      */
 		TopContainer* getTop() const;
+
+	/**
+	 * Set the ToolTip used when showing ToolTip text.
+     * @since 0.2.0
+     */
+		void setToolTip(ToolTip* toolTip);
+	/**
+	 * @return The ToolTip used if it is set.
+     * @since 0.2.0
+     */
+		ToolTip* getToolTip() const;
+
+	/**
+	 * Shows the ToolTip for the specified Widget
+     * @since 0.2.0
+     */
+		void showToolTip(Widget* widget, int x, int y);
+
+	/**
+	 * Shows the ToolTip for the specified Widget
+     * @since 0.2.0
+     */
+		void hideToolTip();
+
+		/**
+	 * Set the maximum width used when showing the ToolTip.
+	 * The width can be <= 0 to autosize. If the text is less
+	 * than this maximum, the ToolTip's width will be the minimum
+	 * needed to show the text correctly.
+     * @since 0.2.0
+     */
+		void setMaxToolTipWidth(int width);
+	/**
+	 * @return The maximum width of the ToolTip.
+     * @since 0.2.0
+     */
+		int getMaxToolTipWidth() const;
+
+		/**
+	 * @return The maximum amount of time a ToolTip will show for.
+     * @since 0.2.0
+     */
+
+		double getToolTipShowLength() const;
+	/**
+	 * @Set the maximum amount of time a ToolTip will show for.
+     * @since 0.2.0
+     */
+		void setToolTipShowLength(double val);
+
 	/**
 	 * Default destructor.
      * @since 0.1.0

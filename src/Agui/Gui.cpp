@@ -41,6 +41,7 @@
 #include "Agui/Gui.hpp"
 #include "Agui/TopContainer.hpp"
 #include "Agui/Widgets/Tab/TabbedPane.hpp"
+#include "Agui/Widgets/ToolTip/ToolTip.hpp"
 namespace agui
 {
 	Gui::~Gui(void)
@@ -54,7 +55,9 @@ namespace agui
 		MOUSE_BUTTON_NONE,
 		0,0,0,0,0,false,false,false),
 		 input(NULL),graphicsContext(NULL),
-		 destroyingFlaggedWidgets(true)
+		 destroyingFlaggedWidgets(true), toolTip(NULL),
+		 maxToolTipWidth(300), hasHiddenToolTip(true),
+		 lastToolTipTime(0.0), toolTipShowLength(4.0)
 	{
 		
 		baseWidget = new TopContainer(this,&focusMan);
@@ -185,6 +188,7 @@ namespace agui
 						if( widgetExists(baseWidget,previousWidgetUnderMouse))
 						{
 							makeRelArgs(previousWidgetUnderMouse);
+							hideToolTip();
 							previousWidgetUnderMouse->mouseLeave(relArgs);
 						}
 						if(widgetExists(baseWidget,previousWidgetUnderMouse))
@@ -203,6 +207,7 @@ namespace agui
 				{
 					if( widgetExists(baseWidget,previousWidgetUnderMouse))
 					{
+						hideToolTip();
 						makeRelArgs(previousWidgetUnderMouse);
 						previousWidgetUnderMouse->mouseLeave(relArgs);
 					}
@@ -448,6 +453,10 @@ namespace agui
 				if( widgetExists(baseWidget,widgetUnderMouse))
 				{
 					makeRelArgs(widgetUnderMouse);
+
+					if(mouseEvent.getButton() == MOUSE_BUTTON_LEFT)
+					hideToolTip();
+
 					widgetUnderMouse->mouseClick(relArgs);
 				}
 				if(widgetExists(baseWidget,widgetUnderMouse))
@@ -787,6 +796,8 @@ namespace agui
 						}
 						if(widgetExists(baseWidget,widgetUnderMouse))
 						{
+							showToolTip(widgetUnderMouse,
+								mouseEvent.getX(),mouseEvent.getY());
 							widgetUnderMouse->mouseHover(relArgs);
 						}
 					}
@@ -1333,6 +1344,7 @@ namespace agui
 	{
 		handleHover();
 		handleDoubleClick();
+		handleToolTip();
 	}
 
 	void Gui::setTabNextKey( KeyEnum key,
@@ -1421,6 +1433,70 @@ namespace agui
 	bool Gui::isDestroyingFlaggedWidgets() const
 	{
 		return destroyingFlaggedWidgets;
+	}
+
+	void Gui::setToolTip( ToolTip* toolTip )
+	{
+		this->toolTip = toolTip;
+	}
+
+	ToolTip* Gui::getToolTip() const
+	{
+		return toolTip;
+	}
+
+	void Gui::setMaxToolTipWidth( int width )
+	{
+		maxToolTipWidth = width;
+	}
+
+	int Gui::getMaxToolTipWidth() const
+	{
+		return maxToolTipWidth;
+	}
+
+	void Gui::hideToolTip()
+	{
+		if(toolTip)
+		{
+			toolTip->hideToolTip();
+			hasHiddenToolTip = true;
+		}
+	}
+
+	void Gui::showToolTip( Widget* widget, int x, int y )
+	{
+		if(toolTip && widget && widget->getToolTipText().length() > 0)
+		{
+			toolTip->showToolTip(
+				widget->getToolTipText(),
+				getMaxToolTipWidth(),
+				x + toolTip->getPreferredOffset().getX(),
+				y + toolTip->getPreferredOffset().getY());
+
+			hasHiddenToolTip = false;
+			lastToolTipTime = getElapsedTime();
+		}
+	}
+
+	double Gui::getToolTipShowLength() const
+	{
+		return toolTipShowLength;
+	}
+
+	void Gui::setToolTipShowLength( double val )
+	{
+		toolTipShowLength = val;
+	}
+
+	void Gui::handleToolTip()
+	{
+		if(getElapsedTime() - lastToolTipTime > toolTipShowLength 
+			&& !hasHiddenToolTip)
+		{
+			hasHiddenToolTip = true;
+			hideToolTip();
+		}
 	}
 
 }
