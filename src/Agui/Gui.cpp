@@ -360,6 +360,8 @@ namespace agui
 			{
 				makeRelArgs(focusMan.getModalWidget());
 				focusMan.getModalWidget()->modalMouseDown(relArgs);
+				if(mouseEvent.getButton() == MOUSE_BUTTON_LEFT)
+					hideToolTip();
 			}
 			if(widgetExists(baseWidget,focusMan.getModalWidget()))
 			{
@@ -389,6 +391,8 @@ namespace agui
 			{
 				makeRelArgs(widgetUnderMouse);
 				widgetUnderMouse->mouseDown(relArgs);
+				if(mouseEvent.getButton() == MOUSE_BUTTON_LEFT)
+					hideToolTip();
 			}
 			if(widgetExists(baseWidget,widgetUnderMouse))
 			{
