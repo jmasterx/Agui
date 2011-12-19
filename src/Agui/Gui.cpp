@@ -188,8 +188,9 @@ namespace agui
 						if( widgetExists(baseWidget,previousWidgetUnderMouse))
 						{
 							makeRelArgs(previousWidgetUnderMouse);
-							hideToolTip();
+							
 							previousWidgetUnderMouse->mouseLeave(relArgs);
+							hideToolTip();
 						}
 						if(widgetExists(baseWidget,previousWidgetUnderMouse))
 						{
@@ -207,9 +208,10 @@ namespace agui
 				{
 					if( widgetExists(baseWidget,previousWidgetUnderMouse))
 					{
-						hideToolTip();
+						
 						makeRelArgs(previousWidgetUnderMouse);
 						previousWidgetUnderMouse->mouseLeave(relArgs);
+						hideToolTip();
 					}
 					if(widgetExists(baseWidget,previousWidgetUnderMouse))
 					{
@@ -1438,6 +1440,7 @@ namespace agui
 	void Gui::setToolTip( ToolTip* toolTip )
 	{
 		this->toolTip = toolTip;
+		getTop()->add(toolTip);
 	}
 
 	ToolTip* Gui::getToolTip() const
@@ -1468,6 +1471,8 @@ namespace agui
 	{
 		if(toolTip && widget && widget->getToolTipText().length() > 0)
 		{
+
+			toolTip->bringToFront();
 			toolTip->showToolTip(
 				widget->getToolTipText(),
 				getMaxToolTipWidth(),
