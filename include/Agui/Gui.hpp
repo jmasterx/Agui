@@ -49,6 +49,7 @@
 #include "Agui/BaseTypes.hpp"
 #include "Agui/FocusManager.hpp"
 #include "Agui/KeyboardListener.hpp"
+#include "Agui/MouseListener.hpp"
 namespace agui
 {
 	class AGUI_CORE_DECLSPEC TopContainer;
@@ -83,6 +84,7 @@ namespace agui
 		FocusManager focusMan;
 		double currentTime;
 		std::vector<KeyboardListener*> keyPreviewListeners;
+		std::vector<MouseListener*> mousePreviewListeners;
 		Input* input;
 		Graphics* graphicsContext;
 		std::stack<Widget*> flaggedWidgets;
@@ -319,6 +321,15 @@ namespace agui
      * @since 0.1.0
      */
 		void _dispatchKeyPreview(KeyEvent &keyEvent, KeyEvent::KeyboardEventEnum type);
+
+		/**
+	 * Dispatches a mouse event to the listeners. If a listener handles it,
+	 * the intended widget will not receive it.
+	 *Only sends basic OS events. Not events like Drag,Enter,Leave,etc
+     * @since 0.2.0
+     */
+		void _dispatchMousePreview(const MouseInput& input, MouseEvent::MouseEventEnum type);
+
 	/**
 	 * Dispatches the queued keyboard events.
      * @since 0.1.0
@@ -456,6 +467,16 @@ namespace agui
      * @since 0.1.0
      */
 		void removeKeyPreviewListener( KeyboardListener* listener );
+	/**
+	 * Adds a mouse preview listener. If a mouse preview listener handles the event, the intended widget will not receive it.
+     * @since 0.2.0
+     */
+		void addMousePreviewListener(MouseListener* listener);
+	/**
+	 * Removes a mouse preview listener. If a mouse preview listener handles the event, the intended widget will not receive it.
+     * @since 0.2.0
+     */
+		void removeMousePreviewListener( MouseListener* listener );
 	/**
 	 * @return The amount of time in seconds the application has been running.
 	 *

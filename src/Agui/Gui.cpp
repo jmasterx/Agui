@@ -1285,20 +1285,11 @@ namespace agui
 			MouseInput mi = queuedMouseDown.back();
 			queuedMouseDown.pop();
 
-			if(
-				mi.type == MouseEvent::MOUSE_MOVE ||
-				mi.type == MouseEvent::MOUSE_WHEEL_DOWN ||
-				mi.type == MouseEvent::MOUSE_WHEEL_UP)
+			if(mi.type == MouseEvent::MOUSE_DOWN)
 			{
-				handleMouseAxes(mi,false);
-			}
-			else if(mi.type == MouseEvent::MOUSE_DOWN)
-			{
+				_dispatchMousePreview(mi,mi.type);
+				if(!mouseEvent.isConsumed())
 				handleMouseDown(mi);
-			}
-			else if(mi.type == MouseEvent::MOUSE_UP)
-			{
-				handleMouseUp(mi);
 			}
 		}
 
@@ -1310,6 +1301,8 @@ namespace agui
 				mi.type == MouseEvent::MOUSE_WHEEL_DOWN ||
 				mi.type == MouseEvent::MOUSE_WHEEL_UP)
 			{
+				_dispatchMousePreview(mi,mi.type);
+				if(!mouseEvent.isConsumed())
 				handleMouseAxes(mi,false);
 			}
 			else if(mi.type == MouseEvent::MOUSE_DOWN)
@@ -1324,6 +1317,8 @@ namespace agui
 			}
 			else if(mi.type == MouseEvent::MOUSE_UP)
 			{
+				_dispatchMousePreview(mi,mi.type);
+				if(!mouseEvent.isConsumed())
 				handleMouseUp(mi);
 			}
 		}
@@ -1513,6 +1508,60 @@ namespace agui
 			hasHiddenToolTip = true;
 			hideToolTip();
 		}
+	}
+
+	void Gui::_dispatchMousePreview( const MouseInput& input, MouseEvent::MouseEventEnum type )
+	{
+		setMouseEvent(input);
+
+		if(type == MouseEvent::MOUSE_MOVE)
+		{
+			if(mouseEvent.getMouseWheelChange() > 0)
+			{
+				type = MouseEvent::MOUSE_WHEEL_UP;
+			}
+			else if(mouseEvent.getMouseWheelChange() < 0)
+			{
+				type = MouseEvent::MOUSE_WHEEL_DOWN;
+			}
+		}
+
+		for(std::vector<MouseListener*>::iterator it =
+			mousePreviewListeners.begin();
+			it != mousePreviewListeners.end(); ++it)
+		{
+			switch (type)
+			{
+			case MouseEvent::MOUSE_DOWN:
+				(*it)->mouseDownCB(mouseEvent);
+				break;
+			case MouseEvent::MOUSE_UP:
+				(*it)->mouseUpCB(mouseEvent);
+				break;
+			case MouseEvent::MOUSE_WHEEL_DOWN:
+				(*it)->mouseWheelDownCB(mouseEvent);
+				break;
+			case MouseEvent::MOUSE_WHEEL_UP:
+				(*it)->mouseWheelUpCB(mouseEvent);
+				break;
+			case MouseEvent::MOUSE_MOVE:
+				(*it)->mouseMoveCB(mouseEvent);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	void Gui::addMousePreviewListener( MouseListener* listener )
+	{
+		mousePreviewListeners.push_back(listener);
+	}
+
+	void Gui::removeMousePreviewListener( MouseListener* listener )
+	{
+		mousePreviewListeners.erase(std::remove(mousePreviewListeners.begin(),
+			mousePreviewListeners.end(), listener), mousePreviewListeners.end());
 	}
 
 }
