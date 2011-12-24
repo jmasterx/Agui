@@ -40,16 +40,29 @@
 
 #ifndef AGUI_POPUP_MENU_ITEM_HPP
 #define AGUI_POPUP_MENU_ITEM_HPP
-#include "Agui/Widgets/MenuItem/AbstractMenuItem.hpp"
+#include "Agui/Widget.hpp"
 namespace agui {
+	class AGUI_CORE_DECLSPEC PopUpMenu;
 	 /**
 	 * Class that represents a PopUpMenuItem
 	 *
      * @author Joshua Larouche
      * @since 0.2.0
      */
-	class AGUI_CORE_DECLSPEC PopUpMenuItem : public AbstractMenuItem {
+	class AGUI_CORE_DECLSPEC PopUpMenuItem : public Widget {
 	public:
+		enum MenuItemTypeEnum
+		{
+			ITEM,
+			SUB_MENU,
+			SEPARATOR
+		};
+	private:
+		MenuItemTypeEnum itemType;
+	public:
+		PopUpMenuItem();
+		virtual void setItemType(MenuItemTypeEnum itemType );
+		virtual MenuItemTypeEnum getItemType() const;
 	};
 }
 #endif

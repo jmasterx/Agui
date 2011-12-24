@@ -39,8 +39,25 @@
  */
 
 #include "Agui/Widgets/PopUp/PopUpMenuItem.hpp"
+#include "Agui/Widgets/PopUp/PopUpMenuItem.hpp"
 
 namespace agui {
+
+
+	void PopUpMenuItem::setItemType( MenuItemTypeEnum itemType )
+	{
+		this->itemType itemType;
+	}
+
+	PopUpMenuItem::MenuItemTypeEnum PopUpMenuItem::getItemType() const
+	{
+		return itemType;
+	}
+
+	PopUpMenuItem::PopUpMenuItem()
+		: itemType(ITEM)
+	{
+	}
 
 }
 

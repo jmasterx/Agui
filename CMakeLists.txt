@@ -73,7 +73,6 @@ set(AGUI_SOURCES
 	src/Agui/Widgets/Label/Label.cpp
 	src/Agui/Widgets/Label/LabelListener.cpp
 	src/Agui/Widgets/ListBox/ListBox.cpp
-	src/Agui/Widgets/MenuItem/AbstractMenuItem.cpp
 	src/Agui/Widgets/PopUp/PopUpMenu.cpp
 	src/Agui/Widgets/PopUp/PopUpMenuItem.cpp
 	src/Agui/Widgets/ListBox/ListBoxListener.cpp
