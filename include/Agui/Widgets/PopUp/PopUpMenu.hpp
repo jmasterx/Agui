@@ -69,6 +69,7 @@ namespace agui {
 		PopUpMenu* childMenu;
 		bool mouseInside;
 		Widget* invoker;
+		bool needsClosure;
 
 		virtual void makeSelection();
 	protected:
@@ -78,6 +79,9 @@ namespace agui {
 		virtual void handleKeyboard(KeyEvent& keyEvent);
 	public:
 		PopUpMenu();
+		virtual void keyDown(KeyEvent &keyEvent);
+		virtual void keyRepeat(KeyEvent &keyEvent);
+		virtual void logic(double timeElapsed);
 		virtual void showChildMenu();
 		virtual void hideChildMenu();
 		virtual void selectedIndexChanged();

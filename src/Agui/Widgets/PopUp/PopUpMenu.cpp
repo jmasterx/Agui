@@ -373,7 +373,7 @@ namespace agui {
 		startTextGap(10),middleTextGap(10),endTextGap(10),
 		iconWidth(16), separatorHeight(6), selectedIndex(-1),
 		parentMenu(NULL),childMenu(NULL), invoker(NULL),
-		mouseInside(false)
+		mouseInside(false),needsClosure(false)
 	{
 		setVisibility(false);
 		setBackColor(Color(234,237,255));
@@ -402,7 +402,7 @@ namespace agui {
 
 			if(!underPopUp)
 			{
-				closeRootPopUp();
+				needsClosure = true;
 			}
 		}
 	}
@@ -727,6 +727,25 @@ namespace agui {
 	PopUpMenu* PopUpMenu::getChildPopUp()
 	{
 		return childMenu;
+	}
+
+	void PopUpMenu::logic( double timeElapsed )
+	{
+		if(needsClosure)
+		{
+			needsClosure = false;
+			closeRootPopUp();
+		}
+	}
+
+	void PopUpMenu::keyDown( KeyEvent &keyEvent )
+	{
+		handleKeyboard(keyEvent);
+	}
+
+	void PopUpMenu::keyRepeat( KeyEvent &keyEvent )
+	{
+		handleKeyboard(keyEvent);
 	}
 
 }
