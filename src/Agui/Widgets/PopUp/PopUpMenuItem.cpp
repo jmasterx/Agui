@@ -39,14 +39,14 @@
  */
 
 #include "Agui/Widgets/PopUp/PopUpMenuItem.hpp"
-#include "Agui/Widgets/PopUp/PopUpMenuItem.hpp"
+#include "Agui/Widgets/PopUp/PopUpMenu.hpp"
 
 namespace agui {
 
 
 	void PopUpMenuItem::setItemType( MenuItemTypeEnum itemType )
 	{
-		this->itemType itemType;
+		this->itemType = itemType;
 	}
 
 	PopUpMenuItem::MenuItemTypeEnum PopUpMenuItem::getItemType() const
@@ -55,8 +55,86 @@ namespace agui {
 	}
 
 	PopUpMenuItem::PopUpMenuItem()
-		: itemType(ITEM)
+		: itemType(ITEM), icon(NULL),
+		subMenu(NULL)
 	{
+	}
+
+	PopUpMenuItem::PopUpMenuItem( const std::string& text, Image* image /*= NULL*/ )
+		: itemType(ITEM), icon(image),
+		subMenu(NULL)
+	{
+		setText(text);
+	}
+
+	PopUpMenuItem::PopUpMenuItem( const std::string& text, const std::string& shortcutText, Image* image /*= NULL*/ )
+		: itemType(ITEM), icon(image),
+		subMenu(NULL)
+	{
+		setText(text);
+		setShortcutText(shortcutText);
+	}
+
+	PopUpMenuItem::PopUpMenuItem( MenuItemTypeEnum type )
+		: itemType(type), icon(NULL),
+		subMenu(NULL)
+	{
+	}
+
+	PopUpMenuItem::PopUpMenuItem( PopUpMenu* menu )
+		: itemType(SUB_MENU), icon(NULL),
+		subMenu(menu)
+	{
+	}
+
+	Image* PopUpMenuItem::getIcon() const
+	{
+		return icon;
+	}
+
+	void PopUpMenuItem::setIcon( Image* image )
+	{
+		icon = image;
+	}
+
+	void PopUpMenuItem::setShortcutText( const std::string& text )
+	{
+		shortcutText = text;
+	}
+
+	const std::string& PopUpMenuItem::getShortcutText() const
+	{
+		return shortcutText;
+	}
+
+	void PopUpMenuItem::setSubMenu( PopUpMenu* menu )
+	{
+		subMenu = menu;
+	}
+
+	PopUpMenu* PopUpMenuItem::getSubMenu() const
+	{
+		return subMenu;
+	}
+
+	void PopUpMenuItem::paintBackground( const PaintEvent &paintEvent )
+	{
+
+	}
+
+	void PopUpMenuItem::paintComponent( const PaintEvent &paintEvent )
+	{
+
+	}
+
+	bool PopUpMenuItem::isSeparator() const
+	{
+		return getItemType() == SEPARATOR;
+	}
+
+	bool PopUpMenuItem::isSubMenu() const
+	{
+		return getItemType() == SUB_MENU;
 	}
 
 }

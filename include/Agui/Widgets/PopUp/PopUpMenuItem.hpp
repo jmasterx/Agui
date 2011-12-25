@@ -59,10 +59,29 @@ namespace agui {
 		};
 	private:
 		MenuItemTypeEnum itemType;
+		Image* icon;
+		std::string shortcutText;
+		PopUpMenu* subMenu;
+		virtual void paintBackground(const PaintEvent &paintEvent);
+		virtual void paintComponent(const PaintEvent &paintEvent);
 	public:
 		PopUpMenuItem();
+		PopUpMenuItem(const std::string& text, Image* image = NULL);
+		PopUpMenuItem(const std::string& text, 
+			const std::string& shortcutText, Image* image = NULL);
+		PopUpMenuItem(MenuItemTypeEnum type);
+		PopUpMenuItem(PopUpMenu* menu);
 		virtual void setItemType(MenuItemTypeEnum itemType );
 		virtual MenuItemTypeEnum getItemType() const;
+		virtual void setIcon(Image* image);
+		virtual Image* getIcon() const;
+		virtual void setShortcutText(const std::string& text);
+		virtual const std::string& getShortcutText() const;
+		virtual void setSubMenu(PopUpMenu* menu);
+		virtual PopUpMenu* getSubMenu() const;
+		virtual bool isSeparator() const;
+		virtual bool isSubMenu() const;
+
 	};
 }
 #endif
