@@ -71,6 +71,7 @@ namespace agui {
 			const std::string& shortcutText, Image* image = NULL);
 		PopUpMenuItem(MenuItemTypeEnum type);
 		PopUpMenuItem(PopUpMenu* menu);
+		PopUpMenuItem(PopUpMenu* menu,const std::string&text);
 		virtual void setItemType(MenuItemTypeEnum itemType );
 		virtual MenuItemTypeEnum getItemType() const;
 		virtual void setIcon(Image* image);

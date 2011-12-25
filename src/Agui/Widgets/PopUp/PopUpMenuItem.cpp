@@ -87,6 +87,13 @@ namespace agui {
 	{
 	}
 
+	PopUpMenuItem::PopUpMenuItem( PopUpMenu* menu,const std::string&text )
+		: itemType(SUB_MENU), icon(NULL),
+		subMenu(menu)
+	{
+		setText(text);
+	}
+
 	Image* PopUpMenuItem::getIcon() const
 	{
 		return icon;

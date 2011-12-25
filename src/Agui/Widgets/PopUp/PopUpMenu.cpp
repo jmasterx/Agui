@@ -366,6 +366,8 @@ namespace agui {
 		mouseInside(false)
 	{
 		setVisibility(false);
+		setBackColor(Color(234,237,242));
+
 	}
 
 	void PopUpMenu::mouseDownCB( MouseEvent &mouseEvent )
@@ -450,11 +452,18 @@ namespace agui {
 
 	void PopUpMenu::showPopUp( Widget* invoker, PopUpMenu* parentPopUp, int x, int y )
 	{
-		resizeToContents();
 		this->invoker = invoker;
 		this->parentMenu = parentPopUp;
 		invoker->getGui()->add(this);
 		invoker->getGui()->addMousePreviewListener(this);
+
+		if(getItemHeight() < getFont()->getHeight())
+		{
+			setItemHeight(getFont()->getHeight());
+		}
+
+		resizeToContents();
+
 		if(parentMenu)
 		{
 			x += parentMenu->getAbsolutePosition().getX();
@@ -493,6 +502,7 @@ namespace agui {
 	void PopUpMenu::paintBackground( const PaintEvent &paintEvent )
 	{
 		paintEvent.graphics()->drawFilledRectangle(getSizeRectangle(),getBackColor());
+		paintEvent.graphics()->drawRectangle(getSizeRectangle(),Color(100,100,100));
 	}
 
 	void PopUpMenu::paintComponent( const PaintEvent &paintEvent )
@@ -506,9 +516,10 @@ namespace agui {
 			if(i == getSelectedIndex() && item->getItemType() != PopUpMenuItem::SEPARATOR)
 			{
 				paintEvent.graphics()->drawFilledRectangle(Rectangle(
-					0,totalHeight,getWidth(),getItemHeight()),Color(0,0,220));
+					0,totalHeight,getWidth(),getItemHeight()),Color(75,115,141));
 			}
 
+			//draw the icon
 			if(isShowingIcon())
 			{
 				if(item->getIcon())
@@ -538,6 +549,7 @@ namespace agui {
 
 			Point shortcutPoint = alignString(item->getShortcutText(),ALIGN_MIDDLE_RIGHT);
 			shortcutPoint.setX(shortcutPoint.getX() - getEndTextGap());
+			shortcutPoint.setY(getTextCenter() + totalHeight);
 
 
 			paintEvent.graphics()->drawText(shortcutPoint,
@@ -569,7 +581,7 @@ namespace agui {
 	int PopUpMenu::getTextCenter() const
 	{
 		int h = getItemHeight();
-		return (getFont()->getLineHeight() - h) / 2;
+		return (h - getFont()->getLineHeight()) / 2;
 
 	}
 
