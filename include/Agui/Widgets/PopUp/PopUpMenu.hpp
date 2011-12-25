@@ -74,16 +74,24 @@ namespace agui {
 	protected:
 		virtual void paintBackground(const PaintEvent &paintEvent);
 		virtual void paintComponent(const PaintEvent &paintEvent);
+
+		virtual void handleKeyboard(KeyEvent& keyEvent);
 	public:
 		PopUpMenu();
 		virtual void showChildMenu();
 		virtual void hideChildMenu();
 		virtual void selectedIndexChanged();
+		virtual int getNextIndex() const;
+		virtual int getPreviousIndex() const;
+		virtual void requestShowChildMenu();
+		virtual void presentChildMenu();
+
 		virtual void mouseLeave(MouseEvent &mouseEvent);
 		virtual void mouseMove(MouseEvent &mouseEvent);
 		virtual void mouseDrag(MouseEvent &mouseEvent);
 		virtual void mouseUp(MouseEvent &mouseEvent);
 		virtual void mouseClick(MouseEvent &mouseEvent);
+		virtual void focusLost();
 
 		virtual void mouseDownCB(MouseEvent &mouseEvent);
 
@@ -126,6 +134,7 @@ namespace agui {
 		virtual void setSelectedIndex(int index);
 		virtual int getSelectedIndex() const;
 		virtual Point getChildShowPosition() const;
+		virtual PopUpMenu* getChildPopUp();
 		virtual void showPopUp(Widget* invoker, PopUpMenu* parentPopUp, int x, int y);
 	};
 }

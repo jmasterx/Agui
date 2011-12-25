@@ -210,11 +210,6 @@ namespace agui
      */
 		Widget* getLastMouseDownControl() const;
 	/**
-     * @return last found widget under the mouse.
-     * @since 0.1.0
-     */
-		virtual Widget* getWidgetUnderMouse() const;
-			/**
      * @return Which mouse button is pressed.
      * @since 0.1.0
      */
@@ -343,6 +338,11 @@ namespace agui
 
 		
 	public:
+	/**
+     * @return last found widget under the mouse.
+     * @since 0.1.0
+     */
+		virtual Widget* getWidgetUnderMouse() const;
 	/**
 	 * Calls _removeWidget.
      * @since 0.1.0

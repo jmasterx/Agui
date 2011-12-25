@@ -258,7 +258,7 @@ namespace agui {
 	{
 		if(p.getY() < (int)getMargin(SIDE_TOP) ||
 			p.getY() > getInnerHeight() ||
-			p.getX() < getMargin(SIDE_LEFT) ||
+			p.getX() < (int)getMargin(SIDE_LEFT) ||
 			p.getX() > getInnerWidth())
 		{
 			return -1;
@@ -311,12 +311,22 @@ namespace agui {
 
 	void PopUpMenu::mouseMove( MouseEvent &mouseEvent )
 	{
+		int index = getSelectedIndex();
 		setSelectedIndex(getIndexAtPoint(mouseEvent.getPosition()));
+		if(index != getSelectedIndex())
+		{
+			requestShowChildMenu();
+		}
 	}
 
 	void PopUpMenu::mouseDrag( MouseEvent &mouseEvent )
 	{
+		int index = getSelectedIndex();
 		setSelectedIndex(getIndexAtPoint(mouseEvent.getPosition()));
+		if(index != getSelectedIndex())
+		{
+			requestShowChildMenu();
+		}
 	}
 
 	void PopUpMenu::mouseUp( MouseEvent &mouseEvent )
@@ -366,13 +376,35 @@ namespace agui {
 		mouseInside(false)
 	{
 		setVisibility(false);
-		setBackColor(Color(234,237,242));
+		setBackColor(Color(234,237,255));
 
 	}
 
 	void PopUpMenu::mouseDownCB( MouseEvent &mouseEvent )
 	{
+		if(getGui())
+		{
+			getGui()->_widgetLocationChanged();
+			Widget* wum = getGui()->getWidgetUnderMouse();
 
+			bool underPopUp = false;
+			PopUpMenu* root = getRootPopUp();
+
+			do 
+			{
+				if(wum == root)
+				{
+					underPopUp = true;
+					break;
+				}
+				root = root->getChildPopUp();
+			} while (root);
+
+			if(!underPopUp)
+			{
+				closeRootPopUp();
+			}
+		}
 	}
 
 	void PopUpMenu::closePopUp()
@@ -419,16 +451,6 @@ namespace agui {
 
 	void PopUpMenu::selectedIndexChanged() 
 	{
-		if(indexExists(getSelectedIndex()))
-		{
-			PopUpMenuItem* item = items[getSelectedIndex()];
-			hideChildMenu();
-			if(item->isSubMenu() && item->isEnabled() && item->getSubMenu())
-			{
-				childMenu = item->getSubMenu();
-				showChildMenu();
-			}
-		}
 	}
 
 	void PopUpMenu::hideChildMenu()
@@ -437,6 +459,8 @@ namespace agui {
 		{
 			childMenu->closePopUp();
 		}
+		setFocusable(true);
+		focus();
 		childMenu = NULL;
 	}
 
@@ -447,6 +471,7 @@ namespace agui {
 			Point pos = getChildShowPosition();
 
 			childMenu->showPopUp(invoker,this,pos.getX(),pos.getY());
+			setFocusable(false);
 		}
 	}
 
@@ -516,7 +541,7 @@ namespace agui {
 			if(i == getSelectedIndex() && item->getItemType() != PopUpMenuItem::SEPARATOR)
 			{
 				paintEvent.graphics()->drawFilledRectangle(Rectangle(
-					0,totalHeight,getWidth(),getItemHeight()),Color(75,115,141));
+					0,totalHeight,getWidth(),getItemHeight()),Color(169,193,214));
 			}
 
 			//draw the icon
@@ -534,9 +559,14 @@ namespace agui {
 			if(item->isSeparator())
 			{
 				paintEvent.graphics()->drawLine(
-					Point(0,totalHeight + getItemHeight(item)),
-					Point(getInnerWidth(),totalHeight + (getItemHeight(item))),
-					getFontColor());
+					Point(0,totalHeight + (getItemHeight(item) / 2)),
+					Point(getInnerWidth(),totalHeight + (getItemHeight(item) / 2)),
+					Color(50,50,50));
+
+				paintEvent.graphics()->drawLine(
+					Point(0,totalHeight + (getItemHeight(item) / 2) + 1),
+					Point(getInnerWidth(),totalHeight + (getItemHeight(item) / 2) + 1),
+					Color(200,200,200));
 			}
 
 			w += getStartTextGap();
@@ -576,6 +606,8 @@ namespace agui {
 
 			return Point(0,h);
 		}
+
+		return Point();
 	}
 
 	int PopUpMenu::getTextCenter() const
@@ -583,6 +615,118 @@ namespace agui {
 		int h = getItemHeight();
 		return (h - getFont()->getLineHeight()) / 2;
 
+	}
+
+	void PopUpMenu::focusLost()
+	{
+		Widget::focusLost();
+		setFocusable(false);
+	}
+
+	void PopUpMenu::handleKeyboard( KeyEvent& keyEvent )
+	{
+		if(keyEvent.getExtendedKey() == EXT_KEY_UP)
+		{
+			setSelectedIndex(getPreviousIndex());
+		}
+		else if(keyEvent.getExtendedKey() == EXT_KEY_DOWN)
+		{
+			setSelectedIndex(getNextIndex());
+		}
+		else if(keyEvent.getExtendedKey() == EXT_KEY_LEFT)
+		{
+			if(childMenu)
+			{
+				childMenu->setFocusable(true);
+				childMenu->focus();
+			}
+		}
+		else if(keyEvent.getExtendedKey() == EXT_KEY_RIGHT)
+		{
+			presentChildMenu();
+		}
+	}
+
+	int PopUpMenu::getNextIndex() const
+	{
+		if(getLength() == 0)
+		{
+			return -1;
+		}
+
+		int curIndex = getSelectedIndex();
+		int newIndex = getSelectedIndex();
+
+		do 
+		{
+			newIndex++;
+			if(newIndex >= getLength())
+			{
+				newIndex = 0;
+			}
+
+			PopUpMenuItem* item = items[newIndex];
+			if(!item->isSeparator())
+			{
+				break;
+			}
+
+		} while (curIndex != newIndex);
+
+		return newIndex;
+	}
+
+	int PopUpMenu::getPreviousIndex() const
+	{
+		if(getLength() == 0)
+		{
+			return -1;
+		}
+
+		int curIndex = getSelectedIndex();
+		int newIndex = getSelectedIndex();
+
+		do 
+		{
+			newIndex--;
+			if(newIndex <= 0)
+			{
+				newIndex = getLength() - 1;
+			}
+
+			PopUpMenuItem* item = items[newIndex];
+			if(!item->isSeparator())
+			{
+				break;
+			}
+
+		} while (curIndex != newIndex);
+
+		return newIndex;
+	}
+
+	void PopUpMenu::requestShowChildMenu()
+	{
+		presentChildMenu();
+	}
+
+	void PopUpMenu::presentChildMenu()
+	{
+		if(indexExists(getSelectedIndex()))
+		{
+			PopUpMenuItem* item = items[getSelectedIndex()];
+			hideChildMenu();
+			if(item->isSubMenu() && item->isEnabled() && item->getSubMenu())
+			{
+				childMenu = item->getSubMenu();
+				showChildMenu();
+			}
+		}
+	}
+
+	PopUpMenu* PopUpMenu::getChildPopUp()
+	{
+		return childMenu;
 	}
 
 }
