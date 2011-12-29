@@ -51,6 +51,7 @@ namespace agui {
 	void PopUpMenu::insertItem( PopUpMenuItem* item, int index )
 	{
 		items.insert(items.begin() + index,item);
+		item->setParentMenu(this);
 		if(item->getIcon())
 		{
 			if(item->getIcon()->getWidth() > getIconWidth())
@@ -364,13 +365,15 @@ namespace agui {
 			return;
 		}
 
+		dispatchActionEvent(
+			ActionEvent(items[getSelectedIndex()],items[getSelectedIndex()]->getText()));
 		//TODO Code that makes selection
 		closeRootPopUp();
 	}
 
 	PopUpMenu::PopUpMenu()
 		: itemHeight(15),showIcon(true),
-		startTextGap(10),middleTextGap(10),endTextGap(10),
+		startTextGap(10),middleTextGap(10),endTextGap(16),
 		iconWidth(16), separatorHeight(6), selectedIndex(-1),
 		parentMenu(NULL),childMenu(NULL), invoker(NULL),
 		mouseInside(false),needsClosure(false)
@@ -624,6 +627,13 @@ namespace agui {
 				item->getShortcutText().c_str(),getFontColor(),
 				getFont());
 
+			for(int x = 0; x < getEndTextGap(); ++x)
+			{
+				paintEvent.graphics()->drawLine(
+					Point(getInnerWidth() - x, totalHeight + (getItemHeight() / 2) - (x / 2)),
+					Point(getInnerWidth() - x, x + totalHeight + (getItemHeight() / 2) - (x / 2)),getFontColor());
+			}
+
 			totalHeight += getItemHeight(item);
 		}
 	}
@@ -800,6 +810,15 @@ namespace agui {
 	void PopUpMenu::keyRepeat( KeyEvent &keyEvent )
 	{
 		handleKeyboard(keyEvent);
+	}
+
+	PopUpMenu::~PopUpMenu()
+	{
+		for(std::vector<PopUpMenuItem*>::iterator it = items.begin();
+			it != items.end(); ++it)
+		{
+			(*it)->setParentMenu(NULL);
+		}
 	}
 
 }

@@ -79,6 +79,7 @@ namespace agui {
 		virtual void handleKeyboard(KeyEvent& keyEvent);
 	public:
 		PopUpMenu();
+		virtual ~PopUpMenu();
 		virtual void keyDown(KeyEvent &keyEvent);
 		virtual void keyRepeat(KeyEvent &keyEvent);
 		virtual void logic(double timeElapsed);

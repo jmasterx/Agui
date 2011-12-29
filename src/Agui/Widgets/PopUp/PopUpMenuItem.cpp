@@ -56,20 +56,20 @@ namespace agui {
 
 	PopUpMenuItem::PopUpMenuItem()
 		: itemType(ITEM), icon(NULL),
-		subMenu(NULL)
+		subMenu(NULL),parentMenu(NULL)
 	{
 	}
 
 	PopUpMenuItem::PopUpMenuItem( const std::string& text, Image* image /*= NULL*/ )
 		: itemType(ITEM), icon(image),
-		subMenu(NULL)
+		subMenu(NULL),parentMenu(NULL)
 	{
 		setText(text);
 	}
 
 	PopUpMenuItem::PopUpMenuItem( const std::string& text, const std::string& shortcutText, Image* image /*= NULL*/ )
 		: itemType(ITEM), icon(image),
-		subMenu(NULL)
+		subMenu(NULL),parentMenu(NULL)
 	{
 		setText(text);
 		setShortcutText(shortcutText);
@@ -77,19 +77,19 @@ namespace agui {
 
 	PopUpMenuItem::PopUpMenuItem( MenuItemTypeEnum type )
 		: itemType(type), icon(NULL),
-		subMenu(NULL)
+		subMenu(NULL),parentMenu(NULL)
 	{
 	}
 
 	PopUpMenuItem::PopUpMenuItem( PopUpMenu* menu )
 		: itemType(SUB_MENU), icon(NULL),
-		subMenu(menu)
+		subMenu(menu),parentMenu(NULL)
 	{
 	}
 
 	PopUpMenuItem::PopUpMenuItem( PopUpMenu* menu,const std::string&text )
 		: itemType(SUB_MENU), icon(NULL),
-		subMenu(menu)
+		subMenu(menu),parentMenu(NULL)
 	{
 		setText(text);
 	}
@@ -142,6 +142,24 @@ namespace agui {
 	bool PopUpMenuItem::isSubMenu() const
 	{
 		return getItemType() == SUB_MENU;
+	}
+
+	PopUpMenu* PopUpMenuItem::getParentMenu() const
+	{
+		return parentMenu;
+	}
+
+	void PopUpMenuItem::setParentMenu( PopUpMenu* menu )
+	{
+		parentMenu = menu;
+	}
+
+	PopUpMenuItem::~PopUpMenuItem()
+	{
+		if(parentMenu)
+		{
+			parentMenu->removeItem(this);
+		}
 	}
 
 }
