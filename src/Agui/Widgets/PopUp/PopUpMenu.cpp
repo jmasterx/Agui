@@ -327,15 +327,6 @@ namespace agui {
 		}
 	}
 
-	void PopUpMenu::mouseDrag( MouseEvent &mouseEvent )
-	{
-		int index = getSelectedIndex();
-		setSelectedIndex(getIndexAtPoint(mouseEvent.getPosition()));
-		if(index != getSelectedIndex())
-		{
-			requestShowChildMenu();
-		}
-	}
 
 	void PopUpMenu::mouseUp( MouseEvent &mouseEvent )
 	{
@@ -382,9 +373,7 @@ namespace agui {
 		startTextGap(10),middleTextGap(10),endTextGap(10),
 		iconWidth(16), separatorHeight(6), selectedIndex(-1),
 		parentMenu(NULL),childMenu(NULL), invoker(NULL),
-		mouseInside(false),needsClosure(false),
-		lastRequestTime(0.0),needsToShowChild(false),
-		requestInterval(0.5)
+		mouseInside(false),needsClosure(false)
 	{
 		setVisibility(false);
 		setBackColor(Color(234,237,255));
@@ -767,12 +756,7 @@ namespace agui {
 
 	void PopUpMenu::requestShowChildMenu()
 	{
-		
-		if(getGui())
-		{
-			needsToShowChild = true;
-			lastRequestTime = getGui()->getElapsedTime();
-		}
+		presentChildMenu();
 	}
 
 	void PopUpMenu::presentChildMenu()
@@ -801,11 +785,6 @@ namespace agui {
 
 	void PopUpMenu::logic( double timeElapsed )
 	{
-		if(needsToShowChild && timeElapsed - lastRequestTime > getRequestInterval())
-		{
-			presentChildMenu();
-		}
-
 		if(needsClosure)
 		{
 			needsClosure = false;
@@ -821,16 +800,6 @@ namespace agui {
 	void PopUpMenu::keyRepeat( KeyEvent &keyEvent )
 	{
 		handleKeyboard(keyEvent);
-	}
-
-	void PopUpMenu::setRequestInterval( double interval )
-	{
-		requestInterval = interval;
-	}
-
-	double PopUpMenu::getRequestInterval() const
-	{
-		return requestInterval;
 	}
 
 }
