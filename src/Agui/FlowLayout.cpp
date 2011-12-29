@@ -65,7 +65,7 @@ namespace agui
 			int rlOffset = 0;
 			int btOffset = 0;
 
-			for(std::vector<Widget*>::iterator it = getChildBegin(); 
+			for(std::list<Widget*>::iterator it = getChildBegin(); 
 				it != getChildEnd(); ++it)
 			{
 

@@ -85,14 +85,14 @@ namespace agui {
 			
 		}
 
-		for(std::vector<Widget*>::iterator it = getPrivateChildBegin();
+		for(std::list<Widget*>::iterator it = getPrivateChildBegin();
 			it != getPrivateChildEnd(); ++it)
 		{
 			(*it)->parentWidget = NULL;
 			(*it)->_container = NULL;
 		}
 
-		for(std::vector<Widget*>::iterator it = getChildBegin();
+		for(std::list<Widget*>::iterator it = getChildBegin();
 			it != getChildEnd(); ++it)
 		{
 			(*it)->parentWidget = NULL;
@@ -214,7 +214,10 @@ namespace agui {
 			}
 
 		
-			children.erase(children.begin() + getChildWidgetIndex(widget));
+			std::list<Widget*>::iterator i = children.begin();
+			std::advance(i,getChildWidgetIndex(widget));
+			children.erase(i);
+
 			widget->parentWidget = NULL;
 			widget->_container = NULL;
 
@@ -233,9 +236,10 @@ namespace agui {
 
 	bool Widget::containsChildWidget( Widget *widget ) const
 	{
-		for(unsigned int i = 0; i < children.size(); ++i)
+		for(std::list<Widget*>::const_iterator it = children.begin();
+			it != children.end(); ++it)
 		{
-			if(children[i] == widget)
+			if((*it) == widget)
 			{
 				return true;
 			}
@@ -247,12 +251,15 @@ namespace agui {
 	int Widget::getChildWidgetIndex( Widget *widget ) const
 	{
 		//returns index or -1 if not found
-		for(unsigned int i = 0; i < children.size(); ++i)
+		int count = 0;
+		for(std::list<Widget*>::const_iterator it = children.begin();
+			it != children.end(); ++it)
 		{
-			if(children[i] == widget)
+			if((*it) == widget)
 			{
-				return i;
+				return count;
 			}
+			count++;
 		}
 		return -1;
 	}
@@ -384,13 +391,13 @@ namespace agui {
 			getGui()->_widgetLocationChanged();
 		}
 
-		for(std::vector<Widget*>::iterator it = getPrivateChildBegin();
+		for(std::list<Widget*>::iterator it = getPrivateChildBegin();
 			it != getPrivateChildEnd(); ++it)
 		{
 			(*it)->parentSizeChanged();
 		}
 
-		for(std::vector<Widget*>::iterator it = getChildBegin();
+		for(std::list<Widget*>::iterator it = getChildBegin();
 			it != getChildEnd(); ++it)
 		{
 			(*it)->parentSizeChanged();
@@ -550,46 +557,46 @@ namespace agui {
 		return isWidgetEnabled;
 	}
 
-	std::vector<Widget*>::iterator Widget::getChildBegin() 
+	std::list<Widget*>::iterator Widget::getChildBegin() 
 	{
 		return children.begin();
 	}
 
-	std::vector<Widget*>::const_iterator
+	std::list<Widget*>::const_iterator
 	Widget::getChildBegin() const
 	{
 		return children.begin();
 	}
 
-	std::vector<Widget*>::iterator Widget::getChildEnd() 
+	std::list<Widget*>::iterator Widget::getChildEnd() 
 	{
 		return children.end();
 	}
 
-	std::vector<Widget*>::const_iterator 
+	std::list<Widget*>::const_iterator 
 	Widget::getChildEnd() const
 	{
 		return children.end();
 	}
 
-	std::vector<Widget*>::reverse_iterator 
+	std::list<Widget*>::reverse_iterator 
 	Widget::getChildRBegin() 
 	{
 		return children.rbegin();
 	}
 
-	std::vector<Widget*>::const_reverse_iterator 
+	std::list<Widget*>::const_reverse_iterator 
 	Widget::getChildRBegin() const
 	{
 		return children.rbegin();
 	}
 
-	std::vector<Widget*>::reverse_iterator Widget::getChildREnd() 
+	std::list<Widget*>::reverse_iterator Widget::getChildREnd() 
 	{
 		return children.rend();
 	}
 
-	std::vector<Widget*>::const_reverse_iterator 
+	std::list<Widget*>::const_reverse_iterator 
 	Widget::getChildREnd() const
 	{
 		return children.rend();
@@ -599,7 +606,9 @@ namespace agui {
 	{
 		if(index < 0 || index > (int)children.size() -1) return (Widget*)0;
 
-		return children[index];
+		std::list<Widget*>::const_iterator i = children.begin();
+		std::advance(i,index);
+		return (*i);
 	}
 
 	int Widget::getChildCount() const
@@ -860,10 +869,10 @@ namespace agui {
 		if (children.empty())
 			return;
 
-		std::vector<Widget*>::iterator 
+		std::list<Widget*>::iterator 
 			startWidget = children.begin();
 
-		for(std::vector<Widget*>::iterator it = children.begin();
+		for(std::list<Widget*>::iterator it = children.begin();
 			it != children.end(); ++it)
 		{
 			if((*it)->isFocused())
@@ -877,7 +886,7 @@ namespace agui {
 			}
 		}
 
-		std::vector<Widget*>::iterator
+		std::list<Widget*>::iterator
 			currentWidget = startWidget;
 
 		do 
@@ -908,10 +917,10 @@ namespace agui {
 		if (children.empty())
 			return;
 
-		std::vector<Widget*>::reverse_iterator
+		std::list<Widget*>::reverse_iterator
 			startWidget = children.rbegin();
 
-		for(std::vector<Widget*>::reverse_iterator it = children.rbegin();
+		for(std::list<Widget*>::reverse_iterator it = children.rbegin();
 			it != children.rend(); ++it)
 		{
 			if((*it)->isFocused())
@@ -925,7 +934,7 @@ namespace agui {
 			}
 		}
 
-		std::vector<Widget*>::reverse_iterator
+		std::list<Widget*>::reverse_iterator
 			currentWidget = startWidget;
 
 		do 
@@ -1386,47 +1395,47 @@ namespace agui {
 	}
 
 
-	std::vector<Widget*>::iterator Widget::getPrivateChildBegin()
+	std::list<Widget*>::iterator Widget::getPrivateChildBegin()
 	{
 		return privateChildren.begin();
 	}
 
-	std::vector<Widget*>::const_iterator 
+	std::list<Widget*>::const_iterator 
 	Widget::getPrivateChildBegin() const
 	{
 		return privateChildren.begin();
 	}
 
-	std::vector<Widget*>::reverse_iterator
+	std::list<Widget*>::reverse_iterator
 	Widget::getPrivateChildRBegin()
 	{
 		return privateChildren.rbegin();
 	}
 
-	std::vector<Widget*>::iterator Widget::getPrivateChildEnd()
+	std::list<Widget*>::iterator Widget::getPrivateChildEnd()
 	{
 		return privateChildren.end();
 	}
 
-	std::vector<Widget*>::const_iterator
+	std::list<Widget*>::const_iterator
 	Widget::getPrivateChildEnd() const
 	{
 		return privateChildren.end();
 	}
 
-	std::vector<Widget*>::reverse_iterator 
+	std::list<Widget*>::reverse_iterator 
 	Widget::getPrivateChildREnd()
 	{
 		return privateChildren.rend();
 	}
 
-	std::vector<Widget*>::const_reverse_iterator 
+	std::list<Widget*>::const_reverse_iterator 
 	Widget::getPrvateChildRBegin() const
 	{
 		return privateChildren.rbegin();
 	}
 
-	std::vector<Widget*>::const_reverse_iterator 
+	std::list<Widget*>::const_reverse_iterator 
 	Widget::getPrivateChildREnd() const
 	{
 		return privateChildren.rend();
@@ -1453,9 +1462,10 @@ namespace agui {
 
 	bool Widget::containsPrivateChild( Widget *widget ) const
 	{
-		for(unsigned int i = 0; i < privateChildren.size(); ++i)
+		for(std::list<Widget*>::const_iterator it = privateChildren.begin();
+			it != privateChildren.end(); ++it)
 		{
-			if(privateChildren[i] == widget)
+			if((*it) == widget)
 			{
 				return true;
 			}
@@ -1472,8 +1482,10 @@ namespace agui {
 
 		if(containsPrivateChild(widget))
 		{
-			privateChildren.erase(privateChildren.begin() +
-				getPrivateChildIndex(widget));
+			std::list<Widget*>::iterator i = privateChildren.begin();
+			std::advance(i,getPrivateChildIndex(widget));
+			privateChildren.erase(i);
+
 			widget->parentWidget = NULL;
 			widget->_container = NULL;
 		}
@@ -1484,12 +1496,16 @@ namespace agui {
 	int Widget::getPrivateChildIndex( Widget *widget ) const
 	{
 		//returns index or -1 if not found
-		for(unsigned int i = 0; i < privateChildren.size(); ++i)
+		int count = 0;
+		for(std::list<Widget*>::const_iterator it = privateChildren.begin();
+			it != privateChildren.end(); ++it)
 		{
-			if(privateChildren[i] == widget)
+			if((*it) == widget)
 			{
-				return i;
+				return count;
 			}
+
+			count++;
 		}
 		return -1;
 	}
@@ -1626,13 +1642,13 @@ namespace agui {
 			}
 		}
 
-		for(std::vector<Widget*>::iterator it = 
+		for(std::list<Widget*>::iterator it = 
 			root->getPrivateChildBegin();
 			it != root->getPrivateChildEnd(); ++it)
 		{
 			_recursivePaintChildren(*it,widgetEnabled,graphicsContext);
 		}
-		for(std::vector<Widget*>::iterator it = 
+		for(std::list<Widget*>::iterator it = 
 			root->getChildBegin();
 			it != root->getChildEnd(); ++it)
 		{
@@ -1725,10 +1741,11 @@ namespace agui {
 
 	void Widget::clear()
 	{
-		std::vector<Widget*> removeWidgets = children;
-		for(size_t i = 0; i < removeWidgets.size(); ++i)
+		std::list<Widget*> removeWidgets = children;
+		for(std::list<Widget*>::iterator it = removeWidgets.begin(); 
+			it != removeWidgets.end(); ++it)
 		{
-			remove(removeWidgets[i]);
+			remove((*it));
 		}
 	}
 
@@ -1792,7 +1809,7 @@ namespace agui {
 
 	void Widget::flagChildrenForDestruction()
 	{
-		for(std::vector<Widget*>::iterator it = getChildBegin();
+		for(std::list<Widget*>::iterator it = getChildBegin();
 			it != getChildEnd(); ++it)
 		{
 			(*it)->flagForDestruction();
@@ -1801,7 +1818,7 @@ namespace agui {
 
 	void Widget::flagAllChildrenForDestruction()
 	{
-		for(std::vector<Widget*>::iterator it = getChildBegin();
+		for(std::list<Widget*>::iterator it = getChildBegin();
 			it != getChildEnd(); ++it)
 		{
 			(*it)->flagForDestruction();
@@ -1839,12 +1856,11 @@ namespace agui {
 
 	Widget* Widget::getPrivateChildAt( int index ) const
 	{
-		if(index < getPrivateChildCount())
-		{
-			return privateChildren[index];
-		}
+		if(index < 0 || index > (int)privateChildren.size() -1) return (Widget*)0;
 
-		return NULL;
+		std::list<Widget*>::const_iterator i = privateChildren.begin();
+		std::advance(i,index);
+		return (*i);
 	}
 
 

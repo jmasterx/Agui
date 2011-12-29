@@ -98,7 +98,7 @@ namespace agui
 		int xCount = 0;
 		int yCount = 0;
 
-		for(std::vector<Widget*>::iterator it = getChildBegin(); 
+		for(std::list<Widget*>::iterator it = getChildBegin(); 
 			it != getChildEnd(); ++it)
 		{
 
