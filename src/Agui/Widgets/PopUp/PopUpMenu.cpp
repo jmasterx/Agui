@@ -627,12 +627,16 @@ namespace agui {
 				item->getShortcutText().c_str(),getFontColor(),
 				getFont());
 
-			for(int x = 0; x < getEndTextGap(); ++x)
+			if(item->isSubMenu())
 			{
-				paintEvent.graphics()->drawLine(
-					Point(getInnerWidth() - x, totalHeight + (getItemHeight() / 2) - (x / 2)),
-					Point(getInnerWidth() - x, x + totalHeight + (getItemHeight() / 2) - (x / 2)),getFontColor());
+				for(int x = 0; x < getEndTextGap(); ++x)
+				{
+					paintEvent.graphics()->drawLine(
+						Point(getInnerWidth() - x, totalHeight + (getItemHeight() / 2) - (x / 2)),
+						Point(getInnerWidth() - x, x + totalHeight + (getItemHeight() / 2) - (x / 2)),getFontColor());
+				}
 			}
+		
 
 			totalHeight += getItemHeight(item);
 		}
@@ -819,6 +823,16 @@ namespace agui {
 		{
 			(*it)->setParentMenu(NULL);
 		}
+	}
+
+	PopUpMenuItem* PopUpMenu::getItemAt( int index ) const
+	{
+		if(indexExists(index))
+		{
+			return items[index];
+		}
+
+		return NULL;
 	}
 
 }

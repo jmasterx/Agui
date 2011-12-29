@@ -90,6 +90,7 @@ namespace agui {
 		virtual int getPreviousIndex() const;
 		virtual void requestShowChildMenu();
 		virtual void presentChildMenu();
+		virtual PopUpMenuItem* getItemAt(int index) const;
 
 		virtual void mouseLeave(MouseEvent &mouseEvent);
 		virtual void mouseMove(MouseEvent &mouseEvent);
