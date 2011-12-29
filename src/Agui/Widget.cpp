@@ -1832,6 +1832,21 @@ namespace agui {
 		toolTipText = text;
 	}
 
+	int Widget::getPrivateChildCount() const
+	{
+		return privateChildren.size();
+	}
+
+	Widget* Widget::getPrivateChildAt( int index ) const
+	{
+		if(index < getPrivateChildCount())
+		{
+			return privateChildren[index];
+		}
+
+		return NULL;
+	}
+
 
 	int Widget::globalFontID = 789;
 

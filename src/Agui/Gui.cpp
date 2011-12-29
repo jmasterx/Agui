@@ -1158,17 +1158,13 @@ namespace agui
 	{
 		baseWidget->logic(currentTime);
 
-		for(std::vector<Widget*>::iterator it = 
-			baseWidget->getPrivateChildBegin();
-			it != baseWidget->getPrivateChildEnd(); ++it)
+		for(int i = 0; i < baseWidget->getPrivateChildCount(); ++i)
 		{
-			recursiveDoLogic(*it);
+			recursiveDoLogic(baseWidget->getPrivateChildAt(i));
 		}
-		for(std::vector<Widget*>::iterator it = 
-			baseWidget->getChildBegin();
-			it != baseWidget->getChildEnd(); ++it)
+		for(int i = 0; i < baseWidget->getChildCount(); ++i)
 		{
-			recursiveDoLogic(*it);
+			recursiveDoLogic(baseWidget->getChildAt(i));
 		}
 	}
 

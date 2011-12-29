@@ -466,6 +466,18 @@ namespace agui {
 	*/
 		std::vector<Widget*>::const_reverse_iterator	getPrivateChildREnd() const;
 
+	/**
+	* @return Number of private children.
+	* @since 0.2.0
+	*/
+		int	getPrivateChildCount() const;
+
+	/**
+	* @return Private child at parameter index.
+	* @since 0.2.0
+	*/
+		Widget*	getPrivateChildAt(int index) const;
+
 				/**
 	* @return A boolean indicating if the widget is responsible for painting its children.
 	* @since 0.1.0
