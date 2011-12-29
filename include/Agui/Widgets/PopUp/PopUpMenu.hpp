@@ -70,6 +70,7 @@ namespace agui {
 		bool mouseInside;
 		Widget* invoker;
 		bool needsClosure;
+		Point childOffset;
 
 		virtual void makeSelection();
 	protected:
@@ -140,6 +141,8 @@ namespace agui {
 		virtual int getSelectedIndex() const;
 		virtual Point getChildShowPosition() const;
 		virtual PopUpMenu* getChildPopUp();
+		virtual void setChildOffset(const Point& offset);
+		virtual const Point& getChildOffset() const;
 		virtual void setFont(const Font *font);
 		virtual void showPopUp(Widget* invoker, PopUpMenu* parentPopUp, int x, int y);
 	};

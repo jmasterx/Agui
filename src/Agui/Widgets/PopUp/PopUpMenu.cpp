@@ -552,6 +552,11 @@ namespace agui {
 			if(x + childMenu->getWidth() + getAbsolutePosition().getX() > getParent()->getWidth())
 			{
 				x = -childMenu->getWidth() + getMargin(SIDE_LEFT);
+				x += getChildOffset().getX();
+			}
+			else
+			{
+				x -= childOffset.getX();
 			}
 
 			if(y + childMenu->getHeight() + getAbsolutePosition().getY() > 
@@ -559,6 +564,11 @@ namespace agui {
 			{
 				y -= childMenu->getInnerHeight();
 				y += childMenu->getItemHeight();
+				y += getChildOffset().getY();
+			}
+			else
+			{
+				y -= getChildOffset().getY();
 			}
 		}
 
@@ -843,6 +853,16 @@ namespace agui {
 		{
 			setItemHeight(getFont()->getLineHeight() + extra);
 		}
+	}
+
+	void PopUpMenu::setChildOffset( const Point& offset )
+	{
+		childOffset = offset;
+	}
+
+	const Point& PopUpMenu::getChildOffset() const
+	{
+		return childOffset;
 	}
 
 }
