@@ -835,6 +835,16 @@ namespace agui {
 		return NULL;
 	}
 
+	void PopUpMenu::setFont( const Font *font )
+	{
+		Widget::setFont(font);
+		int extra = 2;
+		if(getItemHeight() < getFont()->getLineHeight() + extra)
+		{
+			setItemHeight(getFont()->getLineHeight() + extra);
+		}
+	}
+
 }
 
 
