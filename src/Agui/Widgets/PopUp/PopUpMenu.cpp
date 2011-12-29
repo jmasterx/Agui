@@ -257,14 +257,14 @@ namespace agui {
 	int PopUpMenu::getIndexAtPoint( const Point& p ) const
 	{
 		if(p.getY() < (int)getMargin(SIDE_TOP) ||
-			p.getY() > getInnerHeight() ||
+			p.getY() > getInnerHeight() + (int)getMargin(SIDE_TOP) ||
 			p.getX() < (int)getMargin(SIDE_LEFT) ||
-			p.getX() > getInnerWidth())
+			p.getX() > getInnerWidth() + (int)getMargin(SIDE_LEFT))
 		{
 			return -1;
 		}
 
-		int pY = p.getY() + getMargin(SIDE_TOP);
+		int pY = p.getY() - getMargin(SIDE_TOP);
 		int h = 0;
 
 		for(int i = 0; i < getLength(); ++i)
@@ -290,7 +290,15 @@ namespace agui {
 	void PopUpMenu::mouseLeave( MouseEvent &mouseEvent )
 	{
 		Widget::mouseLeave(mouseEvent);
-		setSelectedIndex(-1);
+		if(getGui())
+		{
+			if(getGui()->getWidgetUnderMouse() != childMenu)
+			{
+				setSelectedIndex(-1);
+				requestShowChildMenu();
+			}
+		}
+	
 
 	}
 
@@ -359,7 +367,8 @@ namespace agui {
 	void PopUpMenu::makeSelection()
 	{
 		if(getSelectedIndex() == -1 ||
-			!items[getSelectedIndex()]->isEnabled())
+			!items[getSelectedIndex()]->isEnabled() ||
+			items[getSelectedIndex()]->isSeparator())
 		{
 			return;
 		}
@@ -373,10 +382,13 @@ namespace agui {
 		startTextGap(10),middleTextGap(10),endTextGap(10),
 		iconWidth(16), separatorHeight(6), selectedIndex(-1),
 		parentMenu(NULL),childMenu(NULL), invoker(NULL),
-		mouseInside(false),needsClosure(false)
+		mouseInside(false),needsClosure(false),
+		lastRequestTime(0.0),needsToShowChild(false),
+		requestInterval(0.5)
 	{
 		setVisibility(false);
 		setBackColor(Color(234,237,255));
+		setMargins(3,3,3,3);
 
 	}
 
@@ -421,11 +433,6 @@ namespace agui {
 		{
 			invoker->getGui()->removeMousePreviewListener(this);
 		}
-
-		if(getParent())
-		{
-			getParent()->remove(this);
-		}
 	}
 
 	PopUpMenu* PopUpMenu::getParentPopUp()
@@ -469,7 +476,6 @@ namespace agui {
 		if(childMenu)
 		{
 			Point pos = getChildShowPosition();
-
 			childMenu->showPopUp(invoker,this,pos.getX(),pos.getY());
 			setFocusable(false);
 		}
@@ -477,6 +483,13 @@ namespace agui {
 
 	void PopUpMenu::showPopUp( Widget* invoker, PopUpMenu* parentPopUp, int x, int y )
 	{
+		closePopUp();
+
+		if(getParent())
+		{
+			getParent()->remove(this);
+		}
+
 		this->invoker = invoker;
 		this->parentMenu = parentPopUp;
 		invoker->getGui()->add(this);
@@ -500,6 +513,22 @@ namespace agui {
 			y += invoker->getAbsolutePosition().getY();
 		}
 
+		if(getParent())
+		{
+			if(x + getWidth() > getParent()->getWidth())
+			{
+				int diff = (x + getWidth()) - getParent()->getWidth();
+
+				x -= diff;
+			}
+
+			if(y + getHeight() > getParent()->getHeight())
+			{
+				int diff = (y + getHeight()) - getParent()->getHeight();
+
+				y -= diff;
+			}
+		}
 		setLocation(x,y);
 		setVisibility(true);
 		focus();
@@ -507,6 +536,11 @@ namespace agui {
 
 	Point PopUpMenu::getChildShowPosition() const
 	{
+		if(childMenu)
+		{
+			childMenu->resizeToContents();
+		}
+
 		int x = getInnerSize().getWidth() + getMargin(SIDE_LEFT);
 		int y = getMargin(SIDE_TOP);
 		for(int i = 0; i < getSelectedIndex(); ++i)
@@ -518,6 +552,21 @@ namespace agui {
 			else
 			{
 				y += getItemHeight(items[i]);
+			}
+		}
+
+		if(getParent())
+		{
+			if(x + childMenu->getWidth() + getAbsolutePosition().getX() > getParent()->getWidth())
+			{
+				x = -childMenu->getWidth() + getMargin(SIDE_LEFT);
+			}
+
+			if(y + childMenu->getHeight() + getAbsolutePosition().getY() > 
+				getParent()->getHeight())
+			{
+				y -= childMenu->getInnerHeight();
+				y += childMenu->getItemHeight();
 			}
 		}
 
@@ -559,12 +608,12 @@ namespace agui {
 			if(item->isSeparator())
 			{
 				paintEvent.graphics()->drawLine(
-					Point(0,totalHeight + (getItemHeight(item) / 2)),
+					Point(w,totalHeight + (getItemHeight(item) / 2)),
 					Point(getInnerWidth(),totalHeight + (getItemHeight(item) / 2)),
 					Color(50,50,50));
 
 				paintEvent.graphics()->drawLine(
-					Point(0,totalHeight + (getItemHeight(item) / 2) + 1),
+					Point(w,totalHeight + (getItemHeight(item) / 2) + 1),
 					Point(getInnerWidth(),totalHeight + (getItemHeight(item) / 2) + 1),
 					Color(200,200,200));
 			}
@@ -635,15 +684,26 @@ namespace agui {
 		}
 		else if(keyEvent.getExtendedKey() == EXT_KEY_LEFT)
 		{
-			if(childMenu)
+			if(parentMenu)
 			{
-				childMenu->setFocusable(true);
-				childMenu->focus();
+				closePopUp();
+				parentMenu->setFocusable(true);
+				parentMenu->focus();
+				
 			}
 		}
 		else if(keyEvent.getExtendedKey() == EXT_KEY_RIGHT)
 		{
 			presentChildMenu();
+			if(childMenu && childMenu->getLength() > 0)
+			{
+				childMenu->setSelectedIndex(0);
+			}
+		}
+
+		if(keyEvent.getKey() == KEY_ENTER)
+		{
+			makeSelection();
 		}
 	}
 
@@ -689,7 +749,7 @@ namespace agui {
 		do 
 		{
 			newIndex--;
-			if(newIndex <= 0)
+			if(newIndex < 0)
 			{
 				newIndex = getLength() - 1;
 			}
@@ -707,11 +767,21 @@ namespace agui {
 
 	void PopUpMenu::requestShowChildMenu()
 	{
-		presentChildMenu();
+		
+		if(getGui())
+		{
+			needsToShowChild = true;
+			lastRequestTime = getGui()->getElapsedTime();
+		}
 	}
 
 	void PopUpMenu::presentChildMenu()
 	{
+		if(getSelectedIndex() == -1)
+		{
+			hideChildMenu();
+		}
+
 		if(indexExists(getSelectedIndex()))
 		{
 			PopUpMenuItem* item = items[getSelectedIndex()];
@@ -731,6 +801,11 @@ namespace agui {
 
 	void PopUpMenu::logic( double timeElapsed )
 	{
+		if(needsToShowChild && timeElapsed - lastRequestTime > getRequestInterval())
+		{
+			presentChildMenu();
+		}
+
 		if(needsClosure)
 		{
 			needsClosure = false;
@@ -746,6 +821,16 @@ namespace agui {
 	void PopUpMenu::keyRepeat( KeyEvent &keyEvent )
 	{
 		handleKeyboard(keyEvent);
+	}
+
+	void PopUpMenu::setRequestInterval( double interval )
+	{
+		requestInterval = interval;
+	}
+
+	double PopUpMenu::getRequestInterval() const
+	{
+		return requestInterval;
 	}
 
 }

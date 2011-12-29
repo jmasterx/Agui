@@ -70,6 +70,9 @@ namespace agui {
 		bool mouseInside;
 		Widget* invoker;
 		bool needsClosure;
+		double lastRequestTime;
+		bool needsToShowChild;
+		double requestInterval;
 
 		virtual void makeSelection();
 	protected:
@@ -139,6 +142,8 @@ namespace agui {
 		virtual int getSelectedIndex() const;
 		virtual Point getChildShowPosition() const;
 		virtual PopUpMenu* getChildPopUp();
+		virtual void setRequestInterval(double interval);
+		virtual double getRequestInterval() const;
 		virtual void showPopUp(Widget* invoker, PopUpMenu* parentPopUp, int x, int y);
 	};
 }
