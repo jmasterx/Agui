@@ -144,7 +144,7 @@ namespace agui {
 		virtual void setChildOffset(const Point& offset);
 		virtual const Point& getChildOffset() const;
 		virtual void setFont(const Font *font);
-		virtual void showPopUp(Widget* invoker, PopUpMenu* parentPopUp, int x, int y);
+		virtual void showPopUp(Widget* invoker, int x, int y, PopUpMenu* parentPopUp = NULL);
 	};
 }
 #endif

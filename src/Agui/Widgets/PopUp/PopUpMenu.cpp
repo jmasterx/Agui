@@ -470,12 +470,13 @@ namespace agui {
 		if(childMenu)
 		{
 			Point pos = getChildShowPosition();
-			childMenu->showPopUp(invoker,this,pos.getX(),pos.getY());
+			childMenu->showPopUp(invoker,pos.getX(),pos.getY(),this);
 			setFocusable(false);
 		}
 	}
 
-	void PopUpMenu::showPopUp( Widget* invoker, PopUpMenu* parentPopUp, int x, int y )
+
+	void PopUpMenu::showPopUp( Widget* invoker, int x, int y, PopUpMenu* parentPopUp /*= NULL*/ )
 	{
 		closePopUp();
 

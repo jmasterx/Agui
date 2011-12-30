@@ -69,7 +69,7 @@ namespace agui
 
 		if(resizingWest && west)
 		{
-			if(p.getX() >= west->getWidth() + west->getLocation().getX()
+			if(p.getX() >= west->getInnerWidth() + west->getLocation().getX()
 				&& p.getX() <= center->getLocation().getX())
 			{
 				return WEST;
@@ -79,7 +79,7 @@ namespace agui
 		if(resizingEast && east)
 		{
 			if(p.getX() <= east->getLocation().getX()
-				&& p.getX() >= center->getLocation().getX() + center->getWidth())
+				&& p.getX() >= center->getLocation().getX() + center->getInnerWidth())
 			{
 				return EAST;
 			}
@@ -88,7 +88,7 @@ namespace agui
 
 		if(resizingNorth && north)
 		{
-			if(p.getY() >= north->getHeight() + north->getLocation().getY()
+			if(p.getY() >= north->getInnerHeight() + north->getLocation().getY()
 				&& p.getY() <= center->getLocation().getY())
 			{
 				return NORTH;
@@ -98,7 +98,7 @@ namespace agui
 		if(resizingSouth && south)
 		{
 			if(p.getY() <= south->getLocation().getY()
-				&& p.getY() >= center->getLocation().getY() + center->getHeight())
+				&& p.getY() >= center->getLocation().getY() + center->getInnerHeight())
 			{
 				return SOUTH;
 			}
