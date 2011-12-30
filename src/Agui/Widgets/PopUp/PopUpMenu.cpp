@@ -332,6 +332,9 @@ namespace agui {
 	void PopUpMenu::mouseUp( MouseEvent &mouseEvent )
 	{
 		setSelectedIndex(getIndexAtPoint(mouseEvent.getPosition()));
+
+		if((childMenu && !childMenu->isVisible()) || !childMenu) 
+		requestShowChildMenu();
 	}
 
 	void PopUpMenu::mouseClick( MouseEvent &mouseEvent )
@@ -367,7 +370,6 @@ namespace agui {
 
 		dispatchActionEvent(
 			ActionEvent(items[getSelectedIndex()],items[getSelectedIndex()]->getText()));
-		//TODO Code that makes selection
 		closeRootPopUp();
 	}
 
@@ -507,18 +509,16 @@ namespace agui {
 
 		if(getParent())
 		{
-			if(x + getWidth() > getParent()->getWidth())
+			if(x + getWidth() - (int)getMargin(SIDE_RIGHT) + 1 > getParent()->getWidth())
 			{
-				int diff = (x + getWidth()) - getParent()->getWidth();
+				int diff = (x + getWidth() - getMargin(SIDE_RIGHT) + 1) - getParent()->getWidth();
 
 				x -= diff;
 			}
 
-			if(y + getHeight() > getParent()->getHeight())
+			if(y + getHeight() - (int)getMargin(SIDE_BOTTOM) + 1 > getParent()->getHeight())
 			{
-				int diff = (y + getHeight()) - getParent()->getHeight();
-
-				y -= diff;
+				y -= getInnerHeight();
 			}
 		}
 		setLocation(x,y);
@@ -528,6 +528,11 @@ namespace agui {
 
 	Point PopUpMenu::getChildShowPosition() const
 	{
+		if(!childMenu)
+		{
+			return Point();
+		}
+
 		if(childMenu)
 		{
 			childMenu->resizeToContents();
@@ -551,12 +556,13 @@ namespace agui {
 		{
 			if(x + childMenu->getWidth() + getAbsolutePosition().getX() > getParent()->getWidth())
 			{
-				x = -childMenu->getWidth() + getMargin(SIDE_LEFT);
+				x = -childMenu->getWidth() + getMargin(SIDE_LEFT) + childMenu->getMargin(SIDE_RIGHT);
 				x += getChildOffset().getX();
 			}
 			else
 			{
 				x -= childOffset.getX();
+				x -= childMenu->getMargin(SIDE_LEFT);
 			}
 
 			if(y + childMenu->getHeight() + getAbsolutePosition().getY() > 
@@ -564,11 +570,13 @@ namespace agui {
 			{
 				y -= childMenu->getInnerHeight();
 				y += childMenu->getItemHeight();
+				y += childMenu->getMargin(SIDE_BOTTOM);
 				y += getChildOffset().getY();
 			}
 			else
 			{
 				y -= getChildOffset().getY();
+				y -= childMenu->getMargin(SIDE_TOP);
 			}
 		}
 

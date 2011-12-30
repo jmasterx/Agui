@@ -158,8 +158,8 @@ namespace agui {
 	{
 		pChildContainer->setLocation(getLeftMargin(),getTopMargin());
 		pChildContainer->setSize(
-			getInnerSize().getWidth() - getRightMargin() - getLeftMargin(),
-			getInnerSize().getHeight() - getTopMargin() - getBottomMargin());
+			getInnerSize().getWidth() - getRightMargin(),
+			getInnerSize().getHeight() - getBottomMargin());
 	}
 
 	void Frame::setSize( const Dimension &size )
@@ -272,10 +272,10 @@ namespace agui {
 		Rectangle topRect = Rectangle(getMargin(SIDE_LEFT),getMargin(SIDE_TOP),
 			getInnerSize().getWidth(), getTopMargin());
 		Rectangle bottomRightRect = Rectangle(
-			getWidth() - (int)(getRightMargin() * 1.5),
-			getHeight() - (int)(getBottomMargin() * 1.5),
-			(int)(getRightMargin() * 1.5),
-			(int)(getBottomMargin() * 1.5));
+			getWidth() - (int)(getRightMargin() * 3.0),
+			getHeight() - (int)(getBottomMargin() * 3.0),
+			(int)(getRightMargin() * 3.0),
+			(int)(getBottomMargin() * 3.0));
 
 		if(isResizable())
 		{
@@ -397,7 +397,7 @@ namespace agui {
 
 	void Frame::setResizable( bool resize )
 	{
-		if(resize == resizable)
+		if(resize != resizable)
 		{
 			resizable = resize;
 

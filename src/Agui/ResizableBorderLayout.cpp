@@ -46,7 +46,7 @@ namespace agui
 		: resizingNorth(true), resizingSouth(true),
 		resizingWest(true), resizingEast(true),
 		dragX(0), dragY(0), mouseResult(CENTER), oldMargin(0),
-		constrainToCenter(true)
+		constrainToCenter(true), resizing(true)
 	{
 	}
 
@@ -110,6 +110,12 @@ namespace agui
 
 	void ResizableBorderLayout::mouseDown( MouseEvent &mouseEvent )
 	{
+		if(mouseEvent.getButton() != MOUSE_BUTTON_LEFT ||
+			!isResizable())
+		{
+			return;
+		}
+
 		mouseResult = getPointRegion(mouseEvent.getPosition());
 		dragX = mouseEvent.getX();
 		dragY = mouseEvent.getY();
@@ -134,7 +140,7 @@ namespace agui
 
 	void ResizableBorderLayout::mouseDrag( MouseEvent &mouseEvent )
 	{
-		if(mouseResult == CENTER)
+		if(mouseResult == CENTER || !isResizable())
 		{
 			return;
 		}
@@ -198,6 +204,16 @@ namespace agui
 	bool ResizableBorderLayout::isConstrainedToCenter() const
 	{
 		return constrainToCenter;
+	}
+
+	void ResizableBorderLayout::setResizable( bool resize )
+	{
+		resizing = resize;
+	}
+
+	bool ResizableBorderLayout::isResizable() const
+	{
+		return resizing;
 	}
 
 }

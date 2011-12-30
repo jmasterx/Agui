@@ -58,6 +58,7 @@ namespace agui
 		bool resizingSouth;
 		bool resizingEast;
 		bool resizingWest;
+		bool resizing;
 
 		bool constrainToCenter;
 
@@ -94,6 +95,16 @@ namespace agui
      * @since 0.1.0
      */
 		BorderLayoutEnum getPointRegion(const Point &p);
+	/**
+     * Sets whether or not the margins will be resized with the mouse.
+     * @since 0.2.0
+     */
+		void setResizable(bool resize);
+	/**
+     * @return True if the margins will be resized with the mouse.
+     * @since 0.2.0
+     */
+		bool isResizable() const;
 	/**
      * Default constructor.
      * @since 0.1.0
