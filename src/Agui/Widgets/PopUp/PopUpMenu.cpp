@@ -355,7 +355,7 @@ namespace agui {
 				return;
 			}
 
-			makeSelection();
+			needsToMakeSelecton = true;
 		}
 	}
 
@@ -368,9 +368,12 @@ namespace agui {
 			return;
 		}
 
+	
+		PopUpMenuItem* item = items[getSelectedIndex()];
+		closeRootPopUp();	
+
 		dispatchActionEvent(
-			ActionEvent(items[getSelectedIndex()],items[getSelectedIndex()]->getText()));
-		closeRootPopUp();
+			ActionEvent(item,item->getText()));
 	}
 
 	PopUpMenu::PopUpMenu()
@@ -378,7 +381,7 @@ namespace agui {
 		startTextGap(10),middleTextGap(10),endTextGap(16),
 		iconWidth(16), separatorHeight(6), selectedIndex(-1),
 		parentMenu(NULL),childMenu(NULL), invoker(NULL),
-		mouseInside(false),needsClosure(false)
+		mouseInside(false),needsClosure(false), needsToMakeSelecton(false)
 	{
 		setVisibility(false);
 		setBackColor(Color(234,237,255));
@@ -725,7 +728,7 @@ namespace agui {
 
 		if(keyEvent.getKey() == KEY_ENTER)
 		{
-			makeSelection();
+			needsToMakeSelecton = true;
 		}
 	}
 
@@ -818,6 +821,12 @@ namespace agui {
 
 	void PopUpMenu::logic( double timeElapsed )
 	{
+		if(needsToMakeSelecton)
+		{
+			makeSelection();
+			needsToMakeSelecton = false;
+		}
+
 		if(needsClosure)
 		{
 			needsClosure = false;

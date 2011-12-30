@@ -71,6 +71,7 @@ namespace agui {
 		Widget* invoker;
 		bool needsClosure;
 		Point childOffset;
+		bool needsToMakeSelecton;
 
 		virtual void makeSelection();
 	protected:
