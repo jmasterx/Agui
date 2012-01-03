@@ -267,39 +267,36 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. \
 
 WidgetCreator* creator;
 
-void initializeAllegro() {
+bool initializeAllegro() {
 	//Initialize Allegro
 	if(!al_init())
 	{
-		throw std::exception("Allegro failed to initialize");
+		return false;
 	}
 
 	if(!al_init_image_addon())
 	{
-		throw std::exception("Allegro image addon failed to initialize");
+		return false;
 	}
 
-	if(!al_init_font_addon())
-	{
-		throw std::exception("Allegro font addon failed to initialize");
-	}
+	al_init_font_addon()
 
 	if(!al_init_ttf_addon())
 	{
-		throw std::exception("Allegro ttf addon failed to initialize");
+		return false;
 	}
 
 	if(!al_init_primitives_addon())
 	{
-		throw std::exception("Allegro primitives addon failed to initialize");
+		return false;
 	}
 	if(!al_install_mouse())
 	{
-		throw std::exception("Allegro mouse failed to initialize");
+		return false;
 	}
 	if(!al_install_keyboard())
 	{
-		throw std::exception("Allegro keyboard failed to initialize");
+		return false;
 	}
 	
 	// Start a timer to regulate speed
@@ -314,7 +311,8 @@ void initializeAllegro() {
 
 	if(!display)
 	{
-		done = true;
+
+		return false;
 	}
 	//show the mouse
 	al_show_mouse_cursor(display); 
@@ -325,6 +323,8 @@ void initializeAllegro() {
 	al_set_window_title(display,"Agui - Example");
 
 	queue = al_create_event_queue();
+
+	return true;
 }
 
 void initializeAgui()
@@ -395,7 +395,11 @@ void cleanUp()
 int main(int argc, char *argv[])
 
 {
-	initializeAllegro();
+	if (!initializeAllegro())
+	{
+		return 1;
+	}
+
 	initializeAgui();
 	addWidgets();
 	bool needRedraw = true;
