@@ -279,7 +279,7 @@ bool initializeAllegro() {
 		return false;
 	}
 
-	al_init_font_addon()
+	al_init_font_addon();
 
 	if(!al_init_ttf_addon())
 	{
