@@ -475,6 +475,12 @@ namespace agui {
      */
 		virtual int getCaretPosition() const;
 
+	/**
+	 * Appends the text either at the current position or at the end of the string.
+	 * Will delete selected text if any is selected,
+     * @since 0.2.0
+     */
+		virtual void appendText(const std::string& text, bool atCurrentPosition = true);
 		virtual void setSize(const Dimension& size);
 		virtual void setSize(int width, int height);
 

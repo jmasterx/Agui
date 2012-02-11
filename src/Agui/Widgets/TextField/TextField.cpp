@@ -1345,4 +1345,44 @@ namespace agui {
 		}
 	}
 
+	void TextField::appendText( const std::string& text, bool atCurrentPosition /*= true*/ )
+	{
+		if(text.length() == 0 || getTextLength() - getSelectionLength() == getMaxLength())
+		{
+			return;
+		}
+
+		deleteSelection();
+		if(!atCurrentPosition)
+		{
+			positionCaret(getTextLength());
+		}
+		int start = getCaretPosition();
+
+		std::string noNewLine;
+
+		for(size_t i = 0; i < text.size(); ++i)
+		{
+			if(text[i] != '\n')
+			{
+				noNewLine += text[i];
+			}
+		}
+
+		int length = unicodeFunctions.length(noNewLine);
+		int numRemainingChar = getMaxLength() - getTextLength();
+		if(numRemainingChar < length)
+		{
+			noNewLine = unicodeFunctions.subStr(noNewLine,0,numRemainingChar);
+			length = numRemainingChar;
+		}
+		if(length > 0)
+		{
+			std::string* cText = (std::string*)&getText();
+			unicodeFunctions.insert(*cText,start,noNewLine);
+			setThisText(*cText);
+			positionCaret(caretPosition + length);
+		}
+	}
+
 }
