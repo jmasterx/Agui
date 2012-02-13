@@ -157,7 +157,7 @@ namespace agui
 	 * Default destructor.
      * @since 0.1.0
      */
-		~Image();
+		virtual ~Image();
 	};
 
 }
