@@ -488,7 +488,49 @@ namespace agui {
 
 	void Widget::setVisibility( bool visible )
 	{
+		if(!visible && isFocused())
+		{
+			Widget* top = getTopWidget();
+			if(top)
+			{
+				if(top->_focusManager)
+				{
+					top->_focusManager->setFocusedWidget(NULL);
+				}
+			}
+		}
+		else if(!visible)
+		{
+			std::queue<Widget*> q;
+			q.push(this);
+			Widget* top = getTopWidget();
 
+			while(!q.empty())
+			{
+				Widget* c = q.front();
+				if(top && c->isFocused())
+				{
+					if(top->_focusManager)
+					{
+						top->_focusManager->setFocusedWidget(NULL);
+						break;
+					}
+				}
+				q.pop();
+				for (std::list<Widget*>::iterator it = c->children.begin(); it != 
+					c->children.end(); ++it)
+				{
+					q.push((*it));
+				}
+
+				for (std::list<Widget*>::iterator it = c->privateChildren.begin(); it != 
+					c->privateChildren.end(); ++it)
+				{
+					q.push((*it));
+				}
+			}
+
+		}
 		if(visible != this->isWidgetVisible)
 		{
 			this->isWidgetVisible = visible;
@@ -530,6 +572,49 @@ namespace agui {
 	void Widget::setEnabled( bool enabled )
 	{
 
+		if(!enabled && isFocused())
+		{
+			Widget* top = getTopWidget();
+			if(top)
+			{
+				if(top->_focusManager)
+				{
+					top->_focusManager->setFocusedWidget(NULL);
+				}
+			}
+		}
+		else if(!enabled)
+		{
+			std::queue<Widget*> q;
+			q.push(this);
+			Widget* top = getTopWidget();
+		
+			while(!q.empty())
+			{
+				Widget* c = q.front();
+				if(top && c->isFocused())
+				{
+					if(top->_focusManager)
+					{
+						top->_focusManager->setFocusedWidget(NULL);
+						break;
+					}
+				}
+				q.pop();
+				for (std::list<Widget*>::iterator it = c->children.begin(); it != 
+					c->children.end(); ++it)
+				{
+					q.push((*it));
+				}
+
+				for (std::list<Widget*>::iterator it = c->privateChildren.begin(); it != 
+					c->privateChildren.end(); ++it)
+				{
+					q.push((*it));
+				}
+			}
+
+		}
 
 		if(this->isWidgetEnabled != enabled)
 		{
