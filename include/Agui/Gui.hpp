@@ -566,6 +566,12 @@ namespace agui
      */
 		void setToolTipShowLength(double val);
 
+			/**
+	 * @Set the maximum amount of time a ToolTip will show for.
+     * @since 0.2.0
+     */
+		void invalidateToolTip();
+
 	/**
 	 * Default destructor.
      * @since 0.1.0

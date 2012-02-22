@@ -1202,6 +1202,12 @@ namespace agui {
 				(*it)->hoverIndexChanged(this,index);
 			}
 			hoveredIndex = index;
+
+			//show a new tooltip
+			if(getGui())
+			{
+				getGui()->invalidateToolTip();
+			}
 		
 		
 	}

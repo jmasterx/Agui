@@ -1564,4 +1564,10 @@ namespace agui
 			mousePreviewListeners.end(), listener), mousePreviewListeners.end());
 	}
 
+	void Gui::invalidateToolTip()
+	{
+		lastHoveredControl = NULL;
+		hideToolTip();
+	}
+
 }
