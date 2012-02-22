@@ -62,6 +62,17 @@ namespace agui {
      * @author Joshua Larouche
      * @since 0.1.0
      */
+	struct ListBoxItem
+	{
+		agui::Color color;
+		std::string text;
+		std::string tooltip;
+		ListBoxItem(const std::string& txt,const agui::Color& col)
+			: text(txt),color(col)
+		{
+
+		}
+	};
 	class AGUI_CORE_DECLSPEC ListBox : public Widget,
 		protected HScrollBarListener, 
 		protected VScrollBarListener
@@ -87,7 +98,7 @@ namespace agui {
 
 		ScrollPolicy hScrollPolicy;
 		ScrollPolicy vScrollPolicy;
-		std::vector<std::pair<std::string,bool> > items;
+		std::vector<std::pair<ListBoxItem,bool> > items;
 
 		std::vector<ListBoxListener*> listboxListeners;
 		std::vector<SelectionListener*> selectionListeners;
@@ -99,6 +110,8 @@ namespace agui {
 		bool isMaintainingHScroll;
 		bool isMaintainingVScroll;
 		bool isMaintainingScrollInset;
+
+		agui::Color newItemColor;
 		
 
 	protected:
@@ -112,49 +125,49 @@ namespace agui {
 	 * representing the text of the item and if it is selected.
      * @since 0.1.0
      */
-		std::vector<std::pair<std::string,bool> >::iterator getItemsBegin();
+		std::vector<std::pair<ListBoxItem,bool> >::iterator getItemsBegin();
 			/**
 	 * @return Const begin iterator to the pair of items 
 	 * representing the text of the item and if it is selected.
      * @since 0.1.0
      */
-		std::vector<std::pair<std::string,bool> >::const_iterator getItemsBegin() const;
+		std::vector<std::pair<ListBoxItem,bool> >::const_iterator getItemsBegin() const;
 			/**
 	 * @return End iterator to the pair of items 
 	 * representing the text of the item and if it is selected.
      * @since 0.1.0
      */
-		std::vector<std::pair<std::string,bool> >::iterator getItemsEnd();
+		std::vector<std::pair<ListBoxItem,bool> >::iterator getItemsEnd();
 	/**
 	 * @return Const end iterator to the pair of items 
 	 * representing the text of the item and if it is selected.
      * @since 0.1.0
      */
-		std::vector<std::pair<std::string,bool> > ::const_iterator getItemsEnd() const;
+		std::vector<std::pair<ListBoxItem,bool> > ::const_iterator getItemsEnd() const;
 	/**
 	 * @return Reverse begin iterator to the pair of items 
 	 * representing the text of the item and if it is selected.
      * @since 0.1.0
      */
-		std::vector<std::pair<std::string,bool> >::reverse_iterator getItemsRBegin();
+		std::vector<std::pair<ListBoxItem,bool> >::reverse_iterator getItemsRBegin();
 	/**
 	 * @return Const reverse begin iterator to the pair of items 
 	 * representing the text of the item and if it is selected.
      * @since 0.1.0
      */
-		std::vector<std::pair<std::string,bool> >::const_reverse_iterator getItemsRBegin() const;
+		std::vector<std::pair<ListBoxItem,bool> >::const_reverse_iterator getItemsRBegin() const;
 	/**
 	 * @return Reverse end iterator to the pair of items 
 	 * representing the text of the item and if it is selected.
      * @since 0.1.0
      */
-		std::vector<std::pair<std::string,bool> >::reverse_iterator getItemsREnd();
+		std::vector<std::pair<ListBoxItem,bool> >::reverse_iterator getItemsREnd();
 			/**
 	 * @return Const reverse end iterator to the pair of items 
 	 * representing the text of the item and if it is selected.
      * @since 0.1.0
      */
-		std::vector<std::pair<std::string,bool> > ::const_reverse_iterator getItemsREnd() const;
+		std::vector<std::pair<ListBoxItem,bool> > ::const_reverse_iterator getItemsREnd() const;
 		
 	/**
 	 * Used internally to sort the items.
@@ -576,6 +589,45 @@ namespace agui {
      * @since 0.1.0
      */
 		virtual void resizeToContents();
+
+	/**
+	 * Sets the text color for a newly added item.
+     * @since 0.2.0
+     */
+		virtual void setNewItemColor(const agui::Color& color);
+
+	/**
+	 * @Return The text color for a newly added item.
+     * @since 0.2.0
+     */
+		virtual const agui::Color& getNewItemColor() const;
+
+	/**
+	 * @Return the actual ListBoxItem at index.
+     * @since 0.2.0
+     */
+		const ListBoxItem& getListItemAt(int index) const;
+
+	/**
+	 * Sets the tooltip text for the specified item.
+     * @since 0.2.0
+     */
+		void setItemToolTipText(const std::string& text, int index);
+
+	/**
+	 * Sets the text color for the specified item.
+     * @since 0.2.0
+     */
+		void setItemTextColor(const agui::Color& color, int index);
+
+	/**
+	 * @Return The ToolTip text of the hover index or the usual if no hover index.
+     * @since 0.2.0
+     */
+		virtual std::string getToolTipText();
+
+	virtual void setFontColor(const Color &color);
+
 	/**
 	 * Construct with optional HorizontalScrollBar ,
 	 * VerticalScrollBar , and ScrollInset Widget.
