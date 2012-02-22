@@ -1195,20 +1195,22 @@ namespace agui {
 
 	void ListBox::setHoverIndex( int index )
 	{
-		
-			for(std::vector<ListBoxListener*>::iterator it = listboxListeners.begin();
-				it != listboxListeners.end(); ++it)
-			{
-				(*it)->hoverIndexChanged(this,index);
-			}
-			hoveredIndex = index;
+		if(hoveredIndex == index)
+		{
+			return;
+		}
+		for(std::vector<ListBoxListener*>::iterator it = listboxListeners.begin();
+			it != listboxListeners.end(); ++it)
+		{
+			(*it)->hoverIndexChanged(this,index);
+		}
+		hoveredIndex = index;
 
-			//show a new tooltip
-			if(getGui())
-			{
-				getGui()->invalidateToolTip();
-			}
-		
+		//show a new tooltip
+		if(getGui())
+		{
+			getGui()->invalidateToolTip();
+		}
 		
 	}
 
