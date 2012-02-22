@@ -155,11 +155,7 @@ namespace agui {
 
 	bool Button::isToggled() const
 	{
-		if(isToggleButton() && getButtonState() == CLICKED)
-		{
-			return true;
-		}
-		return false;
+		return isToggleButton() && toggled; 
 	}
 
 	void Button::setToggleButton( bool toggleButton )

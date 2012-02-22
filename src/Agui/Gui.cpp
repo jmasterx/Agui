@@ -352,6 +352,9 @@ namespace agui
 		//invalidate hovering
 		resetHoverTime();
 
+		//prevent hovering on the widget
+		lastHoveredControl = wum;
+
 		//tell modal that a mousedown outside of itself has occurred
 		if(focusMan.getModalWidget() && !widgetIsModalChild(widgetUnderMouse))
 		{

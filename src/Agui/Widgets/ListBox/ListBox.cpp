@@ -602,9 +602,6 @@ namespace agui {
 
 			updateScrollBars();
 		}
-		
-
-		
 	}
 
 	void ListBox::checkScrollPolicy()
