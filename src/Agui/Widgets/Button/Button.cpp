@@ -460,6 +460,11 @@ namespace agui {
 		return autoUntoggle;
 	}
 
+	bool Button::isMouseInside() const
+	{
+		return mouseIsInside;
+	}
+
 }
 
 

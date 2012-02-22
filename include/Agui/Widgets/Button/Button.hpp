@@ -183,6 +183,11 @@ namespace agui {
      */
 		void setAutoUntoggle(bool untoggle);
 	/**
+	 * @return True if mouse is inside the button.
+     * @since 0.2.0
+     */
+		bool isMouseInside() const;
+	/**
 	 * Manually sets the current button state. Will be changed when the button gets an event.
      * @since 0.1.0
      */
