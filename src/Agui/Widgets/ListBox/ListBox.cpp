@@ -62,7 +62,7 @@ namespace agui {
 	ListBox::ListBox( HScrollBar *hScroll /*= NULL*/, VScrollBar *vScroll /*= NULL*/, Widget* scrollInset /*=NULL*/ )
 	: sorted(false), rsorted(false), verticalOffset(0),
 	horizontalOffset(0), lastMouseY(-1), hoveredIndex(-1),hoverSelection(false),
-	firstSelIndex(-1),lastSelIndex(-1)
+	firstSelIndex(-1),lastSelIndex(-1),allowRightClick(false)
 	{
 		if(hScroll)
 		{
@@ -1052,10 +1052,12 @@ namespace agui {
 
 	void ListBox::mouseDown( MouseEvent &mouseEvent )
 	{
-			if(mouseEvent.getButton() != MOUSE_BUTTON_LEFT)
+			if(mouseEvent.getButton() != MOUSE_BUTTON_LEFT &&
+				(!allowRightClick && mouseEvent.getButton() == MOUSE_BUTTON_RIGHT))
 			{
 				return;
 			}
+
 			mouseEvent.consume();
 			makeSelection(getIndexAtPoint(mouseEvent.getPosition()),
 				mouseEvent.control(),mouseEvent.shift());
@@ -1792,6 +1794,16 @@ namespace agui {
 	{
 		agui::Widget::setFontColor(color);
 		setNewItemColor(color);
+	}
+
+	void ListBox::setAllowRightClickSelection( bool allow )
+	{
+		allowRightClick = allow;
+	}
+
+	bool ListBox::isRightClickSelectionAllowed() const
+	{
+		return allowRightClick;
 	}
 
 }

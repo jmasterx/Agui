@@ -95,6 +95,7 @@ namespace agui {
 		int widestItem;
 		bool wrapping;
 		bool mouseWheelSelection;
+		bool allowRightClick;
 
 		ScrollPolicy hScrollPolicy;
 		ScrollPolicy vScrollPolicy;
@@ -625,6 +626,18 @@ namespace agui {
      * @since 0.2.0
      */
 		virtual std::string getToolTipText();
+
+	/**
+	 * Sets whether or not right clicking will make a selection
+     * @since 0.2.0
+     */
+		void setAllowRightClickSelection(bool allow);
+
+		/**
+	 * @return True if right clicking will make a selection
+     * @since 0.2.0
+     */
+		bool isRightClickSelectionAllowed() const;
 
 	virtual void setFontColor(const Color &color);
 
