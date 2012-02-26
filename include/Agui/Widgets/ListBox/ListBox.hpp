@@ -628,13 +628,13 @@ namespace agui {
 		virtual std::string getToolTipText();
 
 	/**
-	 * Sets whether or not right clicking will make a selection
+	 * Sets whether or not right clicking will make a selection.
      * @since 0.2.0
      */
 		void setAllowRightClickSelection(bool allow);
 
 		/**
-	 * @return True if right clicking will make a selection
+	 * @return True if right clicking will make a selection.
      * @since 0.2.0
      */
 		bool isRightClickSelectionAllowed() const;

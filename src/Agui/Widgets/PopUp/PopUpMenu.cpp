@@ -528,6 +528,7 @@ namespace agui {
 		setLocation(x,y);
 		setVisibility(true);
 		focus();
+		needsClosure = false;
 	}
 
 	Point PopUpMenu::getChildShowPosition() const
