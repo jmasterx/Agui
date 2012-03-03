@@ -76,7 +76,12 @@ namespace agui
 	 * Empty paint event.
 	 * @since 0.1.0
      */
-		virtual void paintComponent(const PaintEvent &paintEvent);
+	virtual void paintComponent(const PaintEvent &paintEvent);
+	/**
+	 * Called when a child widget's visibility changes.
+	 * @since 0.2.0
+     */
+	virtual void visibilityChanged(Widget* source, bool visible);
 	/**
 	 * Called when a child widget's location changes.
 	 * @since 0.1.0

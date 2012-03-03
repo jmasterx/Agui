@@ -306,7 +306,14 @@ namespace agui
 		int southMargin = this->southMargin;
 		int eastMargin = this->eastMargin;
 		int westMargin = this->westMargin;
-		if(north)
+
+		bool isNorth = north && north->isVisible();
+		bool isSouth = south && south->isVisible();
+		bool isEast =  east && east->isVisible();
+		bool isWest =  west && west->isVisible();
+		bool isCenter = center  && center->isVisible();
+
+		if(isNorth)
 		{
 			if(northMargin < north->getMinSize().getHeight() && north->getMinSize().getHeight() > 0)
 			{
@@ -322,7 +329,7 @@ namespace agui
 		}
 
 		//layout south
-		if(south)
+		if(isSouth)
 		{
 			if(southMargin < south->getMinSize().getHeight() && south->getMinSize().getHeight() > 0)
 			{
@@ -341,17 +348,17 @@ namespace agui
 		//figure out gaps
 		int vGapNorth = 0;
 		int vGapSouth = 0;
-		if(north)
+		if(isNorth)
 		{
 			vGapNorth = northMargin + verticalSpacing;
 		}
-		if(south)
+		if(isSouth)
 		{
 			vGapSouth = southMargin + verticalSpacing;
 		}
 
 		//layout west
-		if(west)
+		if(isWest)
 		{
 			if(westMargin < west->getMinSize().getWidth() && west->getMinSize().getWidth() > 0)
 			{
@@ -370,7 +377,7 @@ namespace agui
 		}
 
 		//layout east
-		if(east)
+		if(isEast)
 		{
 			if(eastMargin < east->getMinSize().getWidth() && east->getMinSize().getWidth() > 0)
 			{
@@ -390,18 +397,18 @@ namespace agui
 
 		int hGapWest = 0;
 		int hGapEast = 0;
-		if(west)
+		if(isWest)
 		{
 			hGapWest = westMargin + horizontalSpacing;
 		}
 
-		if(east)
+		if(isEast)
 		{
 			hGapEast = eastMargin + horizontalSpacing;
 		}
 
 		//layout center
-		if(center)
+		if(isCenter)
 		{
 			center->setLocation(hGapWest,vGapNorth);
 			center->setSize(getInnerWidth() - hGapWest - hGapEast,

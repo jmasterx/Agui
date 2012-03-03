@@ -68,6 +68,10 @@ namespace agui
 			for(std::list<Widget*>::iterator it = getChildBegin(); 
 				it != getChildEnd(); ++it)
 			{
+				if(!(*it)->isVisible())
+				{
+					continue;
+				}
 
 				if(curX + (*it)->getWidth() > getInnerWidth() && numWidgets > 0 && !singleRow)
 				{

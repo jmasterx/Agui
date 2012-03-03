@@ -144,4 +144,10 @@ namespace agui
 		return resizeToParent;
 	}
 
+	void Layout::visibilityChanged( Widget* source, bool visible )
+	{
+		if(!isLayingOut)
+		updateLayout();
+	}
+
 }

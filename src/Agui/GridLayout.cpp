@@ -62,7 +62,16 @@ namespace agui
 			return;
 		}
 
-		int numChildren = getChildCount();
+		int numChildren = 0;
+		for(std::list<Widget*>::iterator it = getChildBegin(); 
+			it != getChildEnd(); ++it)
+		{
+			if((*it)->isVisible())
+			{
+				numChildren++;
+			}
+		}
+
 		if(numChildren == 0)
 		{
 			return;
@@ -101,6 +110,11 @@ namespace agui
 		for(std::list<Widget*>::iterator it = getChildBegin(); 
 			it != getChildEnd(); ++it)
 		{
+
+			if(!(*it)->isVisible())
+			{
+				continue;
+			}
 
 			//linearly solve for the locations and size
 			//this ensures that the spacing is respected
