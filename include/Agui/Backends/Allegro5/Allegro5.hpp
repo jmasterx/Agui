@@ -45,5 +45,6 @@
 #include "Agui/Backends/Allegro5/Allegro5ImageLoader.hpp"
 #include "Agui/Backends/Allegro5/Allegro5FontLoader.hpp"
 #include "Agui/Backends/Allegro5/Allegro5Input.hpp"
+#include "Agui/Backends/Allegro5/Allegro5CursorProvider.hpp"
 
 #endif
