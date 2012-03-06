@@ -302,6 +302,7 @@ namespace agui
 					if( widgetExists(baseWidget,controlWithLock))
 					{
 						makeRelArgs(controlWithLock);
+						setCursor(widgetUnderMouse->getEnterCursor());
 						controlWithLock->mouseEnter(relArgs);
 					}
 
@@ -553,6 +554,7 @@ namespace agui
 					if( widgetExists(baseWidget,widgetUnderMouse))
 					{
 						makeRelArgs(widgetUnderMouse);
+						setCursor(widgetUnderMouse->getEnterCursor());
 						widgetUnderMouse->mouseEnter(relArgs);
 					}
 					if(widgetExists(baseWidget,widgetUnderMouse))
