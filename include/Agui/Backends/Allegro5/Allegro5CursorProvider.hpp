@@ -50,8 +50,8 @@ namespace agui
 	{
 	public:
 		virtual bool setCursor(CursorEnum cursor);
-		Allegro5CursorProvider(void);
-		virtual ~Allegro5CursorProvider(void);
+		Allegro5CursorProvider(void) {}
+		virtual ~Allegro5CursorProvider(void) {}
 	};
 }
 #endif

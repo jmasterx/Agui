@@ -41,14 +41,5 @@
 #include "Agui/CursorProvider.hpp"
 namespace agui {
 
-	CursorProvider::CursorProvider()
-	{
-
-	}
-
-	CursorProvider::~CursorProvider()
-	{
-
-	}
 
 }

@@ -43,16 +43,6 @@
 namespace agui
 {
 
-	Allegro5CursorProvider::Allegro5CursorProvider( void )
-	{
-
-	}
-
-	Allegro5CursorProvider::~Allegro5CursorProvider( void )
-	{
-
-	}
-
 	bool Allegro5CursorProvider::setCursor( CursorEnum cursor )
 	{
 		ALLEGRO_SYSTEM_MOUSE_CURSOR alCursor = ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT;

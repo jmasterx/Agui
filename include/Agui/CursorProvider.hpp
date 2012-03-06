@@ -81,13 +81,13 @@ namespace agui
      * Default constructor.
      * @since 0.2.0
      */
-		CursorProvider();
+	CursorProvider() {}
 
 	/**
      * Default destructor.
      * @since 0.2.0
      */
-		virtual ~CursorProvider();
+	virtual ~CursorProvider() {}
 	};
 }
 

@@ -576,7 +576,7 @@ namespace agui
 
 		
 	/**
-	 * @Set the backend specfic cursor provider.
+	 * @Set the backend specific cursor provider.
      * @since 0.2.0
      */
 		void setCursorProvider(CursorProvider* provider);

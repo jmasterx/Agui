@@ -1585,4 +1585,9 @@ namespace agui
 		return false;
 	}
 
+	void Gui::setCursorProvider( CursorProvider* provider )
+	{
+		cursorProvider = provider;
+	}
+
 }
