@@ -711,6 +711,8 @@ namespace agui {
      * @since 0.1.0
      */
 		int getCaretColumnLocation() const;
+
+		virtual CursorProvider::CursorEnum getEnterCursor() const;
 		/**
 	 * Construct with optional HorizontalScrollBar ,
 	 * VerticalScrollBar , and ScrollInset Widget.

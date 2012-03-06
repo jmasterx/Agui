@@ -2367,4 +2367,9 @@ namespace agui {
 		
 	}
 
+	CursorProvider::CursorEnum TextBox::getEnterCursor() const
+	{
+		return CursorProvider::EDIT_CURSOR;
+	}
+
 }

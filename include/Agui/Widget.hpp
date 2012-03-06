@@ -51,6 +51,7 @@
 #include "Agui/ActionListener.hpp"
 #include "Agui/Graphics.hpp"
 #include "Agui/FocusManager.hpp"
+#include "Agui/CursorProvider.hpp"
 #include <list>
 
    
@@ -1124,6 +1125,12 @@ namespace agui {
 		virtual void removeFocusListener(FocusListener* listener);
 
 	/**
+	* @return the cursor that should be set when the mouse enters the widget.
+	* @since 0.2.0
+	*/
+		virtual CursorProvider::CursorEnum getEnterCursor() const;
+
+	/**
 	* @return The global font.
 	* @since 0.1.0
 	*/
@@ -1134,6 +1141,8 @@ namespace agui {
 	* @since 0.1.0
 	*/
 		static void				setGlobalFont			(const Font *font);
+
+
 	};
 }
 

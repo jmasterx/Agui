@@ -1948,6 +1948,11 @@ namespace agui {
 		return (*i);
 	}
 
+	CursorProvider::CursorEnum Widget::getEnterCursor() const
+	{
+		return CursorProvider::DEFAULT_CURSOR;
+	}
+
 
 	int Widget::globalFontID = 789;
 

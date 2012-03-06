@@ -1385,4 +1385,9 @@ namespace agui {
 		}
 	}
 
+	CursorProvider::CursorEnum TextField::getEnterCursor() const
+	{
+		return CursorProvider::EDIT_CURSOR;
+	}
+
 }

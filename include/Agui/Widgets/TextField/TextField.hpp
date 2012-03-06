@@ -499,6 +499,8 @@ namespace agui {
      * @since 0.1.0
      */
 		virtual double parseDouble() const;
+
+		virtual CursorProvider::CursorEnum getEnterCursor() const;
 	/**
 	 * Default constructor.
      * @since 0.1.0

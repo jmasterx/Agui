@@ -38,6 +38,7 @@ set(AGUI_SOURCES
 	src/Agui/BaseTypes.cpp
 	src/Agui/BlinkingEvent.cpp
 	src/Agui/BorderLayout.cpp
+	src/Agui/CursorProvider.cpp
 	src/Agui/Color.cpp
 	src/Agui/Dimension.cpp
 	src/Agui/EmptyWidget.cpp
@@ -104,6 +105,7 @@ set(ALLEGRO5_BACKEND_SOURCES
 	src/Agui/Backends/Allegro5/Allegro5Image.cpp
 	src/Agui/Backends/Allegro5/Allegro5ImageLoader.cpp
 	src/Agui/Backends/Allegro5/Allegro5Input.cpp
+	src/Agui/Backends/Allegro5/Allegro5CursorProvider.cpp
 	)
 
 	include_directories (./include) 

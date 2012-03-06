@@ -50,6 +50,7 @@
 #include "Agui/FocusManager.hpp"
 #include "Agui/KeyboardListener.hpp"
 #include "Agui/MouseListener.hpp"
+#include "Agui/CursorProvider.hpp"
 namespace agui
 {
 	class AGUI_CORE_DECLSPEC TopContainer;
@@ -98,6 +99,7 @@ namespace agui
 		MouseInput emptyMouse;
 		MouseEvent relArgs;
 		bool destroyingFlaggedWidgets;
+		CursorProvider* cursorProvider;
 	
 		double timerInterval;
 
@@ -572,6 +574,20 @@ namespace agui
      */
 		void invalidateToolTip();
 
+		
+	/**
+	 * @Set the backend specfic cursor provider.
+     * @since 0.2.0
+     */
+		void setCursorProvider(CursorProvider* provider);
+
+	
+	/**
+	 * @return True if the cursor provider is set and it successfully set the cursor
+     * @since 0.2.0
+     */
+
+		bool setCursor(CursorProvider::CursorEnum cursor);
 	/**
 	 * Default destructor.
      * @since 0.1.0

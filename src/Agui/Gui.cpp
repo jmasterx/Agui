@@ -57,7 +57,8 @@ namespace agui
 		 input(NULL),graphicsContext(NULL),
 		 destroyingFlaggedWidgets(true), toolTip(NULL),
 		 maxToolTipWidth(300), hasHiddenToolTip(true),
-		 lastToolTipTime(0.0), toolTipShowLength(4.0)
+		 lastToolTipTime(0.0), toolTipShowLength(4.0),
+		 cursorProvider(NULL)
 	{
 		
 		baseWidget = new TopContainer(this,&focusMan);
@@ -227,6 +228,7 @@ namespace agui
 					if( widgetExists(baseWidget,widgetUnderMouse))
 					{
 						makeRelArgs(widgetUnderMouse);
+						setCursor(widgetUnderMouse->getEnterCursor());
 						widgetUnderMouse->mouseEnter(relArgs);
 					}
 					if(widgetExists(baseWidget,widgetUnderMouse))
@@ -1571,6 +1573,16 @@ namespace agui
 	{
 		lastHoveredControl = NULL;
 		hideToolTip();
+	}
+
+	bool Gui::setCursor( CursorProvider::CursorEnum cursor )
+	{
+		if(cursorProvider)
+		{
+			return cursorProvider->setCursor(cursor);
+		}
+
+		return false;
 	}
 
 }
