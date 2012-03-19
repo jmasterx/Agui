@@ -46,7 +46,7 @@ namespace agui
 		:verticalSpacing(10),
 		horizontalSpacing(10),
 		topToBottom(true),leftToRight(true),
-		singleRow(false)
+		singleRow(false), center(false)
 	{
 	}
 
@@ -65,6 +65,7 @@ namespace agui
 			int rlOffset = 0;
 			int btOffset = 0;
 
+			std::vector<Widget*> curRow;
 			for(std::list<Widget*>::iterator it = getChildBegin(); 
 				it != getChildEnd(); ++it)
 			{
@@ -78,13 +79,32 @@ namespace agui
 					curX = 0;
 					curY += highestWidget + getVerticalSpacing();
 					highestWidget = 0;
+
+					if(center && curRow.size() > 0)
+					{
+						int x1 = curRow[0]->getLocation().getX();
+						int x2 = curRow.back()->getLocation().getX() +
+							curRow.back()->getWidth();
+
+						int w = x2 - x1;
+						int centerOffset = (getInnerWidth() - w) / 2;
+
+						for(size_t i = 0; i < curRow.size(); ++i)
+						{
+							curRow[i]->setLocation(
+								curRow[i]->getLocation().getX() + centerOffset,
+								curRow[i]->getLocation().getY());
+						}
+					}
+
+					curRow.clear();
 				}
 
 				if(!topToBottom)
 				{
 					btOffset = getInnerHeight() - (*it)->getHeight() - (2 * curY);
 				}
-				if(!leftToRight)
+				if(!leftToRight && !center)
 				{
 					rlOffset = getInnerWidth() - (*it)->getWidth() - (2 * curX);
 				}
@@ -96,7 +116,27 @@ namespace agui
 				{
 					highestWidget = (*it)->getHeight();
 				}
+
+				curRow.push_back((*it));
 		}
+
+			//code duplication, I know :(
+			if(center && curRow.size() > 0)
+			{
+				int x1 = curRow[0]->getLocation().getX();
+				int x2 = curRow.back()->getLocation().getX() +
+					curRow.back()->getWidth();
+
+				int w = x2 - x1;
+				int centerOffset = (getInnerWidth() - w) / 2;
+
+				for(size_t i = 0; i < curRow.size(); ++i)
+				{
+					curRow[i]->setLocation(
+						curRow[i]->getLocation().getX() + centerOffset,
+						curRow[i]->getLocation().getY());
+				}
+			}
 	}
 
 	void FlowLayout::setHorizontalSpacing( int spacing )
@@ -152,6 +192,16 @@ namespace agui
 	bool FlowLayout::isTopToBottom() const
 	{
 		return topToBottom;
+	}
+
+	bool FlowLayout::isHorizontallyCentered() const
+	{
+		return center;
+	}
+
+	void FlowLayout::setHorizontallyCentered( bool centered )
+	{
+		center = centered;
 	}
 
 

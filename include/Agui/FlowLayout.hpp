@@ -54,6 +54,7 @@ namespace agui
 		int horizontalSpacing;
 		int verticalSpacing;
 		bool leftToRight;
+		bool center;
 		bool topToBottom;
 		bool singleRow;
 	protected:
@@ -126,6 +127,18 @@ namespace agui
      * @since 0.1.0
      */
 		virtual int getVerticalSpacing() const;
+	/**
+	 * @return True if the widgets will be horizontally centered.
+     * @since 0.3.0
+     */
+		virtual bool isHorizontallyCentered() const;
+
+		/**
+	 * @return Sets if the widgets will be horizontally centered.
+     * @since 0.3.0
+     */
+		virtual void setHorizontallyCentered(bool centered);
+
 		
 	/**
 	 * Default destructor.
