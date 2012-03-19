@@ -46,7 +46,8 @@ namespace agui
 		:verticalSpacing(10),
 		horizontalSpacing(10),
 		topToBottom(true),leftToRight(true),
-		singleRow(false), center(false)
+		singleRow(false), center(false),
+		alignLastRow(false)
 	{
 	}
 
@@ -64,8 +65,10 @@ namespace agui
 			int numWidgets = 0;
 			int rlOffset = 0;
 			int btOffset = 0;
+			int numRows = 1;
 
 			std::vector<Widget*> curRow;
+			Widget* firstWidget = NULL;
 			for(std::list<Widget*>::iterator it = getChildBegin(); 
 				it != getChildEnd(); ++it)
 			{
@@ -74,8 +77,14 @@ namespace agui
 					continue;
 				}
 
+				if(!firstWidget)
+				{
+					firstWidget = (*it);
+				}
+
 				if(curX + (*it)->getWidth() > getInnerWidth() && numWidgets > 0 && !singleRow)
 				{
+					numRows++;
 					curX = 0;
 					curY += highestWidget + getVerticalSpacing();
 					highestWidget = 0;
@@ -123,18 +132,35 @@ namespace agui
 			//code duplication, I know :(
 			if(center && curRow.size() > 0)
 			{
-				int x1 = curRow[0]->getLocation().getX();
-				int x2 = curRow.back()->getLocation().getX() +
-					curRow.back()->getWidth();
-
-				int w = x2 - x1;
-				int centerOffset = (getInnerWidth() - w) / 2;
-
-				for(size_t i = 0; i < curRow.size(); ++i)
+				if(alignLastRow && numRows > 1 && firstWidget)
 				{
-					curRow[i]->setLocation(
-						curRow[i]->getLocation().getX() + centerOffset,
-						curRow[i]->getLocation().getY());
+					int x1 = curRow[0]->getLocation().getX();
+					int x2 = firstWidget->getLocation().getX();
+					int diff = x2 - x1;
+
+					for(size_t i = 0; i < curRow.size(); ++i)
+					{
+						curRow[i]->setLocation(
+							curRow[i]->getLocation().getX() + diff,
+							curRow[i]->getLocation().getY());
+					}
+				}
+
+				else
+				{
+					int x1 = curRow[0]->getLocation().getX();
+					int x2 = curRow.back()->getLocation().getX() +
+						curRow.back()->getWidth();
+
+					int w = x2 - x1;
+					int centerOffset = (getInnerWidth() - w) / 2;
+
+					for(size_t i = 0; i < curRow.size(); ++i)
+					{
+						curRow[i]->setLocation(
+							curRow[i]->getLocation().getX() + centerOffset,
+							curRow[i]->getLocation().getY());
+					}
 				}
 			}
 	}
@@ -202,6 +228,18 @@ namespace agui
 	void FlowLayout::setHorizontallyCentered( bool centered )
 	{
 		center = centered;
+		updateLayout();
+	}
+
+	void FlowLayout::setAlignLastRow( bool align )
+	{
+		alignLastRow = align;
+		updateLayout();
+	}
+
+	bool FlowLayout::isLastRowAligned() const
+	{
+		return alignLastRow;
 	}
 
 

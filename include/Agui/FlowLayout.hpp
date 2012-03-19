@@ -57,6 +57,7 @@ namespace agui
 		bool center;
 		bool topToBottom;
 		bool singleRow;
+		bool alignLastRow;
 	protected:
 	/**
 	 * Will layout the children using Flow Layout rules and
@@ -129,13 +130,27 @@ namespace agui
 		virtual int getVerticalSpacing() const;
 	/**
 	 * @return True if the widgets will be horizontally centered.
-     * @since 0.3.0
+     * @since 0.2.0
      */
 		virtual bool isHorizontallyCentered() const;
 
 		/**
-	 * @return Sets if the widgets will be horizontally centered.
-     * @since 0.3.0
+	 * Used with centering. Rather than center, the
+	 * last row will align to the first widget horizontally.
+     * @since 0.2.0
+     */
+		virtual void setAlignLastRow(bool align);
+
+		/**
+		* @return True when Used with centering. Rather than center, the
+		* last row will align to the first widget horizontally.
+     * @since 0.2.0
+     */
+		virtual bool isLastRowAligned() const;
+
+		/**
+	 * @Sets if the widgets will be horizontally centered.
+     * @since 0.2.0
      */
 		virtual void setHorizontallyCentered(bool centered);
 
