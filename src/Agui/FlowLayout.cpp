@@ -47,7 +47,7 @@ namespace agui
 		horizontalSpacing(10),
 		topToBottom(true),leftToRight(true),
 		singleRow(false), center(false),
-		alignLastRow(false)
+		alignLastRow(false),contentHSz(0)
 	{
 	}
 
@@ -69,6 +69,8 @@ namespace agui
 
 			std::vector<Widget*> curRow;
 			Widget* firstWidget = NULL;
+
+			int lowestPoint = 0;
 			for(std::list<Widget*>::iterator it = getChildBegin(); 
 				it != getChildEnd(); ++it)
 			{
@@ -127,6 +129,12 @@ namespace agui
 				}
 
 				curRow.push_back((*it));
+
+				int l = (*it)->getHeight() + (*it)->getHeight();
+				if(l > lowestPoint)
+				{
+					lowestPoint = l;
+				}
 		}
 
 			//code duplication, I know :(
@@ -163,6 +171,8 @@ namespace agui
 					}
 				}
 			}
+
+			contentHSz = lowestPoint + getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM);
 	}
 
 	void FlowLayout::setHorizontalSpacing( int spacing )
@@ -240,6 +250,11 @@ namespace agui
 	bool FlowLayout::isLastRowAligned() const
 	{
 		return alignLastRow;
+	}
+
+	int FlowLayout::getContentsHeight() const
+	{
+		return contentHSz;
 	}
 
 

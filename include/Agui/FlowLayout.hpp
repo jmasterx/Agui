@@ -58,6 +58,7 @@ namespace agui
 		bool topToBottom;
 		bool singleRow;
 		bool alignLastRow;
+		int contentHSz;
 	protected:
 	/**
 	 * Will layout the children using Flow Layout rules and
@@ -153,6 +154,12 @@ namespace agui
      * @since 0.2.0
      */
 		virtual void setHorizontallyCentered(bool centered);
+
+	/**
+	 * @return The height of the contents.
+     * @since 0.2.0
+     */
+		virtual int getContentsHeight() const;
 
 		
 	/**
