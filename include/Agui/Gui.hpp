@@ -588,6 +588,13 @@ namespace agui
      */
 
 		bool setCursor(CursorProvider::CursorEnum cursor);
+
+		/**
+	 * @return The widget with drag focus or NULL
+     * @since 0.2.0
+     */
+
+		Widget* getLockWidget();
 	/**
 	 * Default destructor.
      * @since 0.1.0

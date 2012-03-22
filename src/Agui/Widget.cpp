@@ -386,7 +386,7 @@ namespace agui {
 		this->size = Dimension(x,y);
 		_setInnerSize();
 
-		if(getGui())
+		if(getGui() && getGui()->getLockWidget() == NULL)
 		{
 			getGui()->_widgetLocationChanged();
 		}
@@ -434,7 +434,7 @@ namespace agui {
 				(*it)->locationChanged(this,location);
 		}
 
-		if(getGui())
+		if(getGui() && getGui()->getLockWidget() == NULL)
 		{
 			getGui()->_widgetLocationChanged();
 		}

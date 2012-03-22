@@ -129,12 +129,6 @@ namespace agui
 				}
 
 				curRow.push_back((*it));
-
-				int l = (*it)->getLocation().getX() + (*it)->getHeight();
-				if(l > lowestPoint)
-				{
-					lowestPoint = l;
-				}
 		}
 
 			//code duplication, I know :(
@@ -172,6 +166,20 @@ namespace agui
 				}
 			}
 
+			for(std::list<Widget*>::iterator it = getChildBegin(); 
+				it != getChildEnd(); ++it)
+			{
+				if(!(*it)->isVisible())
+				{
+					continue;
+				}
+
+				int l = (*it)->getLocation().getY() + (*it)->getHeight();
+				if(l > lowestPoint)
+				{
+					lowestPoint = l;
+				}
+			}
 			contentHSz = lowestPoint + getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM);
 	}
 

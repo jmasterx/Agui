@@ -1592,4 +1592,9 @@ namespace agui
 		cursorProvider = provider;
 	}
 
+	Widget* Gui::getLockWidget()
+	{
+		return controlWithLock;
+	}
+
 }
