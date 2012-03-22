@@ -130,7 +130,7 @@ namespace agui
 
 				curRow.push_back((*it));
 
-				int l = (*it)->getHeight() + (*it)->getHeight();
+				int l = (*it)->getLocation().getX() + (*it)->getHeight();
 				if(l > lowestPoint)
 				{
 					lowestPoint = l;
