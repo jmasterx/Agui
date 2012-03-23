@@ -141,6 +141,8 @@ namespace agui
 		ToolTip* toolTip;
 		int maxToolTipWidth;
 
+		bool wantWidgetLocationChanged;
+
 	/**
      * Converts the mouse event's position into one that is relative to the parameter widget.
      * @since 0.1.0
@@ -595,6 +597,14 @@ namespace agui
      */
 
 		Widget* getLockWidget();
+
+			/**
+	 * Sets whether or not the expensive call to check if the widget
+	 * under the mouse changed when widgets resize, move etc is called.
+     * @since 0.2.0
+     */
+
+		void toggleWidgetLocationChanged(bool on);
 	/**
 	 * Default destructor.
      * @since 0.1.0

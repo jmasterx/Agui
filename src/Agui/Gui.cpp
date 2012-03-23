@@ -58,7 +58,7 @@ namespace agui
 		 destroyingFlaggedWidgets(true), toolTip(NULL),
 		 maxToolTipWidth(300), hasHiddenToolTip(true),
 		 lastToolTipTime(0.0), toolTipShowLength(4.0),
-		 cursorProvider(NULL)
+		 cursorProvider(NULL), wantWidgetLocationChanged(true)
 	{
 		
 		baseWidget = new TopContainer(this,&focusMan);
@@ -1104,6 +1104,7 @@ namespace agui
 
 	void Gui::_widgetLocationChanged()
 	{
+		if(wantWidgetLocationChanged)
 		handleMouseAxes(emptyMouse,true);
 	}
 
@@ -1595,6 +1596,11 @@ namespace agui
 	Widget* Gui::getLockWidget()
 	{
 		return controlWithLock;
+	}
+
+	void Gui::toggleWidgetLocationChanged( bool on )
+	{
+		wantWidgetLocationChanged = on;
 	}
 
 }
