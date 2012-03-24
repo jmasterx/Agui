@@ -142,6 +142,7 @@ namespace agui
 		int maxToolTipWidth;
 
 		bool wantWidgetLocationChanged;
+		bool enableExistanceCheck;
 
 	/**
      * Converts the mouse event's position into one that is relative to the parameter widget.
@@ -557,6 +558,19 @@ namespace agui
      * @since 0.2.0
      */
 		int getMaxToolTipWidth() const;
+
+		/**
+	 * Set whether or not widget exist checks will be made
+	 * when a mouse event occurs. Disable for speedup.
+     * @since 0.2.0
+     */
+		void setExistanceCheck(bool check);
+	/**
+	* @return True if widget exist checks will be made
+	* when a mouse event occurs. Disable for speedup.
+     * @since 0.2.0
+     */
+		int isDoingExistanceCheck() const;
 
 		/**
 	 * @return The maximum amount of time a ToolTip will show for.
