@@ -50,7 +50,7 @@ namespace agui {
 	   isWidgetVisible(true),isWidgetEnabled(true),
 	   isWidgetFocusable(false),isWidgetTabable(false), paintingChildren(false),
 	   tMargin(1),lMargin(1),bMargin(1),rMargin(1), textLen(0),
-	   flaggedForDestruction(false)
+	   flaggedForDestruction(false),handlesChildLogic(false)
 	{
 		setLocation(Point(0,0));
 		setMargins(1,1,1,1);
@@ -1956,6 +1956,16 @@ namespace agui {
 	CursorProvider::CursorEnum Widget::getEnterCursor() const
 	{
 		return CursorProvider::DEFAULT_CURSOR;
+	}
+
+	void Widget::setHandleChildlogic( bool handled )
+	{
+		handlesChildLogic = handled;
+	}
+
+	bool Widget::isChildlogicHandled() const
+	{
+		return handlesChildLogic;
 	}
 
 

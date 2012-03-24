@@ -105,6 +105,7 @@ namespace agui {
 		std::list<Widget*> children;
 		std::list<Widget*> privateChildren;
 		std::string toolTipText;
+		bool handlesChildLogic;
 
 
 		std::vector<MouseListener*> mouseListeners;
@@ -1059,13 +1060,25 @@ namespace agui {
 		*/
 		bool					isUsingGlobalFont() const;
 		/**
-		* Called when the Gui's logic method is called.
+		* Called when the Gui's logic method is called and the parent is not handling it.
 		* @param timeElapsed The amount of time the application has been running.
 		*
 		* This method is useful for animated and timed events.
 		* @since 0.1.0
 		*/
 		virtual void logic(double timeElapsed);
+
+			/**
+		* When true, public children's logic will not be called.
+		* @since 0.2.0
+		*/
+		virtual void setHandleChildlogic(bool handled);
+
+		/**
+		* @return True if public children's logic will not be called.
+		* @since 0.2.0
+		*/
+		virtual bool isChildlogicHandled() const;
 
 	/**
 	* @return The number of UTF8 characters in the widget's text.

@@ -1172,6 +1172,8 @@ namespace agui
 		{
 			recursiveDoLogic(*it);
 		}
+
+		if(!baseWidget->isChildlogicHandled())
 		for(std::list<Widget*>::iterator it = 
 			baseWidget->getChildBegin();
 			it != baseWidget->getChildEnd(); ++it)
