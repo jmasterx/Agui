@@ -72,13 +72,13 @@ namespace agui {
 				(*it)->death(this);
 		}
 
-		for(WidgetArray::iterator it = getPrivateChildBegin(); it != 
+		for(std::list<Widget*>::iterator it = getPrivateChildBegin(); it != 
 			getPrivateChildEnd(); ++it)
 		{
 			(*it)->removeMouseListener(this);
 			(*it)->removeKeyboardListener(this);
 		}
-		for(WidgetArray::iterator it = getChildBegin(); it != 
+		for(std::list<Widget*>::iterator it = getChildBegin(); it != 
 			getChildEnd(); ++it)
 		{
 			(*it)->removeMouseListener(this);

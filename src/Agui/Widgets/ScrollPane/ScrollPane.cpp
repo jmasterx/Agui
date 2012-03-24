@@ -119,7 +119,7 @@ namespace agui {
 
 	ScrollPane::~ScrollPane(void)
 	{
-		for(WidgetArray::iterator it = pChildContent->getChildBegin();
+		for(std::list<Widget*>::iterator it = pChildContent->getChildBegin();
 			it != pChildContent->getChildEnd(); ++it)
 		{
 			(*it)->removeWidgetListener(this);
@@ -127,7 +127,7 @@ namespace agui {
 			(*it)->removeKeyboardListener(this);
 		}
 
-		for(WidgetArray::iterator it = getPrivateChildBegin(); it != 
+		for(std::list<Widget*>::iterator it = getPrivateChildBegin(); it != 
 			getPrivateChildEnd(); ++it)
 		{
 			HScrollBar* hbar = dynamic_cast<HScrollBar*>((*it));
@@ -276,7 +276,7 @@ namespace agui {
 	int ScrollPane::getContentWidth() const
 	{
 		int w = 0;
-		for(WidgetArray::const_iterator it = pChildContent->getChildBegin();
+		for(std::list<Widget*>::const_iterator it = pChildContent->getChildBegin();
 			it != pChildContent->getChildEnd(); ++it)
 		{
 			if((*it)->getRelativeRectangle().getRight() > w)
@@ -291,7 +291,7 @@ namespace agui {
 	int ScrollPane::getContentHeight() const
 	{
 		int h = 0;
-		for(WidgetArray::const_iterator it = pChildContent->getChildBegin();
+		for(std::list<Widget*>::const_iterator it = pChildContent->getChildBegin();
 			it != pChildContent->getChildEnd(); ++it)
 		{
 			if((*it)->getRelativeRectangle().getBottom() > h)

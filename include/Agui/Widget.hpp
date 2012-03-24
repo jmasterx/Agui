@@ -103,8 +103,8 @@ namespace agui {
 		int previousFontNum;
 		std::stack<Rectangle> stackRects;
 		Point stackOffset;
-		WidgetArray children;
-		WidgetArray privateChildren;
+		std::list<Widget*> children;
+		std::list<Widget*> privateChildren;
 		std::string toolTipText;
 		bool handlesChildLogic;
 
@@ -385,90 +385,90 @@ namespace agui {
 	* @return A begin iterator to the public children std::list.
 	* @since 0.1.0
 	*/
-		WidgetArray::iterator			getChildBegin();
+		std::list<Widget*>::iterator			getChildBegin();
 
 	/**
 	* @return A reverse begin iterator to the public children std::list.
 	* @since 0.1.0
 	*/
-		WidgetArray::reverse_iterator	getChildRBegin();
+		std::list<Widget*>::reverse_iterator	getChildRBegin();
 
 	/**
 	* @return An end iterator to the public children std::list.
 	* @since 0.1.0
 	*/
 
-		WidgetArray::iterator			getChildEnd();
+		std::list<Widget*>::iterator			getChildEnd();
 
 	/**
 	* @return A reverse end iterator to the public children std::list.
 	* @since 0.1.0
 	*/
 
-		WidgetArray::reverse_iterator	getChildREnd();
+		std::list<Widget*>::reverse_iterator	getChildREnd();
 
 	/**
 	* @return Const iterator.
 	* @since 0.1.0
 	*/
-		WidgetArray::const_iterator			getChildBegin() const;
+		std::list<Widget*>::const_iterator			getChildBegin() const;
 	/**
 	* @return Const iterator.
 	* @since 0.1.0
 	*/
-		WidgetArray::const_reverse_iterator	getChildRBegin() const;
+		std::list<Widget*>::const_reverse_iterator	getChildRBegin() const;
 	/**
 	* @return Const iterator.
 	* @since 0.1.0
 	*/
-		WidgetArray::const_iterator			getChildEnd() const;
+		std::list<Widget*>::const_iterator			getChildEnd() const;
 	/**
 	* @return Const iterator.
 	* @since 0.1.0
 	*/
-		WidgetArray::const_reverse_iterator	getChildREnd() const;
+		std::list<Widget*>::const_reverse_iterator	getChildREnd() const;
 
 			/**
 	* @return A begin iterator to the private children std::vector.
 	* @since 0.1.0
 	*/
-		WidgetArray::iterator			getPrivateChildBegin();
+		std::list<Widget*>::iterator			getPrivateChildBegin();
 		/**
 	* @return A reverse begin iterator to the private children std::vector.
 	* @since 0.1.0
 	*/
-		WidgetArray::reverse_iterator	getPrivateChildRBegin();
+		std::list<Widget*>::reverse_iterator	getPrivateChildRBegin();
 			/**
 	* @return An end iterator to the private children std::vector.
 	* @since 0.1.0
 	*/
-		WidgetArray::iterator			getPrivateChildEnd();
+		std::list<Widget*>::iterator			getPrivateChildEnd();
 	/**
 	* @return A reverse end iterator to the private children std::vector.
 	* @since 0.1.0
 	*/
-		WidgetArray::reverse_iterator	getPrivateChildREnd();
+		std::list<Widget*>::reverse_iterator	getPrivateChildREnd();
 
 	/**
 	* @return Const iterator.
 	* @since 0.1.0
 	*/
-		WidgetArray::const_iterator			getPrivateChildBegin() const;
+		std::list<Widget*>::const_iterator			getPrivateChildBegin() const;
 	/**
 	* @return Const iterator.
 	* @since 0.1.0
 	*/
-		WidgetArray::const_reverse_iterator	getPrvateChildRBegin() const;
+		std::list<Widget*>::const_reverse_iterator	getPrvateChildRBegin() const;
 	/**
 	* @return Const iterator.
 	* @since 0.1.0
 	*/
-		WidgetArray::const_iterator			getPrivateChildEnd() const;
+		std::list<Widget*>::const_iterator			getPrivateChildEnd() const;
 	/**
 	* @return Const iterator.
 	* @since 0.1.0
 	*/
-		WidgetArray::const_reverse_iterator	getPrivateChildREnd() const;
+		std::list<Widget*>::const_reverse_iterator	getPrivateChildREnd() const;
 
 	/**
 	* @return Number of private children.
