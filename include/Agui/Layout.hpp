@@ -64,6 +64,7 @@ namespace agui
 		bool filterVisibility;
 		bool updateOnChildResize;
 		bool updateOnChildRelocation;
+		bool updateOnChildAddRemove;
 	protected:
 	/**
 	 * Will layout the children according to how the layout should.
@@ -139,6 +140,15 @@ namespace agui
  * @since 0.2.0
  */
 	bool isUpdatingOnChildResize() const;
+/**
+* Set whether or not the layout will be updated when a child added / removed.
+   */
+	void setUpdateOnChildAddRemove(bool update);
+	/**
+ * @return True if the layout will be updated when a child is added or removed.
+ * @since 0.2.0
+ */
+	bool isUpdatingOnChildAddRemove() const;
 	/**
 	 * This is what should be called to update the layout. 
 	 * You should never call layoutChildren directly.

@@ -45,18 +45,18 @@ namespace agui
 	Layout::Layout(void)
 	:isLayingOut(false), resizeToParent(true),
 	filterVisibility(true),updateOnChildRelocation(true),
-	updateOnChildResize(true)
+	updateOnChildResize(true),updateOnChildAddRemove(true)
 	{
 	}
 
 	Layout::~Layout(void)
 	{
-		for(std::list<Widget*>::iterator it = getPrivateChildBegin(); it != 
+		for(WidgetArray::iterator it = getPrivateChildBegin(); it != 
 			getPrivateChildEnd(); ++it)
 		{
 			(*it)->removeWidgetListener(this);
 		}
-		for(std::list<Widget*>::iterator it = getChildBegin(); it != 
+		for(WidgetArray::iterator it = getChildBegin(); it != 
 			getChildEnd(); ++it)
 		{
 			(*it)->removeWidgetListener(this);
@@ -78,6 +78,8 @@ namespace agui
 	{
 		Widget::add(widget);
 		widget->addWidgetListener(this);
+
+		if(updateOnChildAddRemove)
 		updateLayout();
 	}
 
@@ -85,6 +87,8 @@ namespace agui
 	{
 		Widget::remove(widget);
 		widget->removeWidgetListener(this);
+
+		if(updateOnChildAddRemove)
 		updateLayout();
 	}
 
@@ -182,6 +186,16 @@ namespace agui
 	bool Layout::isUpdatingOnChildResize() const
 	{
 		return updateOnChildResize;
+	}
+
+	void Layout::setUpdateOnChildAddRemove( bool update )
+	{
+		updateOnChildAddRemove = update;
+	}
+
+	bool Layout::isUpdatingOnChildAddRemove() const
+	{
+		return updateOnChildAddRemove;
 	}
 
 }

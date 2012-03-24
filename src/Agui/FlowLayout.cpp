@@ -70,7 +70,7 @@ namespace agui
 			Widget* firstWidget = NULL;
 
 			int lowestPoint = 0;
-			for(std::list<Widget*>::iterator it = getChildBegin(); 
+			for(WidgetArray::iterator it = getChildBegin(); 
 				it != getChildEnd(); ++it)
 			{
 				if(!(*it)->isVisible() && isFilteringVisibility())
