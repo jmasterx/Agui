@@ -248,7 +248,7 @@ namespace agui {
 	}
 
 
-	int Widget::getChildWidgetIndex( Widget *widget ) const
+	int Widget::getChildWidgetIndex(const Widget *widget ) const
 	{
 		//returns index or -1 if not found
 		int count = 0;
@@ -269,7 +269,7 @@ namespace agui {
 		if(!getParent())
 			return -1;
 
-		return getParent()->getChildWidgetIndex((Widget*)this);
+		return getParent()->getChildWidgetIndex(this);
 	}
 
 
@@ -310,12 +310,16 @@ namespace agui {
 		{
 			return NULL;
 		}
-		Widget* parent = (Widget*)this;
+		Widget* parent = getParent();
 
-		while(parent->getParent() != NULL)
+		if(parent)
 		{
-			parent = parent->getParent();
+			while(parent->getParent() != NULL)
+			{
+				parent = parent->getParent();
+			}
 		}
+		
 
 		return parent;
 	}
@@ -337,7 +341,7 @@ namespace agui {
 				getSize().getWidth(),getSize().getHeight());
 		}
 		
-		Widget* parent = (Widget*)this;
+		const Widget* parent = this;
 		int eX = 0;
 		int eY = 0;
 
@@ -694,7 +698,7 @@ namespace agui {
 
 	Widget* Widget::getChildAt( int index ) const
 	{
-		if(index < 0 || index > (int)children.size() -1) return (Widget*)0;
+		if(index < 0 || index > (int)children.size() -1) return NULL;
 
 		std::list<Widget*>::const_iterator i = children.begin();
 		std::advance(i,index);
@@ -1060,7 +1064,7 @@ namespace agui {
 			}
 		}
 
-		return (Widget*) NULL;
+		return NULL;
 	}
 
 	bool Widget::isFocused() const
@@ -1946,7 +1950,7 @@ namespace agui {
 
 	Widget* Widget::getPrivateChildAt( int index ) const
 	{
-		if(index < 0 || index > (int)privateChildren.size() -1) return (Widget*)0;
+		if(index < 0 || index > (int)privateChildren.size() -1) return NULL;
 
 		std::list<Widget*>::const_iterator i = privateChildren.begin();
 		std::advance(i,index);

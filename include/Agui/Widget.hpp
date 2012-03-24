@@ -520,7 +520,7 @@ namespace agui {
 	* @param widget Widget to get the index of.
 	* @since 0.1.0
 	*/
-		int		getChildWidgetIndex(Widget *widget) const;
+		int		getChildWidgetIndex(const Widget *widget) const;
 	/**
 	* @return The number of public children this widget has.
 	* @since 0.1.0
@@ -704,7 +704,7 @@ namespace agui {
 	* @return The top most widget or NULL if this widget has no parent.
 	* @since 0.1.0
 	*/
-		Widget*				getTopWidget()	const;
+		Widget*				getTopWidget() const;
 	/**
 	* @return The Gui associated with the top most widget.
 	* Will return NULL if the top most widget cannot be found.

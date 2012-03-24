@@ -894,7 +894,7 @@ namespace agui
 	}
 
 
-	bool Gui::widgetExists(Widget* root, Widget* target )
+	bool Gui::widgetExists(const Widget* root, const Widget* target ) const
 	{
 
 		if(root == target)
@@ -906,14 +906,14 @@ namespace agui
 			= root->getPrivateChildBegin(); 
 			it != root->getPrivateChildEnd(); ++it)
 		{
-			if(widgetExists((Widget*)*it,target)) {return true;}
+			if(widgetExists((*it),target)) {return true;}
 		}
 
 		for(std::list<Widget*>::const_iterator it 
 			= root->getChildBegin(); 
 			it != root->getChildEnd(); ++it)
 		{
-			if(widgetExists((Widget*)*it,target)) {return true;}
+			if(widgetExists(*it,target)) {return true;}
 		}
 
 		return false;

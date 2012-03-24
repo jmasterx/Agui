@@ -306,7 +306,7 @@ namespace agui
 	 * @return True if the parameter widget exists.
      * @since 0.1.0
      */
-		bool widgetExists(Widget* root, Widget* target);
+		bool widgetExists(const Widget* root, const Widget* target) const;
 
 	/**
 	 * @return The focused widget or NULL if none are focused.
