@@ -57,7 +57,6 @@ namespace agui
 
 	void FlowLayout::layoutChildren()
 	{
-		
 			int curX = 0;
 			int curY = 0;
 
@@ -113,11 +112,11 @@ namespace agui
 
 				if(!topToBottom)
 				{
-					btOffset = getInnerHeight() - (*it)->getHeight() - (2 * curY);
+					btOffset = getInnerHeight() - (*it)->getHeight() - (curY + curY);
 				}
 				if(!leftToRight && !center)
 				{
-					rlOffset = getInnerWidth() - (*it)->getWidth() - (2 * curX);
+					rlOffset = getInnerWidth() - (*it)->getWidth() - (curX + curX);
 				}
 				(*it)->setLocation(curX + rlOffset,curY + btOffset);
 				curX += (*it)->getWidth() + getHorizontalSpacing();
@@ -129,6 +128,13 @@ namespace agui
 				}
 
 				curRow.push_back((*it));
+
+				//find the content height
+				int l = (*it)->getLocation().getY() + (*it)->getHeight();
+				if(l > lowestPoint)
+				{
+					lowestPoint = l;
+				}
 		}
 
 			//code duplication, I know :(
@@ -166,20 +172,7 @@ namespace agui
 				}
 			}
 
-			for(std::list<Widget*>::iterator it = getChildBegin(); 
-				it != getChildEnd(); ++it)
-			{
-				if(!(*it)->isVisible())
-				{
-					continue;
-				}
-
-				int l = (*it)->getLocation().getY() + (*it)->getHeight();
-				if(l > lowestPoint)
-				{
-					lowestPoint = l;
-				}
-			}
+			//set content height
 			contentHSz = lowestPoint + getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM);
 	}
 
