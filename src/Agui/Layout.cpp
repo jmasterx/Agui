@@ -43,7 +43,8 @@
 namespace agui
 {
 	Layout::Layout(void)
-	:isLayingOut(false), resizeToParent(true)
+	:isLayingOut(false), resizeToParent(true),
+	filterVisibility(true)
 	{
 	}
 
@@ -146,8 +147,20 @@ namespace agui
 
 	void Layout::visibilityChanged( Widget* source, bool visible )
 	{
+		if(isFilteringVisibility())
 		if(!isLayingOut)
 		updateLayout();
+	}
+
+	void Layout::setFilterVisibility( bool filter )
+	{
+		filterVisibility = filter;
+		updateLayout();
+	}
+
+	bool Layout::isFilteringVisibility() const
+	{
+		return filterVisibility;
 	}
 
 }

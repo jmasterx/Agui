@@ -73,7 +73,7 @@ namespace agui
 			for(std::list<Widget*>::iterator it = getChildBegin(); 
 				it != getChildEnd(); ++it)
 			{
-				if(!(*it)->isVisible())
+				if(!(*it)->isVisible() && isFilteringVisibility())
 				{
 					continue;
 				}

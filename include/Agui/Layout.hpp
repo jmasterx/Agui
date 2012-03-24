@@ -61,6 +61,7 @@ namespace agui
 	{
 		bool isLayingOut;
 		bool resizeToParent;
+		bool filterVisibility;
 	protected:
 	/**
 	 * Will layout the children according to how the layout should.
@@ -108,6 +109,16 @@ namespace agui
      * @since 0.1.0
 	 */
 	bool isResizingToParent() const;
+	/**
+	 * Sets whether or not the layout might filter visibility. For example, the  FlowLayout would ignore invisible widgets.
+     * @since 0.2.0
+	 */
+	void setFilterVisibility(bool filter);
+		/**
+	 * @return True if the layout might filter visibility. For example, the  FlowLayout would ignore invisible widgets.
+     * @since 0.2.0
+	 */
+	bool isFilteringVisibility() const;
 	/**
 	 * This is what should be called to update the layout. 
 	 * You should never call layoutChildren directly.

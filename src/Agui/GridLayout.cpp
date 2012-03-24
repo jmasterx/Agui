@@ -111,7 +111,7 @@ namespace agui
 			it != getChildEnd(); ++it)
 		{
 
-			if(!(*it)->isVisible())
+			if(!(*it)->isVisible() && isFilteringVisibility())
 			{
 				continue;
 			}
