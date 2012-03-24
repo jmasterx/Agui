@@ -617,7 +617,7 @@ namespace agui
 					mouse.getPosition().getY() - currentNode->getAbsolutePosition().getY())))
 					&& currentNode->isEnabled() && currentNode->isVisible()))
 				{
-					for (std::list<Widget*>::const_reverse_iterator rit = 
+					for (WidgetArray::const_reverse_iterator rit = 
 						currentNode->getChildRBegin();
 						rit != currentNode->getChildREnd(); ++rit) 
 					{ 
@@ -625,7 +625,7 @@ namespace agui
 
 					} 
 
-					for (std::list<Widget*>::const_reverse_iterator rit = 
+					for (WidgetArray::const_reverse_iterator rit = 
 						currentNode->getPrivateChildRBegin();
 						rit != currentNode->getPrivateChildREnd(); ++rit) 
 					{ 
@@ -902,14 +902,14 @@ namespace agui
 			return true;
 		}
 
-		for(std::list<Widget*>::const_iterator it
+		for(WidgetArray::const_iterator it
 			= root->getPrivateChildBegin(); 
 			it != root->getPrivateChildEnd(); ++it)
 		{
 			if(widgetExists((*it),target)) {return true;}
 		}
 
-		for(std::list<Widget*>::const_iterator it 
+		for(WidgetArray::const_iterator it 
 			= root->getChildBegin(); 
 			it != root->getChildEnd(); ++it)
 		{
@@ -961,7 +961,7 @@ namespace agui
 		{
 
 		
-			for(std::list<Widget*>::const_iterator it = 
+			for(WidgetArray::const_iterator it = 
 				target->getPrivateChildBegin(); 
 				it != target->getPrivateChildEnd(); ++it)
 			{
@@ -971,7 +971,7 @@ namespace agui
 				}
 			}
 
-			for(std::list<Widget*>::const_iterator it = 
+			for(WidgetArray::const_iterator it = 
 				target->getChildBegin(); 
 				it != target->getChildEnd(); ++it)
 			{
@@ -1021,7 +1021,7 @@ namespace agui
 
 			if(target && target->isVisible() && target->isEnabled())
 			{
-				for(std::list<Widget*>::const_reverse_iterator it = 
+				for(WidgetArray::const_reverse_iterator it = 
 					target->getPrivateChildRBegin(); 
 					it != target->getPrivateChildREnd(); ++it)
 				{
@@ -1030,7 +1030,7 @@ namespace agui
 						return true;
 					}
 				}
-				for(std::list<Widget*>::const_reverse_iterator it = 
+				for(WidgetArray::const_reverse_iterator it = 
 					target->getChildRBegin(); 
 					it != target->getChildREnd(); ++it)
 				{
@@ -1166,7 +1166,7 @@ namespace agui
 	{
 		baseWidget->logic(currentTime);
 
-		for(std::list<Widget*>::iterator it = 
+		for(WidgetArray::iterator it = 
 			baseWidget->getPrivateChildBegin();
 			it != baseWidget->getPrivateChildEnd(); ++it)
 		{
@@ -1174,7 +1174,7 @@ namespace agui
 		}
 
 		if(!baseWidget->isChildlogicHandled())
-		for(std::list<Widget*>::iterator it = 
+		for(WidgetArray::iterator it = 
 			baseWidget->getChildBegin();
 			it != baseWidget->getChildEnd(); ++it)
 		{

@@ -51,12 +51,12 @@ namespace agui
 
 	Layout::~Layout(void)
 	{
-		for(std::list<Widget*>::iterator it = getPrivateChildBegin(); it != 
+		for(WidgetArray::iterator it = getPrivateChildBegin(); it != 
 			getPrivateChildEnd(); ++it)
 		{
 			(*it)->removeWidgetListener(this);
 		}
-		for(std::list<Widget*>::iterator it = getChildBegin(); it != 
+		for(WidgetArray::iterator it = getChildBegin(); it != 
 			getChildEnd(); ++it)
 		{
 			(*it)->removeWidgetListener(this);
