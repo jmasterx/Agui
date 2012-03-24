@@ -44,7 +44,8 @@ namespace agui
 {
 	Layout::Layout(void)
 	:isLayingOut(false), resizeToParent(true),
-	filterVisibility(true)
+	filterVisibility(true),updateOnChildRelocation(true),
+	updateOnChildResize(true)
 	{
 	}
 
@@ -98,7 +99,7 @@ namespace agui
 
 	void Layout::locationChanged( Widget *source, const Point &location )
 	{
-		if(!isLayingOut)
+		if(!isLayingOut && isUpdatingOnChildRelocate())
 		{
 			isLayingOut = true;
 			layoutChildren();
@@ -109,7 +110,7 @@ namespace agui
 
 	void Layout::sizeChanged( Widget* source, const Dimension &size )
 	{
-		if(!isLayingOut)
+		if(!isLayingOut && isUpdatingOnChildResize())
 		{
 			updateLayout();
 		}
@@ -161,6 +162,26 @@ namespace agui
 	bool Layout::isFilteringVisibility() const
 	{
 		return filterVisibility;
+	}
+
+	void Layout::setUpdateOnChildRelocate( bool update )
+	{
+		updateOnChildRelocation = update;
+	}
+
+	bool Layout::isUpdatingOnChildRelocate() const
+	{
+		return updateOnChildRelocation;
+	}
+
+	void Layout::setUpdateOnChildResize( bool update )
+	{
+		updateOnChildResize = update;
+	}
+
+	bool Layout::isUpdatingOnChildResize() const
+	{
+		return updateOnChildResize;
 	}
 
 }

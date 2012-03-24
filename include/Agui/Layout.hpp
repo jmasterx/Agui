@@ -62,6 +62,8 @@ namespace agui
 		bool isLayingOut;
 		bool resizeToParent;
 		bool filterVisibility;
+		bool updateOnChildResize;
+		bool updateOnChildRelocation;
 	protected:
 	/**
 	 * Will layout the children according to how the layout should.
@@ -119,6 +121,24 @@ namespace agui
      * @since 0.2.0
 	 */
 	bool isFilteringVisibility() const;
+	/**
+	 * Set whether or not the layout will be updated when a child moves.
+     */
+	void setUpdateOnChildRelocate(bool update);
+	/**
+ * @return True if the layout will be updated when a child moves.
+ * @since 0.2.0
+ */
+	bool isUpdatingOnChildRelocate() const;
+		/**
+	 * Set whether or not the layout will be updated when a child resizes.
+     */
+	void setUpdateOnChildResize(bool update);
+	/**
+ * @return True if the layout will be updated when a child resizes.
+ * @since 0.2.0
+ */
+	bool isUpdatingOnChildResize() const;
 	/**
 	 * This is what should be called to update the layout. 
 	 * You should never call layoutChildren directly.
