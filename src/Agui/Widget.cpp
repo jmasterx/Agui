@@ -488,6 +488,11 @@ namespace agui {
 
 	void Widget::setVisibility( bool visible )
 	{
+		if(visible == isWidgetVisible)
+		{
+			return;
+		}
+
 		if(!visible && isFocused())
 		{
 			Widget* top = getTopWidget();
