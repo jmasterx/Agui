@@ -64,6 +64,7 @@ namespace agui
 		case ALLEGRO_EVENT_MOUSE_AXES:
 		case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
 		case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+		case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
 			if(isMouseEnabled())
 			{
 				pushMouseEvent(createMouse(event));
@@ -168,6 +169,9 @@ namespace agui
 			break;
 		case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
 			type = MouseEvent::MOUSE_UP;
+			break;
+		case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
+			type = MouseEvent::MOUSE_MOVE;
 			break;
 		default:
 			break;
