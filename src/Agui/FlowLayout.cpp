@@ -47,7 +47,8 @@ namespace agui
 		horizontalSpacing(10),
 		topToBottom(true),leftToRight(true),
 		singleRow(false), center(false),
-		alignLastRow(false),contentHSz(0)
+		alignLastRow(false),contentHSz(0),
+		maxOnRow(0)
 	{
 	}
 
@@ -65,6 +66,7 @@ namespace agui
 			int rlOffset = 0;
 			int btOffset = 0;
 			int numRows = 1;
+			int numOnRow = 0;
 
 			std::vector<Widget*> curRow;
 			Widget* firstWidget = NULL;
@@ -83,9 +85,11 @@ namespace agui
 					firstWidget = (*it);
 				}
 
-				if(curX + (*it)->getWidth() > getInnerWidth() && numWidgets > 0 && !singleRow)
+				if((maxOnRow > 0 && numOnRow >= maxOnRow) || 
+					(curX + (*it)->getWidth() > getInnerWidth() && numWidgets > 0 && !singleRow))
 				{
 					numRows++;
+					numOnRow = 0;
 					curX = 0;
 					curY += highestWidget + getVerticalSpacing();
 					highestWidget = 0;
@@ -109,6 +113,7 @@ namespace agui
 
 					curRow.clear();
 				}
+				numOnRow++;
 
 				if(!topToBottom)
 				{
@@ -256,6 +261,17 @@ namespace agui
 	int FlowLayout::getContentsHeight() const
 	{
 		return contentHSz;
+	}
+
+	void FlowLayout::setMaxOnRow( int max )
+	{
+		maxOnRow = max;
+		updateLayout();
+	}
+
+	int FlowLayout::getMaxOnRow() const
+	{
+		return maxOnRow;
 	}
 
 

@@ -59,6 +59,7 @@ namespace agui
 		bool singleRow;
 		bool alignLastRow;
 		int contentHSz;
+		int maxOnRow;
 	protected:
 	/**
 	 * Will layout the children using Flow Layout rules and
@@ -148,6 +149,18 @@ namespace agui
      * @since 0.2.0
      */
 		virtual bool isLastRowAligned() const;
+
+		/**
+	 * Sets the maximum widgets on a row or 0 if not set.
+     * @since 0.2.0
+     */
+		virtual void setMaxOnRow(int max);
+
+		/**
+		* @return The maximum widgets on a row or 0 if not set.
+     * @since 0.2.0
+     */
+		virtual int getMaxOnRow() const;
 
 		/**
 	 * @Sets if the widgets will be horizontally centered.
