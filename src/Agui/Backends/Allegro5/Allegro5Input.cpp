@@ -59,6 +59,12 @@ namespace agui
 
 	void Allegro5Input::processEvent( const ALLEGRO_EVENT &event )
 	{
+		if(event.type == ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY)
+		{
+			al_set_system_mouse_cursor(al_get_current_display(),
+				ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT);
+		}
+
 		switch (event.type)
 		{
 		case ALLEGRO_EVENT_MOUSE_AXES:

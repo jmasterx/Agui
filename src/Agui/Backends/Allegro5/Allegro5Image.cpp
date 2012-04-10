@@ -63,7 +63,7 @@ namespace agui
 		bmp = al_load_bitmap(fileName.c_str());
 		if(!bmp)
 		{
-			throw Exception("Allegro 5 Failed to load image");
+			throw Exception("Agui Allegro 5 Failed to load image " + fileName);
 		}
 		width = al_get_bitmap_width(bmp);
 		height = al_get_bitmap_height(bmp);
