@@ -64,6 +64,10 @@ namespace agui {
 
 	Widget::~Widget(void)
 	{
+	    Widget* top = getTopWidget();
+		if(top && top->_focusManager)
+			top->_focusManager->setFocusedWidget(NULL);
+
 		for(std::vector<WidgetListener*>::iterator it = 
 			widgetListeners.begin();
 			it != widgetListeners.end(); ++it)
