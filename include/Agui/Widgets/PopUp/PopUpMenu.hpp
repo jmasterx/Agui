@@ -42,6 +42,7 @@
 #define AGUI_POPUP_MENU_HPP
 
 #include "Agui/Widget.hpp"
+#include "Agui/Widgets/Button/Button.hpp"
 #include "Agui/Widgets/PopUp/PopUpMenuItem.hpp"
 #include "Agui/MouseListener.hpp"
 namespace agui {
@@ -55,7 +56,7 @@ namespace agui {
      * @author Joshua Larouche
      * @since 0.2.0
      */
-	class AGUI_CORE_DECLSPEC PopUpMenu : public Widget, MouseListener {
+	class AGUI_CORE_DECLSPEC PopUpMenu : public Widget, MouseListener{
 		std::vector<PopUpMenuItem*> items;
 		int itemHeight;
 		bool showIcon;
@@ -72,6 +73,7 @@ namespace agui {
 		bool needsClosure;
 		Point childOffset;
 		bool needsToMakeSelecton;
+		agui::Button* m_invokeButton;
 
 		virtual void makeSelection();
 	protected:
@@ -145,6 +147,7 @@ namespace agui {
 		virtual void setChildOffset(const Point& offset);
 		virtual const Point& getChildOffset() const;
 		virtual void setFont(const Font *font);
+		virtual void setInvokeButton(Button* button);
 		virtual void showPopUp(Widget* invoker, int x, int y, PopUpMenu* parentPopUp = NULL);
 	};
 }

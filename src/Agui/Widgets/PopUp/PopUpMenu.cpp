@@ -381,7 +381,8 @@ namespace agui {
 		startTextGap(10),middleTextGap(10),endTextGap(16),
 		iconWidth(16), separatorHeight(6), selectedIndex(-1),
 		parentMenu(NULL),childMenu(NULL), invoker(NULL),
-		mouseInside(false),needsClosure(false), needsToMakeSelecton(false)
+		mouseInside(false),needsClosure(false), needsToMakeSelecton(false),
+		m_invokeButton(NULL)
 	{
 		setVisibility(false);
 		setBackColor(Color(234,237,255));
@@ -429,6 +430,11 @@ namespace agui {
 		if(invoker && invoker->getGui())
 		{
 			invoker->getGui()->removeMousePreviewListener(this);
+		}
+
+		if(m_invokeButton)
+		{
+			m_invokeButton->setToggleState(false);
 		}
 	}
 
@@ -882,6 +888,11 @@ namespace agui {
 	const Point& PopUpMenu::getChildOffset() const
 	{
 		return childOffset;
+	}
+
+	void PopUpMenu::setInvokeButton( Button* button )
+	{
+		m_invokeButton = button;
 	}
 
 }
