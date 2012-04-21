@@ -174,6 +174,12 @@ namespace agui
      */
 		virtual int getContentsHeight() const;
 
+	/**
+	 * Resizes to contents.
+     * @since 0.2.0
+     */
+		virtual void resizeToContents();
+
 		
 	/**
 	 * Default destructor.

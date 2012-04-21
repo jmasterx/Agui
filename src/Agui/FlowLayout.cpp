@@ -274,5 +274,29 @@ namespace agui
 		return maxOnRow;
 	}
 
+	void FlowLayout::resizeToContents()
+	{
+		int maxX = 0;
+		int maxY = 0;
+		for(WidgetArray::const_iterator it = getChildBegin();
+			it != getChildEnd(); ++it)
+		{
+			int tempX = (*it)->getLocation().getX() + (*it)->getWidth();
+			if(tempX > maxX)
+			{
+				maxX = tempX;
+			}
+
+			int tempY = (*it)->getLocation().getY() + (*it)->getHeight();
+			if(tempY > maxY)
+			{
+				maxY = tempY;
+			}
+		}
+
+		setSize(getMargin(SIDE_LEFT) + getMargin(SIDE_RIGHT) + maxX,
+			getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM) + maxY);
+	}
+
 
 }
