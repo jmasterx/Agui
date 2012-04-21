@@ -488,7 +488,10 @@ namespace agui {
 	void PopUpMenu::showPopUp( Widget* invoker, int x, int y, PopUpMenu* parentPopUp /*= NULL*/ )
 	{
 		closePopUp();
-
+		if(m_invokeButton)
+		{
+			m_invokeButton->setToggleState(true);
+		}
 		if(getParent())
 		{
 			getParent()->remove(this);
