@@ -60,6 +60,7 @@ namespace agui
 		bool alignLastRow;
 		int contentHSz;
 		int maxOnRow;
+		bool resizeElemToWidth;
 	protected:
 	/**
 	 * Will layout the children using Flow Layout rules and
@@ -149,6 +150,19 @@ namespace agui
      * @since 0.2.0
      */
 		virtual bool isLastRowAligned() const;
+
+	/**
+	 * Used with isSingleRow. Ensures that the widget consumes the whole row.
+     * @since 0.2.0
+     */
+		virtual void setResizeRowToWidth(bool resize);
+
+		/**
+	 * @return true when used with isSingleRow.
+	 Ensures that the widget consumes the whole row.
+     * @since 0.2.0
+     */
+		virtual bool isResizingRowToWidth() const;
 
 		/**
 	 * Sets the maximum widgets on a row or 0 if not set.

@@ -48,7 +48,7 @@ namespace agui
 		topToBottom(true),leftToRight(true),
 		singleRow(false), center(false),
 		alignLastRow(false),contentHSz(0),
-		maxOnRow(0)
+		maxOnRow(0), resizeElemToWidth(false)
 	{
 	}
 
@@ -83,6 +83,11 @@ namespace agui
 				if(!firstWidget)
 				{
 					firstWidget = (*it);
+				}
+
+				if(isSingleRow() && isResizingRowToWidth())
+				{
+					(*it)->setSize(getInnerWidth(),(*it)->getHeight());
 				}
 
 				if((maxOnRow > 0 && numOnRow >= maxOnRow) || 
@@ -296,6 +301,17 @@ namespace agui
 
 		setSize(getMargin(SIDE_LEFT) + getMargin(SIDE_RIGHT) + maxX,
 			getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM) + maxY);
+	}
+
+	bool FlowLayout::isResizingRowToWidth() const
+	{
+		return resizeElemToWidth;
+	}
+
+	void FlowLayout::setResizeRowToWidth( bool resize )
+	{
+		resizeElemToWidth = resize;
+		updateLayout();
 	}
 
 
