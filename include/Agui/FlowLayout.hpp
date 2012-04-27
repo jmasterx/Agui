@@ -152,14 +152,14 @@ namespace agui
 		virtual bool isLastRowAligned() const;
 
 	/**
-	 * Used with isSingleRow. Ensures that the widget consumes the whole row.
+	 * Ensures that the widget consumes the whole row.
+	 * Sets max on row to 1.
      * @since 0.2.0
      */
 		virtual void setResizeRowToWidth(bool resize);
 
 		/**
-	 * @return true when used with isSingleRow.
-	 Ensures that the widget consumes the whole row.
+	 * @return True if the widget consumes the whole row.
      * @since 0.2.0
      */
 		virtual bool isResizingRowToWidth() const;

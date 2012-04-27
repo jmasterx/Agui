@@ -85,12 +85,12 @@ namespace agui
 					firstWidget = (*it);
 				}
 
-				if(isSingleRow() && isResizingRowToWidth())
+				if(isResizingRowToWidth())
 				{
 					(*it)->setSize(getInnerWidth(),(*it)->getHeight());
 				}
 
-				if((maxOnRow > 0 && numOnRow >= maxOnRow) || 
+				if((maxOnRow > 0 && numOnRow >= maxOnRow) || isResizingRowToWidth() ||
 					(curX + (*it)->getWidth() > getInnerWidth() && numWidgets > 0 && !singleRow))
 				{
 					numRows++;
@@ -311,6 +311,7 @@ namespace agui
 	void FlowLayout::setResizeRowToWidth( bool resize )
 	{
 		resizeElemToWidth = resize;
+		setMaxOnRow(1);
 		updateLayout();
 	}
 
