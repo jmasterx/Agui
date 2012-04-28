@@ -156,7 +156,7 @@ namespace agui {
 		//this could happen with multiple groups for 1 Button
 		if(source == selectedRButton && !state)
 		{
-			selectedRButton = NULL;
+			setSelected(NULL);
 		}
 		else if(source != selectedRButton && state)
 		{
@@ -165,7 +165,7 @@ namespace agui {
 				selectedRButton->setToggleState(false);
 			}
 
-			selectedRButton = source;
+			setSelected(source);
 		}
 	}
 
