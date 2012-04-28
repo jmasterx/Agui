@@ -64,6 +64,7 @@ set(AGUI_SOURCES
 	src/Agui/Widget.cpp
 	src/Agui/WidgetListener.cpp
 	src/Agui/Widgets/Button/Button.cpp
+	src/Agui/Widgets/Button/ButtonGroup.cpp
 	src/Agui/Widgets/Button/ButtonListener.cpp
 	src/Agui/Widgets/CheckBox/CheckBox.cpp
 	src/Agui/Widgets/CheckBox/CheckBoxListener.cpp
