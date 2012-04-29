@@ -157,6 +157,12 @@ namespace agui {
      */
 
 		void _setInnerSize();
+	/**
+     * Dispatches the event.
+     * @since 0.2.0
+     */
+
+		void _parentSizeChangedEvent();
 
 		Widget *parentWidget;
 

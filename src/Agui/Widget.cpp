@@ -402,12 +402,14 @@ namespace agui {
 		for(WidgetArray::iterator it = getPrivateChildBegin();
 			it != getPrivateChildEnd(); ++it)
 		{
+			(*it)->_parentSizeChangedEvent();
 			(*it)->parentSizeChanged();
 		}
 
 		for(WidgetArray::iterator it = getChildBegin();
 			it != getChildEnd(); ++it)
 		{
+			(*it)->_parentSizeChangedEvent();
 			(*it)->parentSizeChanged();
 		}
 		for(std::vector<WidgetListener*>::iterator it =
@@ -1975,6 +1977,17 @@ namespace agui {
 	bool Widget::isChildlogicHandled() const
 	{
 		return handlesChildLogic;
+	}
+
+	void Widget::_parentSizeChangedEvent()
+	{
+		for(std::vector<WidgetListener*>::iterator it = 
+			widgetListeners.begin();
+			it != widgetListeners.end(); ++it)
+		{
+			if((*it))
+				(*it)->parentSizeChanged(this,getParent()->getInnerSize());
+		}
 	}
 
 

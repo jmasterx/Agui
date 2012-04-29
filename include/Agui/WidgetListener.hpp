@@ -87,6 +87,9 @@ namespace agui {
 		virtual void maxSizeChanged(Widget* source,
 			const Dimension &maxSize) {}
 
+		virtual void parentSizeChanged(Widget* source,
+			const Dimension &parentInnerSize) {}
+
 	};
 }
 
