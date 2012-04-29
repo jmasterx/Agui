@@ -174,6 +174,7 @@ namespace agui {
 
 			widget->parentWidget = this;
 			widget->_container = this->_container;
+			widget->_parentSizeChangedEvent();
 			widget->parentSizeChanged();
 			if(getGui())
 			{
@@ -1557,6 +1558,8 @@ namespace agui {
 
 			widget->parentWidget = this;
 			widget->_container = this->_container;
+			widget->_parentSizeChangedEvent();
+			widget->parentSizeChanged();
 		}
 	}
 
