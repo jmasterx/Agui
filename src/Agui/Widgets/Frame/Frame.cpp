@@ -158,8 +158,8 @@ namespace agui {
 	{
 		pChildContainer->setLocation(getLeftMargin(),getTopMargin());
 		pChildContainer->setSize(
-			getInnerSize().getWidth() - getRightMargin(),
-			getInnerSize().getHeight() - getBottomMargin());
+			getInnerSize().getWidth() - getRightMargin() - getLeftMargin(),
+			getInnerSize().getHeight() - getBottomMargin() - getTopMargin());
 	}
 
 	void Frame::setSize( const Dimension &size )
