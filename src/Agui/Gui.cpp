@@ -801,7 +801,7 @@ namespace agui
 
 	void Gui::handleHover()
 	{
-		if(controlWithLock != NULL)
+		if(controlWithLock != NULL && !focusMan.getModalWidget())
 		{
 			return;
 		}
@@ -816,7 +816,7 @@ namespace agui
 				lastHoveredControl = widgetUnderMouse;
 				if(widgetUnderMouse && widgetExists(baseWidget,widgetUnderMouse))
 				{
-					if((focusMan.getModalWidget() && widgetUnderMouse == focusMan.getModalWidget())
+					if((focusMan.getModalWidget() && widgetIsModalChild(widgetUnderMouse))
 						|| !focusMan.getModalWidget())
 					{
 						if( widgetExists(baseWidget,widgetUnderMouse))
@@ -881,6 +881,11 @@ namespace agui
 		}
 
 		if(widget == focusMan.getModalWidget())
+		{
+			return true;
+		}
+
+		if(widget == toolTip)
 		{
 			return true;
 		}
