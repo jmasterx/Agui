@@ -457,4 +457,40 @@ namespace agui {
 			(int)(getBottomMargin()) + getBottomMargin());
 	}
 
+	void Frame::setFrameMargins( int t, int l, int b, int r )
+	{
+		if(t > 0)
+		{
+			topMargin = t;
+		}
+		if(l > 0)
+		{
+			leftMargin = l;
+		}
+		if(b > 0)
+		{
+			bottomMargin = b;
+		}
+		if(r > 0)
+		{
+			rightMargin = r;
+		}
+
+			for(std::vector<FrameListener*>::iterator it = 
+				frameListeners.begin();
+				it != frameListeners.end(); ++it)
+			{
+				if((*it))
+				{
+					(*it)->topMarginChanged(this,t);
+					(*it)->leftMarginChanged(this,l);
+					(*it)->bottomMarginChanged(this,b);
+					(*it)->rightMarginChanged(this,r);
+				}
+			}
+
+			resizeContainer();
+
+	}
+
 }

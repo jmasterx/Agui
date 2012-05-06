@@ -192,6 +192,11 @@ namespace agui {
      * @since 0.1.0
      */
 		void setRightMargin(int margin);
+			/**
+	 * Sets the frame's margins all at once (not the same as widget margins).
+     * @since 0.1.0
+     */
+		void setFrameMargins(int t, int l, int b, int r);
 	/**
 	 * Adds the parameter widget to the content pane.
      * @since 0.1.0
