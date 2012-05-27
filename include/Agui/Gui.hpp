@@ -343,6 +343,11 @@ namespace agui
 
 		
 	public:
+			/**
+     * Releases widget under mouse
+     * @since 0.2.0
+     */
+		void _modalChanged();
 	/**
      * @return last found widget under the mouse.
      * @since 0.1.0

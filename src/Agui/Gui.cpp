@@ -174,7 +174,8 @@ namespace agui
 		if(!controlWithLock)
 		{
 
-			if(previousWidgetUnderMouse != widgetUnderMouse)
+			if(previousWidgetUnderMouse != widgetUnderMouse || (focusMan.getModalWidget() && !widgetIsModalChild(widgetUnderMouse) 
+				&& !controlWithLock))
 			{
 				//invalidate the last hover control
 				lastHoveredControl = NULL;
@@ -193,6 +194,8 @@ namespace agui
 							
 							previousWidgetUnderMouse->mouseLeave(relArgs);
 							hideToolTip();
+							setCursor(getTop()->getEnterCursor());
+
 						}
 						if(widgetExists(baseWidget,previousWidgetUnderMouse))
 						{
@@ -1637,6 +1640,11 @@ namespace agui
 	int Gui::isDoingExistanceCheck() const
 	{
 		return enableExistanceCheck;
+	}
+
+	void Gui::_modalChanged()
+	{
+		_widgetLocationChanged();
 	}
 
 }

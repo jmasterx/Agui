@@ -650,6 +650,11 @@ namespace agui {
 			previousFontNum = globalFontID;
 			setFont(globalFont);
 		}
+
+		if(getGui())
+		{
+			getGui()->_widgetLocationChanged();
+		}
 		
 	}
 
@@ -918,7 +923,15 @@ namespace agui {
 		{
 			if(top->_focusManager)
 			{
-				return top->_focusManager->requestModalFocus(this);
+				bool r = top->_focusManager->requestModalFocus(this);
+
+				if(r && getGui())
+				{
+					getGui()->_modalChanged();
+				}
+
+				return r;
+
 			}
 		}
 
