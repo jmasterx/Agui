@@ -73,6 +73,9 @@ namespace agui {
 
 		}
 	};
+
+	typedef std::vector<std::pair<ListBoxItem,bool> > ListItem;
+
 	class AGUI_CORE_DECLSPEC ListBox : public Widget,
 		protected HScrollBarListener, 
 		protected VScrollBarListener
@@ -99,7 +102,7 @@ namespace agui {
 
 		ScrollPolicy hScrollPolicy;
 		ScrollPolicy vScrollPolicy;
-		std::vector<std::pair<ListBoxItem,bool> > items;
+		ListItem items;
 
 		std::vector<ListBoxListener*> listboxListeners;
 		std::vector<SelectionListener*> selectionListeners;
@@ -121,55 +124,7 @@ namespace agui {
      * @since 0.1.0
      */
 		virtual void displatchSelectionEvent(int index, bool selected);
-	/**
-	 * @return Begin iterator to the pair of items 
-	 * representing the text of the item and if it is selected.
-     * @since 0.1.0
-     */
-		std::vector<std::pair<ListBoxItem,bool> >::iterator getItemsBegin();
-			/**
-	 * @return Const begin iterator to the pair of items 
-	 * representing the text of the item and if it is selected.
-     * @since 0.1.0
-     */
-		std::vector<std::pair<ListBoxItem,bool> >::const_iterator getItemsBegin() const;
-			/**
-	 * @return End iterator to the pair of items 
-	 * representing the text of the item and if it is selected.
-     * @since 0.1.0
-     */
-		std::vector<std::pair<ListBoxItem,bool> >::iterator getItemsEnd();
-	/**
-	 * @return Const end iterator to the pair of items 
-	 * representing the text of the item and if it is selected.
-     * @since 0.1.0
-     */
-		std::vector<std::pair<ListBoxItem,bool> > ::const_iterator getItemsEnd() const;
-	/**
-	 * @return Reverse begin iterator to the pair of items 
-	 * representing the text of the item and if it is selected.
-     * @since 0.1.0
-     */
-		std::vector<std::pair<ListBoxItem,bool> >::reverse_iterator getItemsRBegin();
-	/**
-	 * @return Const reverse begin iterator to the pair of items 
-	 * representing the text of the item and if it is selected.
-     * @since 0.1.0
-     */
-		std::vector<std::pair<ListBoxItem,bool> >::const_reverse_iterator getItemsRBegin() const;
-	/**
-	 * @return Reverse end iterator to the pair of items 
-	 * representing the text of the item and if it is selected.
-     * @since 0.1.0
-     */
-		std::vector<std::pair<ListBoxItem,bool> >::reverse_iterator getItemsREnd();
-			/**
-	 * @return Const reverse end iterator to the pair of items 
-	 * representing the text of the item and if it is selected.
-     * @since 0.1.0
-     */
-		std::vector<std::pair<ListBoxItem,bool> > ::const_reverse_iterator getItemsREnd() const;
-		
+
 	/**
 	 * Used internally to sort the items.
      * @since 0.1.0
@@ -638,6 +593,56 @@ namespace agui {
      * @since 0.2.0
      */
 		bool isRightClickSelectionAllowed() const;
+
+			/**
+	 * @return Begin iterator to the pair of items 
+	 * representing the text of the item and if it is selected.
+     * @since 0.1.0
+     */
+		ListItem::iterator getItemsBegin();
+			/**
+	 * @return Const begin iterator to the pair of items 
+	 * representing the text of the item and if it is selected.
+     * @since 0.1.0
+     */
+		ListItem::const_iterator getItemsBegin() const;
+			/**
+	 * @return End iterator to the pair of items 
+	 * representing the text of the item and if it is selected.
+     * @since 0.1.0
+     */
+		ListItem::iterator getItemsEnd();
+	/**
+	 * @return Const end iterator to the pair of items 
+	 * representing the text of the item and if it is selected.
+     * @since 0.1.0
+     */
+		ListItem ::const_iterator getItemsEnd() const;
+	/**
+	 * @return Reverse begin iterator to the pair of items 
+	 * representing the text of the item and if it is selected.
+     * @since 0.1.0
+     */
+		ListItem::reverse_iterator getItemsRBegin();
+	/**
+	 * @return Const reverse begin iterator to the pair of items 
+	 * representing the text of the item and if it is selected.
+     * @since 0.1.0
+     */
+		ListItem::const_reverse_iterator getItemsRBegin() const;
+	/**
+	 * @return Reverse end iterator to the pair of items 
+	 * representing the text of the item and if it is selected.
+     * @since 0.1.0
+     */
+		ListItem::reverse_iterator getItemsREnd();
+			/**
+	 * @return Const reverse end iterator to the pair of items 
+	 * representing the text of the item and if it is selected.
+     * @since 0.1.0
+     */
+		ListItem ::const_reverse_iterator getItemsREnd() const;
+		
 
 	virtual void setFontColor(const Color &color);
 

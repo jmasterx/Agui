@@ -187,7 +187,7 @@ namespace agui {
 	{
 		int selIndex = getSelectedIndex();
 		//remove first occurrence of item
-		for(std::vector<std::pair<ListBoxItem,bool> >::iterator it = items.begin();
+		for(ListItem::iterator it = items.begin();
 			it != items.end(); ++it)
 		{
 			if(it->first.text == item)
@@ -277,7 +277,7 @@ namespace agui {
 	{
 		int count = 0;
 		//return first occurrence of item
-		for(std::vector<std::pair<ListBoxItem,bool> >::const_iterator it = items.begin();
+		for(ListItem::const_iterator it = items.begin();
 			it != items.end(); ++it)
 		{
 			if(it->first.text == item)
@@ -296,7 +296,7 @@ namespace agui {
 		//finds the first selected index
 		if(!items.empty())
 		{
-			for(std::vector<std::pair<ListBoxItem,bool> >::const_iterator it = items.begin();
+			for(ListItem::const_iterator it = items.begin();
 				it != items.end(); ++it)
 			{
 				if(it->second)
@@ -357,7 +357,7 @@ namespace agui {
 			return indexes;
 		}
 		int count = 0;
-		for(std::vector<std::pair<ListBoxItem,bool> >::const_iterator it = items.begin();
+		for(ListItem::const_iterator it = items.begin();
 			it != items.end(); ++it)
 		{
 			if(it->second)
@@ -403,7 +403,7 @@ namespace agui {
 
 	void ListBox::clearSelectedIndexes()
 	{
-		for(std::vector<std::pair<ListBoxItem,bool> >::iterator it = items.begin();
+		for(ListItem::iterator it = items.begin();
 			it != items.end(); ++it)
 		{
 			it->second = false;
@@ -440,7 +440,7 @@ namespace agui {
 		Color inverseFont = Color(255,255,255);
 
 		Color * color;
-		for(std::vector<std::pair<ListBoxItem,bool> >::const_iterator it = items.begin() + itemsSkipped ;
+		for(ListItem::const_iterator it = items.begin() + itemsSkipped ;
 			it != items.end(); ++it)
 		{
 			if(rcount == maxitems)
@@ -521,42 +521,42 @@ namespace agui {
 		return sorted;
 	}
 
-	std::vector<std::pair<ListBoxItem,bool> >::iterator ListBox::getItemsBegin()
+	ListItem::iterator ListBox::getItemsBegin()
 	{
 		return items.begin();
 	}
 
-	std::vector<std::pair<ListBoxItem,bool> >::const_iterator ListBox::getItemsBegin() const
+	ListItem::const_iterator ListBox::getItemsBegin() const
 	{
 		return items.begin();
 	}
 
-	std::vector<std::pair<ListBoxItem,bool> >::iterator ListBox::getItemsEnd()
+	ListItem::iterator ListBox::getItemsEnd()
 	{
 		return items.end();
 	}
 
-	std::vector<std::pair<ListBoxItem,bool> > ::const_iterator ListBox::getItemsEnd() const
+	ListItem ::const_iterator ListBox::getItemsEnd() const
 	{
 		return items.end();
 	}
 
-	std::vector<std::pair<ListBoxItem,bool> >::reverse_iterator ListBox::getItemsRBegin()
+	ListItem::reverse_iterator ListBox::getItemsRBegin()
 	{
 		return items.rbegin();
 	}
 
-	std::vector<std::pair<ListBoxItem,bool> >::const_reverse_iterator ListBox::getItemsRBegin() const
+	ListItem::const_reverse_iterator ListBox::getItemsRBegin() const
 	{
 		return items.rbegin();
 	}
 
-	std::vector<std::pair<ListBoxItem,bool> >::reverse_iterator ListBox::getItemsREnd()
+	ListItem::reverse_iterator ListBox::getItemsREnd()
 	{
 		return items.rend();
 	}
 
-	std::vector<std::pair<ListBoxItem,bool> > ::const_reverse_iterator ListBox::getItemsREnd() const
+	ListItem ::const_reverse_iterator ListBox::getItemsREnd() const
 	{
 		return items.rend();
 	}
@@ -1379,7 +1379,7 @@ namespace agui {
 		int cSz = 0;
 		int h = 0;
 
-		for(std::vector<std::pair<ListBoxItem,bool> >::const_iterator it = items.begin();
+		for(ListItem::const_iterator it = items.begin();
 			it != items.end(); ++it)
 		{
 			cSz = getFont()->getTextWidth(it->first.text);
@@ -1507,7 +1507,7 @@ namespace agui {
 		//finds the last selected index
 		if(!items.empty())
 		{
-			for(std::vector<std::pair<ListBoxItem,bool> >::const_reverse_iterator it = items.rbegin();
+			for(ListItem::const_reverse_iterator it = items.rbegin();
 				it != items.rend(); ++it)
 			{
 				if(it->second)
