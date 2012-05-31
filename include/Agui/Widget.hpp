@@ -1162,6 +1162,12 @@ namespace agui {
 	*/
 		static void				setGlobalFont			(const Font *font);
 
+			/**
+	* @return True if the parameter cursor was set
+	* @since 0.2.0
+	*/
+		bool setCursor(CursorProvider::CursorEnum cursor);
+
 
 	};
 }

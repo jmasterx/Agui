@@ -2006,6 +2006,16 @@ namespace agui {
 		}
 	}
 
+	bool Widget::setCursor( CursorProvider::CursorEnum cursor )
+	{
+		if(!getGui())
+		{
+			return false;
+		}
+
+		return getGui()->setCursor(cursor);
+	}
+
 
 	int Widget::globalFontID = 789;
 
