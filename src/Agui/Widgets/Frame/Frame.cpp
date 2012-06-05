@@ -493,4 +493,19 @@ namespace agui {
 
 	}
 
+	void Frame::setClientSize( const Dimension &size )
+	{
+		int x = size.getWidth() + getLeftMargin() + 
+			getRightMargin() + getMargin(SIDE_LEFT) + getMargin(SIDE_RIGHT);
+		int y = size.getHeight() + getTopMargin() + 
+			getBottomMargin() + getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM);
+
+		setSize(x,y);
+	}
+
+	void Frame::setClientSize( int width, int height )
+	{
+		setClientSize(Dimension(width,height));
+	}
+
 }

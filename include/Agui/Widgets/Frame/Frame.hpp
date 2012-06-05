@@ -152,6 +152,17 @@ namespace agui {
 		virtual void mouseUp(MouseEvent &mouseEvent);
 		virtual void setSize(const Dimension &size);
 		virtual void setSize(int width, int height);
+
+	/**
+	 * Sets the size of the content pane to the parameter size and properly factors in margins.
+     * @since 0.2.0
+     */
+		virtual void setClientSize(const Dimension &size);
+			/**
+	 * Sets the size of the content pane to the parameter size and properly factors in margins.
+     * @since 0.2.0
+     */
+		virtual void setClientSize(int width, int height);
 	/**
 	 * @return The frame's top margin (not the same as widget margins).
      * @since 0.1.0
