@@ -102,6 +102,7 @@ namespace agui {
 	{
 		paintEvent.graphics()->drawFilledRectangle(
 			getSizeRectangle(),getBackColor());
+    paintEvent.graphics()->drawRectangle(getSizeRectangle(), getFontColor());
 	}
 
 	void ToolTip::paintComponent( const PaintEvent &paintEvent )
@@ -136,7 +137,6 @@ namespace agui {
 	{
 		return preferredOffset;
 	}
-
 	Widget* ToolTip::getInvoker() const
 	{
 		return invoker;
