@@ -120,14 +120,14 @@ namespace agui
 			//this ensures that the spacing is respected
 
 			locationX = (int)(((double)xCount / (double)childrenInColumn) * 
-				(double)(getInnerWidth() + verticalSpacing));
+				(double)(getInnerWidth() + horizontalSpacing));
 			locationY = (int)(((double)yCount / (double)childrenInRow) * 
 				(double)(getInnerHeight() + verticalSpacing));
 
 			//solve for next location and subtract it from
 			//the current and factor in spacing
 			sizeX = (int)((((double)(xCount + 1) / (double)childrenInColumn) * 
-				(double)(getInnerWidth() + verticalSpacing)) - 
+				(double)(getInnerWidth() + horizontalSpacing)) - 
 				locationX - horizontalSpacing);
 
 			sizeY = (int)((((double)(yCount + 1) / (double)childrenInRow) * 

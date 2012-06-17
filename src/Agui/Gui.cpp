@@ -1138,6 +1138,15 @@ namespace agui
 	void Gui::_removeWidget( Widget *widget )
 	{
 		_widgetLocationChanged();
+
+		if(isToolTipVisible())
+		{
+			if(toolTip->getInvoker() == widget)
+			{
+				hideToolTip();
+			}
+		}
+
 		if(widget == widgetUnderMouse)
 			widgetUnderMouse = NULL;
 
@@ -1510,17 +1519,21 @@ namespace agui
 		}
 	}
 
-	void Gui::showToolTip( Widget* widget, int x, int y )
+	void Gui::showToolTip( Widget* widget, int x, int y)
 	{
 		if(toolTip && widget && widget->getToolTipText().length() > 0)
 		{
-
+			if(toolTip->getParent() == NULL)
+			{
+				getTop()->add(toolTip);
+			}
 			toolTip->bringToFront();
 			toolTip->showToolTip(
 				widget->getToolTipText(),
 				getMaxToolTipWidth(),
 				x + toolTip->getPreferredOffset().getX(),
-				y + toolTip->getPreferredOffset().getY());
+				y + toolTip->getPreferredOffset().getY(),
+				widget);
 
 			hasHiddenToolTip = false;
 			lastToolTipTime = getElapsedTime();
@@ -1645,6 +1658,16 @@ namespace agui
 	void Gui::_modalChanged()
 	{
 		_widgetLocationChanged();
+	}
+
+	bool Gui::isToolTipVisible() const
+	{
+		if(toolTip)
+		{
+			return toolTip->isVisible();
+		}
+
+		return false;
 	}
 
 }

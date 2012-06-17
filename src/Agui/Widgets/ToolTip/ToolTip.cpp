@@ -44,7 +44,7 @@ namespace agui {
 
 
 	ToolTip::ToolTip()
-		: align(ALIGN_TOP_LEFT)
+		: align(ALIGN_TOP_LEFT), invoker(NULL)
 	{
 		resizableText.setSingleLine(false);
 		setVisibility(false);
@@ -60,8 +60,10 @@ namespace agui {
 			dispatchActionEvent(ActionEvent(this));
 	}
 
-	void ToolTip::showToolTip( const std::string& text, int width, int x, int y )
+	void ToolTip::showToolTip( const std::string& text, int width, int x, int y, Widget* invoker )
 	{
+		this->invoker = invoker;
+
 		setLocation(x,y);
 		int w = width <= 0 ? 1000 : width;
 		resizableText.makeTextLines(getFont(),text,wrappedText,w);
@@ -122,6 +124,7 @@ namespace agui {
 	void ToolTip::hideToolTip()
 	{
 		setVisibility(false);
+		invoker = NULL;
 	}
 
 	void ToolTip::setPreferredOffset( Point offset )
@@ -132,6 +135,11 @@ namespace agui {
 	Point ToolTip::getPreferredOffset() const
 	{
 		return preferredOffset;
+	}
+
+	Widget* ToolTip::getInvoker() const
+	{
+		return invoker;
 	}
 
 }

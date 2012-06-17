@@ -539,13 +539,19 @@ namespace agui
 		ToolTip* getToolTip() const;
 
 	/**
-	 * Shows the ToolTip for the specified Widget
+	 * Shows the ToolTip for the specified Widget.
      * @since 0.2.0
      */
 		void showToolTip(Widget* widget, int x, int y);
 
+		/**
+	 * @return True if the tooltip is showing.
+     * @since 0.2.0
+     */
+		bool isToolTipVisible() const;
+
 	/**
-	 * Shows the ToolTip for the specified Widget
+	 * Hides the ToolTip.
      * @since 0.2.0
      */
 		void hideToolTip();

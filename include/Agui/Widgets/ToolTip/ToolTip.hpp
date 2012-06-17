@@ -58,6 +58,7 @@ namespace agui {
 		std::vector<std::string> wrappedText;
 		AreaAlignmentEnum align;
 		agui::Point preferredOffset;
+		Widget* invoker;
 
 	protected:
 		ResizableText resizableText;
@@ -66,13 +67,14 @@ namespace agui {
 	public:
 		ToolTip();
 		const std::vector<std::string>& getAreaText() const;
-		virtual void showToolTip(const std::string& text, int width, int x, int y);
+		virtual void showToolTip(const std::string& text, int width, int x, int y, Widget* invoker);
 		virtual void hideToolTip();
 		virtual void mouseClick(MouseEvent &mouseEvent);
 		virtual void setTextAlignment(AreaAlignmentEnum alignment);
 		virtual AreaAlignmentEnum getTextAlignment() const;
 		virtual void setPreferredOffset(Point offset);
 		virtual Point getPreferredOffset() const;
+		Widget* getInvoker() const;
 
 	};
 }
