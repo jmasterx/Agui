@@ -234,4 +234,14 @@ namespace agui {
 		return resizableText.isSingleLine();
 	}
 
+	int Label::getNumTextLines() const
+	{
+		return lines.size();
+	}
+
+	std::vector<std::string>& Label::getTextLines()
+	{
+		return lines;
+	}
+
 }

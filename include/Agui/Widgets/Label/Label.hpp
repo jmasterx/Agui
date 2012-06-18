@@ -140,6 +140,19 @@ namespace agui {
      * @since 0.1.0
      */
 		void setAlignment(AreaAlignmentEnum alignment);
+
+		/**
+	 * @return Number of text lines.
+     * @since 0.2.0
+     */
+		int getNumTextLines() const;
+
+			/**
+	 * @return The array of text lines used to render the text.
+     * @since 0.2.0
+     */
+		std::vector<std::string>& getTextLines();
+
 	/**
 	 * Default constructor.
      * @since 0.1.0
