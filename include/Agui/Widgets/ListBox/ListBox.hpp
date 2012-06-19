@@ -67,8 +67,9 @@ namespace agui {
 		agui::Color color;
 		std::string text;
 		std::string tooltip;
+		void* tag;
 		ListBoxItem(const std::string& txt,const agui::Color& col)
-			: text(txt),color(col)
+			: text(txt),color(col),tag(NULL)
 		{
 
 		}
