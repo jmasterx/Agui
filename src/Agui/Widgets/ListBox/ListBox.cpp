@@ -1686,6 +1686,8 @@ namespace agui {
 	{
 		resizeWidthToContents();
 		resizeHeightToContents();
+		resizeWidthToContents();
+		resizeHeightToContents();
 	}
 
 	void ListBox::resizeWidthToContents()
@@ -1706,7 +1708,7 @@ namespace agui {
 		{
 			vscroll = pChildVScroll->getWidth();
 
-			setSize(getMargin(SIDE_LEFT) +
+			setSize(getMargin(SIDE_LEFT) + 
 				getMargin(SIDE_RIGHT) +
 				widestItem +
 				vscroll + (vscroll != 0 ? 2 : 0),
