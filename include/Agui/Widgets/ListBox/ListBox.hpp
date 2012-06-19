@@ -120,6 +120,11 @@ namespace agui {
 		
 
 	protected:
+			 /**
+	 * Used by subclasses to set widest item.
+     * @since 0.2.0
+     */
+		void _setWidestItem(int widest);
 	 /**
 	 * Used to dispatch a selection event to the selection listeners.
      * @since 0.1.0

@@ -1806,5 +1806,10 @@ namespace agui {
 		return allowRightClick;
 	}
 
+	void ListBox::_setWidestItem( int widest )
+	{
+		widestItem = widest;
+	}
+
 }
 
