@@ -47,6 +47,7 @@ namespace agui
 	filterVisibility(true),updateOnChildRelocation(true),
 	updateOnChildResize(true),updateOnChildAddRemove(true)
 	{
+		setIsLayout(true);
 	}
 
 	Layout::~Layout(void)
@@ -132,9 +133,9 @@ namespace agui
 	{
 		if( resizeToParent && getParent())
 		{
-			Layout* layout = dynamic_cast<Layout*>(getParent());
+			
 
-			if(!layout)
+			if(!getParent()->isLayout())
 			setSize(getParent()->getInnerSize());
 		}
 	}

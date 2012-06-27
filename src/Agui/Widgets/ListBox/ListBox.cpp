@@ -133,38 +133,8 @@ namespace agui {
 			(*it)->death(this);
 		}
 
-		for(WidgetArray::iterator it = getPrivateChildBegin(); it != 
-			getPrivateChildEnd(); ++it)
-		{
-			HScrollBar* hbar = dynamic_cast<HScrollBar*>((*it));
-			VScrollBar* vbar = dynamic_cast<VScrollBar*>((*it));
-
-			if(hbar)
-			{
-				hbar->removeHScrollBarListener(this);
-			}
-
-			if(vbar)
-			{
-				vbar->removeVScrollBarListener(this);
-			}
-		}
-		for(WidgetArray::iterator it = getChildBegin(); it != 
-			getChildEnd(); ++it)
-		{
-			HScrollBar* hbar = dynamic_cast<HScrollBar*>((*it));
-			VScrollBar* vbar = dynamic_cast<VScrollBar*>((*it));
-
-			if(hbar)
-			{
-				hbar->removeHScrollBarListener(this);
-			}
-
-			if(vbar)
-			{
-				vbar->removeVScrollBarListener(this);
-			}
-		}
+		pChildHScroll->removeHScrollBarListener(this);
+		pChildVScroll->removeVScrollBarListener(this);
 
 		if(isMaintainingHScroll)
 		delete pChildHScroll;
@@ -206,6 +176,11 @@ namespace agui {
 				}
 				setWidestItem();
 				updateScrollBars();
+				setHoverIndex(getIndexAtPoint(agui::Point(getWidth() / 2,lastMouseY)));
+				if(isHoverSelection())
+				{
+					setSelectedIndex(hoveredIndex);
+				}
 				return;
 			}
 		}
@@ -239,6 +214,11 @@ namespace agui {
 			}
 			setWidestItem();
 			updateScrollBars();
+			setHoverIndex(getIndexAtPoint(agui::Point(getWidth() / 2,lastMouseY)));
+			if(isHoverSelection())
+			{
+				setSelectedIndex(hoveredIndex);
+			}
 			for(std::vector<ListBoxListener*>::iterator it = listboxListeners.begin();
 				it != listboxListeners.end(); ++it)
 			{
@@ -270,6 +250,11 @@ namespace agui {
 			}
 			setWidestItem();
 			updateScrollBars();
+			setHoverIndex(getIndexAtPoint(agui::Point(getWidth() / 2,lastMouseY)));
+			if(isHoverSelection())
+			{
+				setSelectedIndex(hoveredIndex);
+			}
 		}
 	}
 
@@ -1272,6 +1257,11 @@ namespace agui {
 		}
 		setWidestItem();
 		updateScrollBars();
+		setHoverIndex(getIndexAtPoint(agui::Point(getWidth() / 2,lastMouseY)));
+		if(isHoverSelection())
+		{
+			setSelectedIndex(hoveredIndex);
+		}
 	}
 
 	void ListBox::addItems( const std::vector<std::string> &items )
@@ -1301,6 +1291,11 @@ namespace agui {
 
 		setWidestItem();
 		updateScrollBars();
+		setHoverIndex(getIndexAtPoint(agui::Point(getWidth() / 2,lastMouseY)));
+		if(isHoverSelection())
+		{
+			setSelectedIndex(hoveredIndex);
+		}
 	}
 
 	void ListBox::moveToSelection(int selection)

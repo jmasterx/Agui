@@ -40,7 +40,6 @@
 
 #include "Agui/Gui.hpp"
 #include "Agui/TopContainer.hpp"
-#include "Agui/Widgets/Tab/TabbedPane.hpp"
 #include "Agui/Widgets/ToolTip/ToolTip.hpp"
 namespace agui
 {
@@ -1074,9 +1073,8 @@ namespace agui
 					{
 						//tabbed panes should not be previously tabbed
 						//to avoid circular dependency
-						TabbedPane* tp = dynamic_cast<TabbedPane*>(target);
 
-						if(!tp)
+						if(target->isReverseTabable())
 						{
 							target->focus();
 							return true;

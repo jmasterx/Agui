@@ -107,6 +107,8 @@ namespace agui {
 		WidgetArray privateChildren;
 		std::string toolTipText;
 		bool handlesChildLogic;
+		bool prevTabable;
+		bool layoutWidget;
 
 
 		std::vector<MouseListener*> mouseListeners;
@@ -898,6 +900,7 @@ namespace agui {
 		* Will not work if the widget is not focusable.
 		* @since 0.1.0
 		*/
+
 		virtual void			focus();
 		/**
 		* Called by the Gui when this widget loses input focus.
@@ -908,7 +911,29 @@ namespace agui {
 		* Called by the Gui when this widget needs to be painted.
 		* @since 0.1.0
 		*/
+
 		void					paint					(const PaintEvent &paintEvent);
+		/**
+		* Sets a hint of whether or not this Widget can be reverse tabbed.
+		* @since 0.2.0
+		*/
+			virtual void			setReverseTabable(bool tab);
+		/**
+		* @return True if this Widget is hinted as reverse tabable.
+		* @since 0.2.0
+		*/
+			virtual bool			isReverseTabable() const;
+			/**
+		* Sets a hint of whether or not this Widget is a Layout.
+		* @since 0.2.0
+		*/
+			virtual void			setIsLayout(bool layout);
+		/**
+		* @return True if this Widget is hinted as a Layout.
+		* @since 0.2.0
+		*/
+			virtual bool			isLayout() const;
+
 		/**
 		* sets whether or not this widget is enabled.
 		* @param enabled Boolean indicating if the widget will be enabled.

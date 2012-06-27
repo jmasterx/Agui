@@ -71,6 +71,7 @@ namespace agui {
     addPrivateChild(this->widgetContainer);
     setTabable(true);
     setFocusable(true);
+	setReverseTabable(false);
 
     adjustTabs();
   }

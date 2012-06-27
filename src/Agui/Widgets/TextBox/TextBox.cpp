@@ -336,38 +336,8 @@ namespace agui {
 				(*it)->death(this);
 		}
 
-		for(WidgetArray::iterator it = getPrivateChildBegin(); it != 
-			getPrivateChildEnd(); ++it)
-		{
-			HScrollBar* hbar = dynamic_cast<HScrollBar*>((*it));
-			VScrollBar* vbar = dynamic_cast<VScrollBar*>((*it));
-
-			if(hbar)
-			{
-				hbar->removeHScrollBarListener(this);
-			}
-
-			if(vbar)
-			{
-				vbar->removeVScrollBarListener(this);
-			}
-		}
-		for(WidgetArray::iterator it = getChildBegin(); it != 
-			getChildEnd(); ++it)
-		{
-			HScrollBar* hbar = dynamic_cast<HScrollBar*>((*it));
-			VScrollBar* vbar = dynamic_cast<VScrollBar*>((*it));
-
-			if(hbar)
-			{
-				hbar->removeHScrollBarListener(this);
-			}
-
-			if(vbar)
-			{
-				vbar->removeVScrollBarListener(this);
-			}
-		}
+		pChildHScroll->removeHScrollBarListener(this);
+		pChildVScroll->removeVScrollBarListener(this);
 
 		if(isMaintainingHScroll)
 		{

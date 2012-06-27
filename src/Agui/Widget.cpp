@@ -50,7 +50,8 @@ namespace agui {
 	   isWidgetVisible(true),isWidgetEnabled(true),
 	   isWidgetFocusable(false),isWidgetTabable(false), paintingChildren(false),
 	   tMargin(1),lMargin(1),bMargin(1),rMargin(1), textLen(0),
-	   flaggedForDestruction(false),handlesChildLogic(false)
+	   flaggedForDestruction(false),handlesChildLogic(false),prevTabable(true),
+	   layoutWidget(false)
 	{
 		setLocation(Point(0,0));
 		setMargins(1,1,1,1);
@@ -413,6 +414,7 @@ namespace agui {
 			(*it)->_parentSizeChangedEvent();
 			(*it)->parentSizeChanged();
 		}
+
 		for(std::vector<WidgetListener*>::iterator it =
 			widgetListeners.begin();
 			it != widgetListeners.end(); ++it)
@@ -2014,6 +2016,26 @@ namespace agui {
 		}
 
 		return getGui()->setCursor(cursor);
+	}
+
+	void Widget::setReverseTabable( bool tab )
+	{
+		prevTabable = tab;
+	}
+
+	bool Widget::isReverseTabable() const
+	{
+		return prevTabable;
+	}
+
+	void Widget::setIsLayout( bool layout )
+	{
+		layoutWidget = layout;
+	}
+
+	bool Widget::isLayout() const
+	{
+		return layoutWidget;
 	}
 
 
