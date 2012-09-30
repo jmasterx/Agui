@@ -55,14 +55,26 @@ namespace agui {
 	{
 	public:
 		TextFieldListener(void);
-		virtual void selectionChanged(TextField* source, int selectionStart,
-			int selectionEnd) {}
-		virtual void numericChanged(TextField* source, bool numeric,
-			bool wantDecimal, bool wantMinus){}
-		virtual void readOnlyChanged(TextField* source, bool readOnly) {}
-		virtual void selectableChanged(TextField* source, bool selectable) {}
-		virtual void hideSelectionChanged(TextField* source, bool hideSelection) {}
-		virtual void death(TextField* source) {}
+		virtual void selectionChanged(TextField*,
+      int selectionStart,
+			int selectionEnd)
+    {
+      (void)(selectionStart);
+      (void)(selectionEnd);
+    }
+		virtual void numericChanged(TextField*,
+      bool numeric,
+			bool wantDecimal,
+      bool wantMinus)
+    {
+      (void)(numeric);
+      (void)(wantDecimal);
+      (void)(wantMinus);
+    }
+		virtual void readOnlyChanged(TextField*, bool) {}
+		virtual void selectableChanged(TextField*, bool) {}
+		virtual void hideSelectionChanged(TextField*, bool) {}
+		virtual void death(TextField*) {}
 
 		virtual ~TextFieldListener(void);
 	};

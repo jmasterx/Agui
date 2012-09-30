@@ -56,14 +56,14 @@ namespace agui
 	{
 	public:
 		virtual void death(Frame* source) {}
-		virtual void contentChildAdded(Frame* source, Widget* widget) {}
-		virtual void contentChildRemoved(Frame* source, Widget* widget) {}
-		virtual void topMarginChanged(Frame* source, int margin) {}
-		virtual void bottomMarginChanged(Frame* source, int margin) {}
-		virtual void leftMarginChanged(Frame* source, int margin) {}
-		virtual void rightMarginChanged(Frame* source, int margin) {}
-		virtual void resizableChanged(Frame* source, int margin) {}
-		virtual void movableChanged(Frame* source, int margin) {}
+		virtual void contentChildAdded(Frame*, Widget*) {}
+		virtual void contentChildRemoved(Frame*, Widget*) {}
+		virtual void topMarginChanged(Frame*, int) {}
+		virtual void bottomMarginChanged(Frame*, int) {}
+		virtual void leftMarginChanged(Frame*, int) {}
+		virtual void rightMarginChanged(Frame*, int) {}
+		virtual void resizableChanged(Frame*, int) {}
+		virtual void movableChanged(Frame*, int) {}
 		FrameListener(void);
 		virtual ~FrameListener(void);
 	};

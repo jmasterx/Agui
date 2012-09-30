@@ -54,18 +54,18 @@ namespace agui {
 	public:
 		ButtonListener(void);
 
-		virtual void buttonStateChanged(Button *source, 
-			Button::ButtonStateEnum state) {}
+		virtual void buttonStateChanged(Button *, 
+			Button::ButtonStateEnum) {}
 
-		virtual void toggleStateChanged(Button *source, bool state) {}
+		virtual void toggleStateChanged(Button *, bool) {}
 
-		virtual void death(Button *source) {}
+		virtual void death(Button *) {}
 
-		virtual void isToggleButtonChanged(Button *source, 
-			bool isToggleButton) {}
+		virtual void isToggleButtonChanged(Button *, 
+			bool) {}
 
-		virtual void textAlignmentChanged(Button *source, 
-			AreaAlignmentEnum alignment) {}
+		virtual void textAlignmentChanged(Button *, 
+			AreaAlignmentEnum) {}
 
 
 		virtual ~ButtonListener(void);

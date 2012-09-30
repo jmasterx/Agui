@@ -53,13 +53,13 @@ namespace agui {
 	class AGUI_CORE_DECLSPEC SliderListener
 	{
 	public:
-		virtual void valueChanged(Slider* source, int value) {}
-		virtual void minValueChanged(Slider* source, int value) {}
-		virtual void maxValueChanged(Slider* source, int value) {}
-		virtual void stepLengthChanged(Slider* source, int length) {}
-		virtual void alignMarkerChanged(Slider* source, bool align) {}
-		virtual void orientationChanged(Slider* source, OrientationEnum orientation) {}
-		virtual void death(Slider* source) {}
+		virtual void valueChanged(Slider*, int) {}
+		virtual void minValueChanged(Slider*, int) {}
+		virtual void maxValueChanged(Slider*, int) {}
+		virtual void stepLengthChanged(Slider*, int) {}
+		virtual void alignMarkerChanged(Slider*, bool) {}
+		virtual void orientationChanged(Slider*, OrientationEnum) {}
+		virtual void death(Slider*) {}
 
 		SliderListener(void);
 		virtual ~SliderListener(void);

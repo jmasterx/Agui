@@ -59,14 +59,14 @@ namespace agui {
 	public:
 		HScrollBarListener(void);
 		virtual void valueChanged(HScrollBar* source, int val) = 0;
-		virtual void minValueChanged(HScrollBar* source, int val) {}
-		virtual void maxValueChanged(HScrollBar* source, int val) {}
-		virtual void arrowWidthChanged(HScrollBar* source, int width) {}
-		virtual void largeAmountChanged(HScrollBar* source, int amount) {}
-		virtual void leftAmountChanged(HScrollBar* source, int amount) {}
-		virtual void rightAmountChanged(HScrollBar* source, int amount) {}
-		virtual void minThumbWidthChanged(HScrollBar* source, int width) {}
-		virtual void death(HScrollBar* source) {}
+		virtual void minValueChanged(HScrollBar*, int) {}
+		virtual void maxValueChanged(HScrollBar*, int) {}
+		virtual void arrowWidthChanged(HScrollBar*, int) {}
+		virtual void largeAmountChanged(HScrollBar*, int) {}
+		virtual void leftAmountChanged(HScrollBar*, int) {}
+		virtual void rightAmountChanged(HScrollBar*, int) {}
+		virtual void minThumbWidthChanged(HScrollBar*, int) {}
+		virtual void death(HScrollBar*) {}
 
 		virtual ~HScrollBarListener(void);
 	};

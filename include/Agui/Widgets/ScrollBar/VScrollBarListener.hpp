@@ -59,16 +59,14 @@ namespace agui {
 	public:
 		VScrollBarListener(void);
 		virtual void valueChanged(VScrollBar* source, int val) = 0;
-		virtual void minValueChanged(VScrollBar* source, int val) {}
-		virtual void maxValueChanged(VScrollBar* source, int val) {}
-		virtual void arrowHeightChanged(VScrollBar* source, int height) {}
-		virtual void largeAmountChanged(VScrollBar* source, int amount) {}
-		virtual void topAmountChanged(VScrollBar* source, int amount) {}
-		virtual void bottomAmountChanged(VScrollBar* source, int amount) {}
-		virtual void minThumbHeightChanged(VScrollBar* source, int height) {}
-		virtual void death(VScrollBar* source) {}
-
-
+		virtual void minValueChanged(VScrollBar*, int) {}
+		virtual void maxValueChanged(VScrollBar*, int) {}
+		virtual void arrowHeightChanged(VScrollBar*, int) {}
+		virtual void largeAmountChanged(VScrollBar*, int) {}
+		virtual void topAmountChanged(VScrollBar*, int) {}
+		virtual void bottomAmountChanged(VScrollBar*, int) {}
+		virtual void minThumbHeightChanged(VScrollBar*, int) {}
+		virtual void death(VScrollBar*) {}
 
 		virtual ~VScrollBarListener(void);
 	};

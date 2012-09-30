@@ -54,10 +54,10 @@ namespace agui {
 	{
 	public:
 		FocusListener(void);
-		virtual void focusGainedCB(Widget* source){}
-		virtual void focusLostCB(Widget* source) {}
-		virtual void modalFocusGainedCB(Widget* source) {}
-		virtual void modalFocusLostCB(Widget* source) {}
+		virtual void focusGainedCB(Widget*){}
+		virtual void focusLostCB(Widget*) {}
+		virtual void modalFocusGainedCB(Widget*) {}
+		virtual void modalFocusLostCB(Widget*) {}
 
 		virtual ~FocusListener(void);
 	};

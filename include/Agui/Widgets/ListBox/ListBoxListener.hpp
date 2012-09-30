@@ -58,8 +58,8 @@ namespace agui {
 		virtual ~ListBoxListener(void);
 	public:
 		ListBoxListener(void);
-		virtual void itemAdded(ListBox* source, const std::string& item) {}
-		virtual void itemRemoved(ListBox* source, const std::string& item) {}
+		virtual void itemAdded(ListBox*, const std::string&) {}
+		virtual void itemRemoved(ListBox*, const std::string&) {}
 		virtual void sortedChanged(ListBox* source, bool sorted)
 		{(void)source; (void)sorted;}
 		virtual void rSortedChanged(ListBox* source, bool rSorted)

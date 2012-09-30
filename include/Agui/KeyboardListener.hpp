@@ -54,16 +54,10 @@ namespace agui {
 	{
 	public:
 		KeyboardListener(void);
-	virtual	void keyDownCB(
-			KeyEvent &keyEvent){}
-
-	virtual	void keyUpCB(
-		 KeyEvent &keyEvent){}
-
-	virtual	void keyRepeatCB(
-				 KeyEvent &keyEvent){}
-
-		virtual ~KeyboardListener(void);
+	virtual	void keyDownCB(KeyEvent &){}
+  virtual	void keyUpCB(KeyEvent &){}
+	virtual	void keyRepeatCB(KeyEvent &){}
+	virtual ~KeyboardListener(void);
 	};
 }
 #endif

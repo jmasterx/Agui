@@ -58,37 +58,32 @@ namespace agui {
 		WidgetListener(void);
 
 		virtual void childAdded(Widget* source,
-			Widget* widget) {}
+			Widget* widget)
+    { (void)(source); (void)(widget);}
 
 		virtual void childRemoved(Widget* source,
-			Widget* widget) {}
+			Widget* widget)
+    { (void)(source); (void)(widget);}
 
-		virtual void fontChanged(Widget* source, 
-			const Font *font) {}
+		virtual void fontChanged(Widget*, const Font *) {}
 
-		virtual void textChanged(Widget* source,
-			const std::string &text) {}
+		virtual void textChanged(Widget*, const std::string &) {}
 
-		virtual void enabledChanged(Widget* source, bool enabled) {}
+		virtual void enabledChanged(Widget*, bool) {}
 
-		virtual void visibilityChanged(Widget* source, bool visible) {}
+		virtual void visibilityChanged(Widget*, bool visible) { (void)(visible); }
 
-		virtual void locationChanged(Widget* source, 
-			const Point &location) {}
+		virtual void locationChanged(Widget*, const Point &) {}
 
-		virtual void death(Widget* source) {}
+		virtual void death(Widget*) {}
 
-		virtual void sizeChanged(Widget* source, 
-			const Dimension &size) {}
+		virtual void sizeChanged(Widget*, const Dimension &) {}
 
-		virtual void minSizeChanged(Widget* source, 
-			const Dimension &minSize) {}
+		virtual void minSizeChanged(Widget*, const Dimension &) {}
 
-		virtual void maxSizeChanged(Widget* source,
-			const Dimension &maxSize) {}
+		virtual void maxSizeChanged(Widget*, const Dimension &) {}
 
-		virtual void parentSizeChanged(Widget* source,
-			const Dimension &parentInnerSize) {}
+		virtual void parentSizeChanged(Widget*, const Dimension &) {}
 
 	};
 }

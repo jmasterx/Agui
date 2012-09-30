@@ -57,44 +57,19 @@ namespace agui {
 		MouseListener(void);
 		virtual ~MouseListener(void) {};
 
-		virtual void mouseDownCB(
-			MouseEvent &mouseEvent) {}
-
-		virtual void mouseUpCB(
-			MouseEvent &mouseEvent) {}
-
-		virtual void mouseMoveCB(
-			MouseEvent &mouseEvent){}
-
-		virtual void mouseClickCB(
-			MouseEvent &mouseEvent){}
-
-		virtual void mouseDoubleClickCB(
-			MouseEvent &mouseEvent) {}
-
-		virtual void mouseWheelUpCB(
-			MouseEvent &mouseEvent) {}
-
-		virtual void mouseWheelDownCB(
-			MouseEvent &mouseEvent) {}
-
-		virtual void mouseEnterCB(
-			MouseEvent &mouseEvent) {}
-
-		virtual void mouseLeaveCB(
-			MouseEvent &mouseEvent) {}
-
-		virtual void mouseHoverCB(
-			MouseEvent &mouseEvent) {}
-
-		virtual void mouseDragCB(
-			MouseEvent &mouseEvent) {}
-
-		virtual void modalMouseDownCB(
-			MouseEvent &mouseEvent) {}
-
-		virtual void modalMouseUpCB(
-			MouseEvent &mouseEvent) {}
+		virtual void mouseDownCB(MouseEvent &) {}
+		virtual void mouseUpCB(MouseEvent &) {}
+		virtual void mouseMoveCB(MouseEvent &){}
+		virtual void mouseClickCB(MouseEvent &){}
+ 		virtual void mouseDoubleClickCB(MouseEvent &) {}
+		virtual void mouseWheelUpCB(MouseEvent &) {}
+		virtual void mouseWheelDownCB(MouseEvent &) {}
+		virtual void mouseEnterCB(MouseEvent &) {}
+	  virtual void mouseLeaveCB(MouseEvent &) {}
+		virtual void mouseHoverCB(MouseEvent &) {}
+		virtual void mouseDragCB(MouseEvent &) {}
+		virtual void modalMouseDownCB(MouseEvent &) {}
+		virtual void modalMouseUpCB(MouseEvent &) {}
 
 	};
 }
