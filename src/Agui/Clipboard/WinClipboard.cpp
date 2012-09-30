@@ -130,7 +130,7 @@ namespace agui
 	{
 		// get length
 		int length = WideCharToMultiByte( CP_UTF8, NULL,
-			input.c_str(), input.size(),
+			input.c_str(), int(input.size()),
 			NULL, 0,
 			NULL, NULL );
 		if( !(length > 0) )
@@ -141,8 +141,8 @@ namespace agui
 			result.resize( length );
 
 			if( WideCharToMultiByte( CP_UTF8, NULL,
-				input.c_str(), input.size(),
-				&result[0], result.size(),
+				input.c_str(), int(input.size()),
+				&result[0], int(result.size()),
 				NULL, NULL ) > 0 )
 				return result;
 			else
@@ -155,7 +155,7 @@ namespace agui
 	{
 		// get length
 		int length = MultiByteToWideChar( CP_UTF8, NULL,
-			input.c_str(), input.size(),
+			input.c_str(), int(input.size()),
 			NULL, 0 );
 		if( !(length > 0) )
 			return std::wstring();
@@ -165,8 +165,8 @@ namespace agui
 			result.resize( length );
 
 			if( MultiByteToWideChar(CP_UTF8, NULL,
-				input.c_str(), input.size(),
-				&result[0], result.size()) > 0 )
+				input.c_str(), int(input.size()),
+				&result[0], int(result.size())) > 0 )
 				return result;
 			else
 				return std::wstring();

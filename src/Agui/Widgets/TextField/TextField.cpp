@@ -395,7 +395,7 @@ namespace agui {
 		if(isPassword())
 		{
 			
-			int len = unicodeFunctions.length(text);
+			int len = int(unicodeFunctions.length(text));
 			int subLen = len;
 			if( len > getMaxLength())
 			{
@@ -776,7 +776,7 @@ namespace agui {
 	void TextField::resizeHeightToContents()
 	{
 		setSize(getSize().getWidth(), getFont()->getLineHeight()
-			+ getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM) 
+			+ getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM)
 			+ 4); //added 4 to ensure everything shows up comfortably
 	}
 
@@ -1329,7 +1329,7 @@ namespace agui {
 			}
 		}
 
-		int length = unicodeFunctions.length(noNewLine);
+		int length = int(unicodeFunctions.length(noNewLine));
 		int numRemainingChar = getMaxLength() - getTextLength();
 		if(numRemainingChar < length)
 		{
@@ -1369,7 +1369,7 @@ namespace agui {
 			}
 		}
 
-		int length = unicodeFunctions.length(noNewLine);
+		int length = int(unicodeFunctions.length(noNewLine));
 		int numRemainingChar = getMaxLength() - getTextLength();
 		if(numRemainingChar < length)
 		{

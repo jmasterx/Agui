@@ -236,7 +236,7 @@ namespace agui {
 
 	int Label::getNumTextLines() const
 	{
-		return lines.size();
+		return int(lines.size());
 	}
 
 	std::vector<std::string>& Label::getTextLines()

@@ -194,7 +194,7 @@ namespace agui {
 
 	int ListBox::getLength() const
 	{
-		return items.size();
+		return int(items.size());
 	}
 
 	void ListBox::addItemAt( const std::string &item, int index )
@@ -1229,7 +1229,7 @@ namespace agui {
 					len = 0;
 				}
 
-				curpos = i + 1;
+				curpos = int(i + 1);
 			}
 			else
 			{
@@ -1721,7 +1721,7 @@ namespace agui {
 		setSize(getWidth(),
 			getMargin(SIDE_TOP) +
 			getMargin(SIDE_BOTTOM) +
-			items.size() * getItemHeight() +
+			int(items.size()) * getItemHeight() +
 			hscroll
 			);
 	}

@@ -89,10 +89,10 @@ namespace agui {
 		Dimension minSize;
 		Dimension size;
 		Dimension innerSize;
-		size_t tMargin;
-		size_t lMargin;
-		size_t bMargin;
-		size_t rMargin;
+		int tMargin;
+		int lMargin;
+		int bMargin;
+		int rMargin;
 		bool isWidgetEnabled;
 		bool isWidgetVisible;
 		bool isWidgetFocusable;
@@ -386,7 +386,7 @@ namespace agui {
 	* @param r The right margin.
 	* @since 0.1.0
 	*/
-		void setMargins(size_t t, size_t l, size_t b, size_t r);
+		void setMargins(int t, int l, int b, int r);
 
 
 	/**
@@ -540,7 +540,7 @@ namespace agui {
 	* @param side The side to get the margin of.
 	* @since 0.1.0
 	*/
-		size_t getMargin(SideEnum side) const;
+		int getMargin(SideEnum side) const;
 
 	/**
 	* @return A boolean indicating if a given mouse button being pressed should keep the mouse locked. 	* For example, if you do not want a subsequent right click to unlock a locked widget, override this method.

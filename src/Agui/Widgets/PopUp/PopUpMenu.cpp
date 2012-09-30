@@ -63,7 +63,7 @@ namespace agui {
 
 	int PopUpMenu::getLength() const
 	{
-		return items.size();
+		return int(items.size());
 	}
 
 	void PopUpMenu::addItems( const std::vector<PopUpMenuItem*>& itemVec )
@@ -214,7 +214,7 @@ namespace agui {
 
 	void PopUpMenu::resizeHeightToContents()
 	{
-		int h = 0;
+		size_t h = 0;
 		for(int i = 0; i < getLength(); ++i)
 		{
 			if(items[i]->isSeparator())
@@ -229,12 +229,12 @@ namespace agui {
 
 		h += getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM);
 
-		setSize(getWidth(),h);
+		setSize(getWidth(), int(h));
 	}
 
 	void PopUpMenu::resizeWidthToContents()
 	{
-		int w = 0;
+		size_t w = 0;
 		for(int i = 0; i < getLength(); ++i)
 		{
 			int tempWidth = getItemWidth(items[i]);
@@ -246,7 +246,7 @@ namespace agui {
 
 		w += getMargin(SIDE_LEFT) + getMargin(SIDE_RIGHT);
 
-		setSize(w,getHeight());
+		setSize(int(w), getHeight());
 	}
 
 	void PopUpMenu::resizeToContents()
@@ -257,10 +257,10 @@ namespace agui {
 
 	int PopUpMenu::getIndexAtPoint( const Point& p ) const
 	{
-		if(p.getY() < (int)getMargin(SIDE_TOP) ||
-			p.getY() > getInnerHeight() + (int)getMargin(SIDE_TOP) ||
-			p.getX() < (int)getMargin(SIDE_LEFT) ||
-			p.getX() > getInnerWidth() + (int)getMargin(SIDE_LEFT))
+		if(p.getY() < getMargin(SIDE_TOP) ||
+			p.getY() > getInnerHeight() + getMargin(SIDE_TOP) ||
+			p.getX() < getMargin(SIDE_LEFT) ||
+			p.getX() > getInnerWidth() + getMargin(SIDE_LEFT))
 		{
 			return -1;
 		}

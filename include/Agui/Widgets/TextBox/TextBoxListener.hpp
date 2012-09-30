@@ -50,17 +50,17 @@ namespace agui
 	class AGUI_CORE_DECLSPEC TextBoxListener
 	{
 	public:
-		virtual void death(TextBox* source) {}
-		virtual void maxLengthChanged(TextBox* source, int maxLength) {}
-		virtual void hidingSelectionChanged(TextBox* source, bool hiding) {}
-		virtual void standardArrowKeyRulesChanged(TextBox* source, bool usingStandard) {}
-		virtual void splittingWordsChanged(TextBox* source, bool splittingWords) {}
-		virtual void textAppended(TextBox* source, const std::string &appendedText) {}
-		virtual void selectionChanged(TextBox* source,int startIndex, int endIndex) {}
-		virtual void selectionDeleted(TextBox* source) {}
-		virtual void maxCharacterSkippedChanged(TextBox* source, int maxSkip) {}
-		virtual void readOnlyChanged(TextBox* source, bool readOnly) {}
-		virtual void wordWrappedChanged(TextBox* source, bool wordWrapped) {}
+		virtual void death(TextBox* source) { (void)(source); }
+		virtual void maxLengthChanged(TextBox* source, int maxLength) { (void)(source); (void)(maxLength); }
+		virtual void hidingSelectionChanged(TextBox* source, bool hiding) { (void)(source); (void)(hiding); }
+		virtual void standardArrowKeyRulesChanged(TextBox* source, bool usingStandard) { (void)(source);(void)(usingStandard); }
+		virtual void splittingWordsChanged(TextBox* source, bool splittingWords) { (void)(source); (void)(splittingWords); }
+		virtual void textAppended(TextBox* source, const std::string &appendedText) { (void)(source); (void)(appendedText); }
+		virtual void selectionChanged(TextBox* source,int startIndex, int endIndex) { (void)(source); (void)(startIndex); (void)(endIndex); }
+		virtual void selectionDeleted(TextBox* source) { (void)(source); }
+		virtual void maxCharacterSkippedChanged(TextBox* source, int maxSkip) { (void)(source); (int)(maxSkip); }
+		virtual void readOnlyChanged(TextBox* source, bool readOnly) { (void)(source); (void)(readOnly); }
+		virtual void wordWrappedChanged(TextBox* source, bool wordWrapped) { (void)(source); (void)(wordWrapped);}
 		TextBoxListener(void);
 		virtual ~TextBoxListener(void);
 	};

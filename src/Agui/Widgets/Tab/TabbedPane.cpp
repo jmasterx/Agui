@@ -84,7 +84,7 @@ namespace agui {
       (*it)->death(this);
     }
 
-    int sz = tabs.size();
+    int sz = int(tabs.size());
 
     for(int i = 0; i < sz; ++i)
     {

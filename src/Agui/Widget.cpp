@@ -141,7 +141,7 @@ namespace agui {
 				(*it)->textChanged(this,text);
 		}
 			this->text = text;
-			textLen = unicodeFunctions.length(getText());
+			textLen = int(unicodeFunctions.length(getText()));
 
 	}
 
@@ -721,7 +721,7 @@ namespace agui {
 
 	int Widget::getChildCount() const
 	{
-		return children.size();
+		return int(children.size());
 	}
 
 	Gui* Widget::getGui() const
@@ -1791,7 +1791,7 @@ namespace agui {
 		return maxSize;
 	}
 
-	void Widget::setMargins( size_t t, size_t l, size_t b, size_t r )
+	void Widget::setMargins( int t, int l, int b, int r )
 	{
 		tMargin = t;
 		lMargin = l;
@@ -1800,7 +1800,7 @@ namespace agui {
 		_setInnerSize();
 	}
 
-	size_t Widget::getMargin( SideEnum side ) const
+	int Widget::getMargin( SideEnum side ) const
 	{
 		switch (side)
 		{
@@ -1970,7 +1970,7 @@ namespace agui {
 
 	int Widget::getPrivateChildCount() const
 	{
-		return privateChildren.size();
+		return int(privateChildren.size());
 	}
 
 	Widget* Widget::getPrivateChildAt( int index ) const

@@ -297,7 +297,7 @@ namespace agui {
 
 	int TextBox::getContentHeight() const
 	{
-		return textRows.size() * getLineHeight();
+		return int(textRows.size() * getLineHeight());
 	}
 
 	int TextBox::getContentWidth() const
@@ -503,7 +503,7 @@ namespace agui {
 		rowLengths.clear();
 		for(size_t i = 0; i < textRows.size(); ++i)
 		{
-			rowLengths.push_back(unicodeFunctions.length(textRows[i]));
+			rowLengths.push_back(int(unicodeFunctions.length(textRows[i])));
 		}
 	}
 
@@ -521,7 +521,7 @@ namespace agui {
 		int len = getTextLength();
 		for(int i = 0; i < len; ++i)
 		{
-			curCharLen = unicodeFunctions.bringToNextUnichar(ind,getText());
+			curCharLen = int(unicodeFunctions.bringToNextUnichar(ind,getText()));
 			curChar = getText().substr(bytesSkipped,curCharLen);
 			bytesSkipped += curCharLen;
 		
@@ -583,9 +583,9 @@ namespace agui {
 			voffset = pChildVScroll->getWidth();
 		}
 		int AdjWidthMinusVoffset = getAdjustedWidth() - voffset;
-		int len = getTextLength();
-		int bytesSkipped = 0;
-		int letterLength = 0;
+		size_t len = getTextLength();
+		size_t bytesSkipped = 0;
+		size_t letterLength = 0;
 		size_t ind = 0;
 
 		for(int i = 0; i < len; ++i)
@@ -729,12 +729,12 @@ namespace agui {
 
 	int TextBox::getCaretRow() const
 	{
-		return caretRow;
+		return int(caretRow);
 	}
 
 	int TextBox::getCaretColumn() const
 	{
-		return caretColumn;
+		return int(caretColumn);
 	}
 
 	int TextBox::getCaretRowLocation() const
@@ -751,8 +751,8 @@ namespace agui {
 	{
 		if(caretRow >= (int)textRows.size())
 		{
-			caretRow = textRows.size() - 1;
-			int rowLen = unicodeFunctions.length(textRows[caretRow]);
+			caretRow = int(textRows.size()) - 1;
+			int rowLen = int(unicodeFunctions.length(textRows[caretRow]));
 			if(caretColumn > rowLen)
 			{
 				caretColumn = rowLen;
@@ -784,8 +784,8 @@ namespace agui {
 
 		if(caretRow >= (int)textRows.size())
 		{
-			caretRow = textRows.size() - 1;
-			int rowLen = unicodeFunctions.length(textRows[caretRow]);
+			caretRow = int(textRows.size() - 1);
+			int rowLen = int(unicodeFunctions.length(textRows[caretRow]));
 			if(caretColumn > rowLen)
 			{
 				caretColumn = rowLen;
@@ -1027,7 +1027,7 @@ namespace agui {
 
 			//get next character
 		
-				curCharLen = unicodeFunctions.bringToNextUnichar(ind,getText());
+				curCharLen = int(unicodeFunctions.bringToNextUnichar(ind,getText()));
 				//only increase for newlines
 				if(getText()[bytesSkipped] != '\n')
 				{
@@ -1053,7 +1053,7 @@ namespace agui {
 			{
 				//get next character
 			
-					curCharLen = unicodeFunctions.bringToNextUnichar(ind,getText());
+					curCharLen = int(unicodeFunctions.bringToNextUnichar(ind,getText()));
 					bytesSkipped += curCharLen;
 
 					retIndex++;
@@ -1073,8 +1073,8 @@ namespace agui {
 		size_t rowLen = 0;
 
 		int retIndex = -1;
-		int bytesSkipped = 0;
-		int curCharLen = 0;
+		size_t bytesSkipped = 0;
+		size_t curCharLen = 0;
 		size_t ind = 0;
 
 		if(textRows.size() == 0 || index == -1)
@@ -1090,28 +1090,28 @@ namespace agui {
 		
 			if(index == retIndex)
 			{
-				return Point(0,i);
+				return Point(0, int(i));
 			}
 
 
 			for(size_t j = 0; j < rowLen; ++j)
 			{
 				//get next character
-					curCharLen = unicodeFunctions.bringToNextUnichar(ind,getText());
+					curCharLen = unicodeFunctions.bringToNextUnichar(ind, getText());
 					bytesSkipped += curCharLen;
 
 					retIndex++;
 
 				if(retIndex == index)
 				{
-					return Point(j + 1,i);
+					return Point(int(j + 1) , int(i));
 				}
 			}
 
 			//handle -1th case
 
 			//get next character
-				curCharLen = unicodeFunctions.bringToNextUnichar(ind,getText());
+				curCharLen = unicodeFunctions.bringToNextUnichar(ind, getText());
 
 				//only increase for newlines
 				if(getText()[bytesSkipped] != '\n')
@@ -1126,7 +1126,7 @@ namespace agui {
 			
 		}
 
-		return Point(rowLen,textRows.size() - 1);
+		return Point(int(rowLen) , int(textRows.size() - 1));
 	}
 
 	void TextBox::mousePositionCaret(const Point& pos ) 
@@ -1161,7 +1161,7 @@ namespace agui {
 
 		if(caretRow >= (int)textRows.size())
 		{
-			caretRow = textRows.size() - 1;
+			caretRow = int(textRows.size()) - 1;
 			int rowLen = getRowLength(caretRow);
 			if(caretColumn > rowLen)
 			{
@@ -1645,7 +1645,7 @@ namespace agui {
 
 	int TextBox::getSelLineCount() const
 	{
-		return selPts.size();
+		return int(selPts.size());
 	}
 
 
@@ -1742,7 +1742,7 @@ namespace agui {
 			//only an end position for the last row
 			if(i < endColRow.getY())
 			{
-				colEnd = unicodeFunctions.length(textRows[i]) ;
+				colEnd = int(unicodeFunctions.length(textRows[i]));
 			}
 			else
 			{
@@ -1862,7 +1862,7 @@ namespace agui {
 
 	int TextBox::getTextLineCount() const
 	{
-		return textRows.size();
+		return int(textRows.size());
 	}
 
 	const std::string& TextBox::getTextLineAt( int line ) const
@@ -1992,7 +1992,7 @@ namespace agui {
 	void TextBox::appendText( const std::string &text, bool atCurrentPosition /*= true*/,
 								 bool repositionCaret /*= true*/ )
 	{
-		int length = unicodeFunctions.length(text);
+		int length = int(unicodeFunctions.length(text));
 		int numRemainingChar = getMaxLength() - getTextLength() + getSelectionLength();
 
 		if(numRemainingChar == 0)
@@ -2028,8 +2028,8 @@ namespace agui {
 
 		if(repositionCaret)
 		{
-			int len = unicodeFunctions.length(text);
-			int newIndex = (index - 1) + len;
+			int len = int(unicodeFunctions.length(text));
+			int newIndex = int(index - 1) + len;
 			mousePositionCaret(columnRowFromIndex(newIndex));
 		}
 

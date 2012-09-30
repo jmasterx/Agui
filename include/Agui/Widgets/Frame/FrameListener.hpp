@@ -55,7 +55,7 @@ namespace agui
 	class AGUI_CORE_DECLSPEC FrameListener
 	{
 	public:
-		virtual void death(Frame* source) {}
+		virtual void death(Frame*) {}
 		virtual void contentChildAdded(Frame*, Widget*) {}
 		virtual void contentChildRemoved(Frame*, Widget*) {}
 		virtual void topMarginChanged(Frame*, int) {}

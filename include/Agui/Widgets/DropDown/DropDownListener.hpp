@@ -57,13 +57,13 @@ namespace agui
 	class AGUI_CORE_DECLSPEC DropDownListener
 	{
 	public:
-		virtual void death(DropDown* source) {}
-		virtual void dropDownShown(DropDown* source) {}
-		virtual void dropDownHidden(DropDown* source) {}
-		virtual void resizeToWidestItemChanged(DropDown* source, bool resize) {}
-		virtual void maxDropDownHeightChanged(DropDown* source, int height) {}
-		virtual void itemAdded(DropDown* source, const std::string& item) {}
-		virtual void itemRemoved(DropDown* source, const std::string& item) {}
+		virtual void death(DropDown* source) { (void)(source); }
+		virtual void dropDownShown(DropDown* source) { (void)(source); }
+		virtual void dropDownHidden(DropDown* source) { (void)(source); }
+		virtual void resizeToWidestItemChanged(DropDown* source, bool resize) { (void)(source); (void)(resize); }
+		virtual void maxDropDownHeightChanged(DropDown* source, int height) { (void)(source);  (void)(height); }
+		virtual void itemAdded(DropDown* source, const std::string& item) { (void)(source);  (void)(item); }
+		virtual void itemRemoved(DropDown* source, const std::string& item) { (void)(source);  (void)(item); }
 		DropDownListener(void);
 		virtual ~DropDownListener(void);
 	};

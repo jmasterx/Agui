@@ -42,8 +42,10 @@
 #include "Agui/Clipboard/Clipboard.hpp"
 #if defined(_WIN32)
 #include "Agui/Clipboard/WinClipboard.hpp"
-#elif defined(__APPLE__)
-#include "Agui/Clipboard/OSXClipboard.hpp"
+// TODO This was not working for us because of some Cocoa issues.
+// So far the clipboard is not needed anyway.
+// #elif defined(__APPLE__)
+// #include "Agui/Clipboard/OSXClipboard.hpp"
 #else
 #endif
 
@@ -62,8 +64,8 @@ namespace agui
 
 #if defined(_WIN32)
 		WinClipboard::copy(input);
-#elif defined(__APPLE__)
-		OSXClipboard::copy(input);
+// #elif defined(__APPLE__)
+// 		OSXClipboard::copy(input);
 #else
 		inClipboard = input;
 #endif
@@ -73,8 +75,8 @@ namespace agui
 	{
 #if defined(_WIN32)
 		return _filter(WinClipboard::paste());
-#elif defined(__APPLE__)
-		return _filter(OSXClipboard::paste());
+// #elif defined(__APPLE__)
+// 		return _filter(OSXClipboard::paste());
 #else
 		return inClipboard;
 #endif

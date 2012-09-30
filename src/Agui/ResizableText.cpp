@@ -161,7 +161,7 @@ namespace agui
 		int curLetterWidth = 0;
 		int curLineWidth = 0;
 
-		int len = utf8Manager.length(text);
+		int len = int(utf8Manager.length(text));
 		int bytesSkipped = 0;
 		int letterLength = 0;
 
@@ -264,7 +264,7 @@ namespace agui
 		int curLetterWidth = 0;
 		int curLineWidth = 0;
 
-		int len = utf8Manager.length(text);
+		int len = int(utf8Manager.length(text));
 		int bytesSkipped = 0;
 		int letterLength = 0;
 

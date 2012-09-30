@@ -138,7 +138,7 @@ namespace agui {
 			{
 				unicodeFunctions.bringToNextUnichar(y,getText());
 			}
-			colorIndexStart = Point(x,y);
+			colorIndexStart = Point(int(x), int(y));
 
 	}
 
@@ -286,7 +286,7 @@ namespace agui {
 		TextBox::appendText(text,atCurrentPosition);
 		isEditingText = false;
 
-		int textLen = unicodeFunctions.length(text);
+		size_t textLen = unicodeFunctions.length(text);
 		for(int i = 0; i < textLen; ++i)
 		{
 			textColors.insert(textColors.begin() + (i + index),currentColor);
@@ -310,12 +310,12 @@ namespace agui {
 		int textX = getHorizontalOffset();
 		int textY = getVerticalOffset();
 
-		int curLen = 0;
+		size_t curLen = 0;
 		int curWidth = 0;
 		int totalWidth = 0;
 		size_t uniPos = 0;
 		size_t colorUniPos = 0;
-		int bytesSkipped = 0;
+		size_t bytesSkipped = 0;
 
 
 		int colorIndex = getColorIndexStart().getX();

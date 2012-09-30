@@ -93,7 +93,7 @@ namespace agui
 
 			}
 		}
-		return utf8.length(str);
+		return int(utf8.length(str));
 
 	}
 

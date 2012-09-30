@@ -68,7 +68,7 @@ namespace agui {
 		int w = width <= 0 ? 1000 : width;
 		resizableText.makeTextLines(getFont(),text,wrappedText,w);
 
-		int newHeight = wrappedText.size() * getFont()->getLineHeight();
+		int newHeight = int(wrappedText.size()) * getFont()->getLineHeight();
 
 		int newWidth = w;
 
@@ -85,8 +85,8 @@ namespace agui {
 			if(widestLine < width)
 			newWidth = widestLine;
 
-		newWidth += (getMargin(SIDE_LEFT) + getMargin(SIDE_RIGHT));
-		newHeight += (getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM));
+		newWidth += getMargin(SIDE_LEFT) + getMargin(SIDE_RIGHT);
+		newHeight += getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM);
 
 		setSize(newWidth,newHeight);
 

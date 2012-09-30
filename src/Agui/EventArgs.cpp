@@ -228,7 +228,7 @@ namespace agui {
 	std::string KeyEvent::getUtf8String() const
 	{
 		char b[5];
-		int sz = utf8Manager.encodeUtf8(b,unichar);
+		int sz = int(utf8Manager.encodeUtf8(b,unichar));
 		b[sz] = 0;
 		return std::string(b);
 	}
