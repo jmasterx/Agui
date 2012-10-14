@@ -89,6 +89,7 @@ namespace agui {
 		AlignmentEnum textAlign;
 		int tOffset;
 		bool hotkeys;
+    Color frameColor;
 		
 
 		int selStart;

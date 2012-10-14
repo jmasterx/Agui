@@ -125,7 +125,7 @@ namespace agui
      * @return The top left Point.
      * @since 0.1.0
      */
-		Point getTopLeft() const;
+		Point getLeftTop() const;
 	/**
      * @return The top right Point.
      * @since 0.1.0
@@ -140,7 +140,7 @@ namespace agui
      * @return The bottom right Point.
      * @since 0.1.0
      */
-		Point getBottomRight() const;
+		Point getRightBottom() const;
 	/**
      * Default constructor.
      * @since 0.1.0

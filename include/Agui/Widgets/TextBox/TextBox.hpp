@@ -88,6 +88,7 @@ namespace agui {
 		std::vector<int> rowLengths;
 		Point selectionIndexes;
 		Color selectionBackColor;
+    Color frameColor;
 		int topPadding;
 		int leftPadding;
 		int bottomPadding;
@@ -398,6 +399,8 @@ namespace agui {
      * @since 0.1.0
      */
 		virtual const Color& getSelectionBackColor() const;
+    virtual void setFrameColor(const Color& color);
+    virtual const Color& getFrameColor() const;
 	/**
 	 * Handles the blinking.
      * @since 0.1.0

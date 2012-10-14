@@ -91,12 +91,12 @@ namespace agui
 	 * @return The top left margin point.
      * @since 0.1.0
      */
-		const Point& getTopLeftMargin() const;
+		const Point& getLeftTopMargin() const;
 	/**
 	 * @return The bottom right margin point.
      * @since 0.1.0
      */
-		const Point& getBottomRightMargin() const;
+		const Point& getRightBottomMargin() const;
 	/**
 	 * @return The margin of the parameter side.
      * @since 0.1.0

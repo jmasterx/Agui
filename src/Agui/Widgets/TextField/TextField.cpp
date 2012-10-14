@@ -48,7 +48,7 @@ namespace agui {
 	 selectable(true),readOnly(false),numeric(false),wantDecimal(false),
 	 wantNegetive(false), hideSelection(true), alignOffset(0),tOffset(0),
 	 textAlign(ALIGN_LEFT),selectionBackColor(Color(169,193,214)),
-	 password(false), hotkeys(true)
+	 password(false), hotkeys(true), frameColor(Color(180,180,180))
 
 	{
 		setFocusable(true);
@@ -685,7 +685,7 @@ namespace agui {
 		if(isReadOnly())
 		{
 			paintEvent.graphics()->drawFilledRectangle(
-				getSizeRectangle(),Color(180,180,180));
+				getSizeRectangle(),frameColor);
 		}
 		else
 		{

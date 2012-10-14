@@ -75,7 +75,7 @@ namespace agui
 		loader = manager;
 	}
 
-	const Point& Image::getTopLeftMargin() const
+	const Point& Image::getLeftTopMargin() const
 	{
 		return leftTop;
 	}
@@ -101,7 +101,7 @@ namespace agui
 		}
 	}
 
-	const Point& Image::getBottomRightMargin() const
+	const Point& Image::getRightBottomMargin() const
 	{
 		return rightBottom;
 	}

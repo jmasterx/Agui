@@ -68,12 +68,12 @@ namespace agui
 		return x + width;
 	}
 
-	Point Rectangle::getTopLeft() const
+	Point Rectangle::getLeftTop() const
 	{
 		return Point(getLeft(),getTop());
 	}
 
-	Point Rectangle::getBottomRight() const
+	Point Rectangle::getRightBottom() const
 	{
 		return Point(getRight(),getBottom());
 	}

@@ -61,6 +61,7 @@ namespace agui {
 		int leftMargin;
 		int bottomMargin;
 		int rightMargin;
+    Color frontColor;
 
 		bool movable;
 		bool resizable;
@@ -208,6 +209,7 @@ namespace agui {
      * @since 0.1.0
      */
 		void setFrameMargins(int t, int l, int b, int r);
+    void setFrontColor(const Color& color);
 	/**
 	 * Adds the parameter widget to the content pane.
      * @since 0.1.0

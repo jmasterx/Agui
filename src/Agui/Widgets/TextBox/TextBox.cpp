@@ -2110,6 +2110,16 @@ namespace agui {
 		return selectionBackColor;
 	}
 
+  void TextBox::setFrameColor(const Color& color)
+  {
+    this->frameColor = color;
+  }
+
+  const Color& TextBox::getFrameColor() const
+  {
+    return this->frameColor;
+  }
+
 	void TextBox::selectAll()
 	{
 		setSelection(0,getTextLength());

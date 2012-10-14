@@ -73,7 +73,8 @@ namespace agui {
 		addPrivateChild(pChildContainer);
 		setFocusable(true);
 
-		setBackColor(Color(196,210,224));
+    setFrontColor(Color(240,240,240));
+    setBackColor(Color(196,210,224));
 
 
 		setTopMargin(getFont()->getLineHeight() + 6);
@@ -137,7 +138,7 @@ namespace agui {
 		paintEvent.graphics()->drawFilledRectangle(Rectangle(
 			getLeftMargin() - 1,getTopMargin() - 1,
 			getInnerSize().getWidth() - getLeftMargin() - getRightMargin() + 2,
-			getInnerSize().getHeight() - getTopMargin() - getBottomMargin() + 2),Color(240,240,240));
+      getInnerSize().getHeight() - getTopMargin() - getBottomMargin() + 2), this->frontColor);
 
 		paintEvent.graphics()->drawRectangle(Rectangle(
 			getLeftMargin() - 1,getTopMargin() - 1,
@@ -271,7 +272,7 @@ namespace agui {
 
 		Rectangle topRect = Rectangle(getMargin(SIDE_LEFT),getMargin(SIDE_TOP),
 			getInnerSize().getWidth(), getTopMargin());
-		Rectangle bottomRightRect = Rectangle(
+		Rectangle rightBottomRect = Rectangle(
 			getWidth() - (int)(getRightMargin() * 3.0),
 			getHeight() - (int)(getBottomMargin() * 3.0),
 			(int)(getRightMargin() * 3.0),
@@ -508,4 +509,8 @@ namespace agui {
 		setClientSize(Dimension(width,height));
 	}
 
+  void Frame::setFrontColor(const Color& color)
+  {
+    this->frontColor = color;
+  }
 }

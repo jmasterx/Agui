@@ -1417,7 +1417,7 @@ namespace agui {
 
 	Point Widget::getAbsolutePosition() const
 	{
-		return getAbsoluteRectangle().getTopLeft();
+		return getAbsoluteRectangle().getLeftTop();
 	}
 
 	
@@ -1458,51 +1458,51 @@ namespace agui {
 		switch (alignment)
 		{
 		case ALIGN_TOP_LEFT:
-			return parentRect.getTopLeft();
+			return parentRect.getLeftTop();
 			break;
 		case ALIGN_TOP_CENTER:
-			return Point(parentRect.getTopLeft().getX()
+			return Point(parentRect.getLeftTop().getX()
 				+ ((parentRect.getWidth() / 2) - childSize.getWidth() / 2)
-				, parentRect.getTopLeft().getY());
+				, parentRect.getLeftTop().getY());
 			break;
 		case ALIGN_TOP_RIGHT:
-			return Point(parentRect.getTopLeft().getX()
+			return Point(parentRect.getLeftTop().getX()
 				+ (parentRect.getWidth() - childSize.getWidth())
-				, parentRect.getTopLeft().getY());
+				, parentRect.getLeftTop().getY());
 			break;
 		case ALIGN_MIDDLE_LEFT:
-			return Point(parentRect.getTopLeft().getX()
-				, parentRect.getTopLeft().getY() + 
+			return Point(parentRect.getLeftTop().getX()
+				, parentRect.getLeftTop().getY() +
 				((parentRect.getHeight() / 2) - childSize.getHeight() / 2));
 			break;
 		case ALIGN_MIDDLE_CENTER:
-			return Point(parentRect.getTopLeft().getX()
+			return Point(parentRect.getLeftTop().getX()
 				+ ((parentRect.getWidth() / 2) - childSize.getWidth() / 2)
-				, parentRect.getTopLeft().getY() + 
+				, parentRect.getLeftTop().getY() + 
 				((parentRect.getHeight() / 2) - childSize.getHeight() / 2));
 			break;
 		case ALIGN_MIDDLE_RIGHT:
-			return Point(parentRect.getTopLeft().getX()
+			return Point(parentRect.getLeftTop().getX()
 				+ (parentRect.getWidth() - childSize.getWidth())
-				, parentRect.getTopLeft().getY() + 
+				, parentRect.getLeftTop().getY() + 
 				((parentRect.getHeight() / 2) - childSize.getHeight() / 2));
 			break;
 
 		case ALIGN_BOTTOM_LEFT:
-			return Point(parentRect.getTopLeft().getX()
-				, parentRect.getTopLeft().getY() + 
+			return Point(parentRect.getLeftTop().getX()
+				, parentRect.getLeftTop().getY() + 
 				(parentRect.getHeight()  - childSize.getHeight()));
 			break;
 		case ALIGN_BOTTOM_CENTER:
-			return Point(parentRect.getTopLeft().getX()
+			return Point(parentRect.getLeftTop().getX()
 				+ ((parentRect.getWidth() / 2) - childSize.getWidth() / 2)
-				, parentRect.getTopLeft().getY() + 
+				, parentRect.getLeftTop().getY() + 
 				(parentRect.getHeight() - childSize.getHeight()));
 			break;
 		case ALIGN_BOTTOM_RIGHT:
-			return Point(parentRect.getTopLeft().getX()
+			return Point(parentRect.getLeftTop().getX()
 				+ (parentRect.getWidth() - childSize.getWidth())
-				, parentRect.getTopLeft().getY() + 
+				, parentRect.getLeftTop().getY() + 
 				(parentRect.getHeight() - childSize.getHeight()));
 			break;
 		default:

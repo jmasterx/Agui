@@ -58,7 +58,7 @@ namespace agui
 		virtual void textAppended(TextBox* source, const std::string &appendedText) { (void)(source); (void)(appendedText); }
 		virtual void selectionChanged(TextBox* source,int startIndex, int endIndex) { (void)(source); (void)(startIndex); (void)(endIndex); }
 		virtual void selectionDeleted(TextBox* source) { (void)(source); }
-		virtual void maxCharacterSkippedChanged(TextBox* source, int maxSkip) { (void)(source); (int)(maxSkip); }
+		virtual void maxCharacterSkippedChanged(TextBox* source, int maxSkip) { (void)(source); maxSkip++; }
 		virtual void readOnlyChanged(TextBox* source, bool readOnly) { (void)(source); (void)(readOnly); }
 		virtual void wordWrappedChanged(TextBox* source, bool wordWrapped) { (void)(source); (void)(wordWrapped);}
 		TextBoxListener(void);
