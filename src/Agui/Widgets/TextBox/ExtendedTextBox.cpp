@@ -313,7 +313,7 @@ namespace agui {
 		
 
 		isEditingText = true;
-		TextBox::appendText(text,atCurrentPosition);
+		TextBox::appendText(newStr,atCurrentPosition);
 		isEditingText = false;
 
 		if(textLen > 0)
@@ -382,6 +382,11 @@ namespace agui {
 
 			//check if line is same color
 			//store result for later use and store stop position
+			if(len == 1)
+			{
+				isSame = false;
+				stopPos = len;
+			}
 			for(int x = len - 1; x > 0; --x)
 			{
 				//not null if emoticon is present
@@ -390,6 +395,11 @@ namespace agui {
 				{
 					isSame = false;
 					stopPos = x;
+
+					if(textColors[colorIndex + x].second != NULL || textColors[colorIndex + x - 1].second != NULL)
+					{
+						stopPos = len;
+					}
 					break;
 				}
 			}
