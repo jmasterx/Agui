@@ -138,5 +138,16 @@ bool FocusManager::widgetIsModalChild( Widget* widget )
 		return modalWidget;
 	}
 
+	void FocusManager::focusWidgetDestroyed()
+	{
+		focusedWidget = NULL;
+		setFocusedWidget(NULL);
+	}
+
+	void FocusManager::modalFocusWidgetDestroyed()
+	{
+		modalWidget = NULL;
+	}
+
 }
 

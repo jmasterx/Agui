@@ -72,6 +72,19 @@ namespace agui
      * @since 0.1.0
      */
 		void setFocusedWidget(Widget* widget);
+
+	/**
+	 * Called to explicitly clear the focus widget if it is destroyed.
+     * @since 0.2.0
+     */
+		void focusWidgetDestroyed();
+
+	/**
+	 * Called to explicitly clear the modal focus widget if it is destroyed.
+     * @since 0.2.0
+     */
+		void modalFocusWidgetDestroyed();
+
 	/**
 	 * @return True if the parameter widget gained the modal focus.
      * @since 0.1.0
