@@ -39,7 +39,7 @@
  */
 
 #include "Agui/Widgets/TextBox/ExtendedTextBox.hpp"
-
+#include <algorithm>
 namespace agui {
 	ExtendedTextBox::~ExtendedTextBox(void)
 	{
@@ -53,6 +53,7 @@ namespace agui {
 	{
 		currentColor = getFontColor();
 		selectionFontColor = Color(255,255,255);
+		emoticonChar = "W";
 	}
 
 	void ExtendedTextBox::paintComponent( const PaintEvent &paintEvent )
@@ -115,9 +116,9 @@ namespace agui {
 		textColors.clear();
 		int textLen = getTextLength();
 
-		for(int i = 0; i < textLen; ++i)
+		for(int i = 0; i < textColors.size(); ++i)
 		{
-			textColors.push_back(getFontColor());
+			textColors[i].first = getFontColor();
 		}
 
 	}
@@ -226,17 +227,17 @@ namespace agui {
 		{
 			if(index - 1 >= 0 && index - 1 < (int)textColors.size())
 			{
-				currentColor = textColors[index - 1];
+				currentColor = textColors[index - 1].first;
 			}
 			else if(index + 1 >= 0 && index + 1 < (int)textColors.size())
 			{
-				currentColor = textColors[index + 1];
+				currentColor = textColors[index + 1].first;
 			}
 		}
 		
 
-
-			textColors.insert(textColors.begin() + index,currentColor);
+		Image* img = NULL;
+		textColors.insert(textColors.begin() + index,std::make_pair(currentColor,img));
 
 
 		return index;
@@ -257,7 +258,7 @@ namespace agui {
 
 		for(int i = getSelectionStart() ; i < getSelectionEnd(); ++i)
 		{
-			textColors[i] = color;
+			textColors[i].first = color;
 		}
 	}
 
@@ -282,15 +283,39 @@ namespace agui {
 			index = getTextLength();
 		}
 
+		size_t uniPos = 0;
+		int bytesSkipped = 0;
+		std::string newStr;
+		std::string curChar;
+		size_t textLen = unicodeFunctions.length(text);
+		
+
+		for(int i = 0; i < textLen && (getTextLength() + i) < getMaxLength(); ++i)
+		{
+			//get length of unichar
+			int curLen = unicodeFunctions.bringToNextUnichar(uniPos,text);
+			curStr = text.substr(bytesSkipped,curLen);
+			bytesSkipped += curLen;
+			
+			Image* emoticon = getEmoticon(curStr);
+
+			if(emoticon)
+			{
+				newStr += emoticonChar;
+			}
+			else
+			{
+				newStr += curStr;
+			}
+
+			textColors.insert(textColors.begin() + (i + index),std::make_pair(currentColor,emoticon));
+		}
+		
+
 		isEditingText = true;
 		TextBox::appendText(text,atCurrentPosition);
 		isEditingText = false;
 
-		size_t textLen = unicodeFunctions.length(text);
-		for(int i = 0; i < textLen; ++i)
-		{
-			textColors.insert(textColors.begin() + (i + index),currentColor);
-		}
 		if(textLen > 0)
 			currentColorChanged = false;
 	}
@@ -359,7 +384,9 @@ namespace agui {
 			//store result for later use and store stop position
 			for(int x = len - 1; x > 0; --x)
 			{
-				if(textColors[colorIndex + x] != textColors[colorIndex + x - 1])
+				//not null if emoticon is present
+				if(textColors[colorIndex + x].first != textColors[colorIndex + x - 1].first ||
+					textColors[colorIndex + x].second != NULL || textColors[colorIndex + x - 1].second != NULL)
 				{
 					isSame = false;
 					stopPos = x;
@@ -391,7 +418,7 @@ namespace agui {
 				}
 				else
 				{
-					color = &textColors[colorIndex];
+					color = &textColors[colorIndex].first;
 				}
 
 				paintEvent.graphics()->drawText(Point(textX + getLineOffset(i),
@@ -417,7 +444,7 @@ namespace agui {
 					}
 					else
 					{
-						color = &textColors[colorIndex];
+						color = &textColors[colorIndex].first;
 					}
 
 					//extract current character
@@ -427,10 +454,25 @@ namespace agui {
 					//increase byte count to keep track of where we are
 					bytesSkipped += curLen;
 
-					//draw the char
-					paintEvent.graphics()->drawText(Point(textX + totalWidth  + getLineOffset(i),
-						textY + (i * getLineHeight())),
-						curStr.c_str(),*color,getFont());
+					Image* img = textColors[colorIndex].second;
+					if (img)
+					{
+						paintEvent.graphics()->drawScaledImage(
+							img,
+							Point(textX + totalWidth  + getLineOffset(i),
+							textY + (i * getLineHeight())),
+							Point(),Dimension(img->getWidth(),img->getHeight()),
+							Dimension(curWidth,getFont()->getLineHeight())
+							);
+					}
+					else
+					{
+						//draw the char
+						paintEvent.graphics()->drawText(Point(textX + totalWidth  + getLineOffset(i),
+							textY + (i * getLineHeight())),
+							curStr.c_str(),*color,getFont());
+					}
+			
 
 					//increase the total width
 					totalWidth += curWidth;
@@ -454,7 +496,7 @@ namespace agui {
 					}
 					else
 					{
-						color = &textColors[colorIndex];
+						color = &textColors[colorIndex].first;
 					}
 
 					//draw the chunk
@@ -499,6 +541,23 @@ namespace agui {
 	void ExtendedTextBox::setIsSelectionFontColorInUse( bool wantSelectionColor )
 	{
 		selFontColor = wantSelectionColor;
+	}
+
+	void ExtendedTextBox::registerEmoticon( const std::string& triggerChar, Image* image )
+	{
+		icons[triggerChar] = image;
+	}
+
+	Image* ExtendedTextBox::getEmoticon(const std::string& triggerChar )
+	{
+		std::map<std::string,Image*>::iterator it = icons.find(triggerChar);
+
+		if(it != icons.end())
+		{
+			return it->second;
+		}
+		
+		return NULL;
 	}
 
 }

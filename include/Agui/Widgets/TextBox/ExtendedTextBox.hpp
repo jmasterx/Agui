@@ -42,6 +42,7 @@
 #define AGUI_EXTENDED_TEXTBOX_HPP
 
 #include "Agui/Widgets/TextBox/TextBox.hpp"
+#include <map>
 namespace agui {
 	/**
 	 * Class that extends the TextBox. It adds text coloring. Each character can
@@ -68,9 +69,11 @@ namespace agui {
 		Point colorIndexStart;
 		int lastVisibleIndex;
 		bool isEditingText;
-		std::vector<Color> textColors;
+		std::vector<std::pair<Color,Image*> > textColors;
+		std::map<std::string,Image*> icons;
 		Color selectionFontColor;
 		bool selFontColor;
+		std::string emoticonChar;
 	protected:
 	/**
 	 * Clears the text color std::vector.
@@ -159,7 +162,21 @@ namespace agui {
      * @since 0.1.0
      */
 		virtual void setSelectionColor(const Color & color);
+	/**
+	 * Deletes the characters that are selected
+     * @since 0.1.0
+     */
 		virtual void deleteSelection();
+	/**
+	 * Registers an emoticon image. This image will be displayed when the trigger character is typed or appended.
+     * @since 0.2.0
+     */
+		virtual void registerEmoticon(const std::string& triggerChar, Image* image);
+	/**
+	 * @return The Image of the emoticon associated with this string or NULL if not found.
+     * @since 0.2.0
+     */
+		virtual Image* getEmoticon(const std::string& triggerChar);
 		virtual void setText(const std::string &text);
 	/**
 	 * Construct with optional HorizontalScrollBar ,
