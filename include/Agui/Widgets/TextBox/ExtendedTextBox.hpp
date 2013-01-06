@@ -71,6 +71,7 @@ namespace agui {
 		bool isEditingText;
 		std::vector<std::pair<Color,Image*> > textColors;
 		std::map<std::string,Image*> icons;
+		std::map<Image*,std::string> iconClipboardText;
 		Color selectionFontColor;
 		bool selFontColor;
 		std::string emoticonChar;
@@ -171,13 +172,22 @@ namespace agui {
 	 * Registers an emoticon image. This image will be displayed when the trigger character is typed or appended.
      * @since 0.2.0
      */
-		virtual void registerEmoticon(const std::string& triggerChar, Image* image);
+		virtual void registerEmoticon(const std::string& triggerChar, Image* image, const std::string& clipboardText);
 	/**
 	 * @return The Image of the emoticon associated with this string or NULL if not found.
      * @since 0.2.0
      */
 		virtual Image* getEmoticon(const std::string& triggerChar);
+
+			/**
+	 * @return The clipboard text of the emoticon associated with this string or "" if not found.
+	 * This text will be copied when copy() is called.
+     * @since 0.2.0
+     */
+		virtual std::string getEmoticonClipboardText(Image* emoticon);
 		virtual void setText(const std::string &text);
+
+		virtual void copy();
 	/**
 	 * Construct with optional HorizontalScrollBar ,
 	 * VerticalScrollBar , and ScrollInset Widget.

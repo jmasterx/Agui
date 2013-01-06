@@ -2315,7 +2315,7 @@ namespace agui {
 	{
 		if(getSelectionLength() > 0)
 		{
-			Clipboard::copy(getSelectedText());
+			copy();
 			deleteSelection();
 		}
 	}

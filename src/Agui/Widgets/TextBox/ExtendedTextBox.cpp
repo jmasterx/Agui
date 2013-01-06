@@ -472,7 +472,7 @@ namespace agui {
 							Point(textX + totalWidth  + getLineOffset(i),
 							textY + (i * getLineHeight())),
 							Point(),Dimension(img->getWidth(),img->getHeight()),
-							Dimension(curWidth,getFont()->getLineHeight())
+							Dimension(curWidth,curWidth)
 							);
 					}
 					else
@@ -553,9 +553,13 @@ namespace agui {
 		selFontColor = wantSelectionColor;
 	}
 
-	void ExtendedTextBox::registerEmoticon( const std::string& triggerChar, Image* image )
+	void ExtendedTextBox::registerEmoticon( const std::string& triggerChar, Image* image, const std::string& clipboardText )
 	{
 		icons[triggerChar] = image;
+		if(clipboardText != "")
+		{
+			iconClipboardText[image] = clipboardText;
+		}
 	}
 
 	Image* ExtendedTextBox::getEmoticon(const std::string& triggerChar )
@@ -568,6 +572,55 @@ namespace agui {
 		}
 		
 		return NULL;
+	}
+
+	std::string ExtendedTextBox::getEmoticonClipboardText( Image* emoticon )
+	{
+		std::map<Image*,std::string>::iterator it = iconClipboardText.find(emoticon);
+
+		if(it != iconClipboardText.end())
+		{
+			return it->second;
+		}
+
+		return "";
+	}
+
+	void ExtendedTextBox::copy()
+	{
+		if(getSelectionLength() > 0)
+		{
+			int start = getSelectionStart();
+			std::string text = getSelectedText();
+			size_t uniPos = 0;
+			int bytesSkipped = 0;
+			std::string newStr;
+			std::string curChar;
+			size_t textLen = unicodeFunctions.length(text);
+
+			for(int i = 0; i < textLen; ++i)
+			{
+				//get length of unichar
+				int curLen = unicodeFunctions.bringToNextUnichar(uniPos,text);
+				curStr = text.substr(bytesSkipped,curLen);
+				bytesSkipped += curLen;
+
+				Image* emoticon = textColors[start + i].second;
+
+				if(emoticon)
+				{
+					newStr += getEmoticonClipboardText(emoticon);
+				}
+				else
+				{
+					newStr += curStr;
+				}
+
+			}
+
+
+			Clipboard::copy(newStr);
+		}
 	}
 
 }
