@@ -1681,6 +1681,7 @@ namespace agui
 	void Gui::setTransform( const Transform& transform )
 	{
 		this->transform = transform;
+		this->transform.invert();
 	}
 
 	const Transform& Gui::getTransform() const
