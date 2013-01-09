@@ -116,7 +116,7 @@ namespace agui {
 		textColors.clear();
 		int textLen = getTextLength();
 
-		for(int i = 0; i < textColors.size(); ++i)
+		for(size_t i = 0; i < textColors.size(); ++i)
 		{
 			textColors[i].first = getFontColor();
 		}
@@ -290,7 +290,7 @@ namespace agui {
 		size_t textLen = unicodeFunctions.length(text);
 		
 
-		for(int i = 0; i < textLen && (getTextLength() + i) < getMaxLength(); ++i)
+		for(size_t i = 0; i < textLen && (getTextLength() + i) < (size_t)getMaxLength(); ++i)
 		{
 			//get length of unichar
 			int curLen = unicodeFunctions.bringToNextUnichar(uniPos,text);
@@ -598,7 +598,7 @@ namespace agui {
 			std::string curChar;
 			size_t textLen = unicodeFunctions.length(text);
 
-			for(int i = 0; i < textLen; ++i)
+			for(size_t i = 0; i < textLen; ++i)
 			{
 				//get length of unichar
 				int curLen = unicodeFunctions.bringToNextUnichar(uniPos,text);

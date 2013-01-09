@@ -57,7 +57,8 @@ namespace agui
 		 destroyingFlaggedWidgets(true), toolTip(NULL),
 		 maxToolTipWidth(300), hasHiddenToolTip(true),
 		 lastToolTipTime(0.0), toolTipShowLength(4.0),
-		 cursorProvider(NULL), wantWidgetLocationChanged(true)
+		 cursorProvider(NULL), wantWidgetLocationChanged(true),
+		 useTransform(false)
 	{
 		
 		baseWidget = new TopContainer(this,&focusMan);
@@ -1340,6 +1341,15 @@ namespace agui
 		while(!input->isMouseQueueEmpty())
 		{
 			MouseInput mi = input->dequeueMouseInput();
+			if(isUsingTransform())
+			{
+				float x = (float)mi.x;
+				float y = (float)mi.y;
+				transform.transformPoint(&x,&y);
+				mi.x = (int)x;
+				mi.y = (int)y;
+			}
+
 			if(
 				mi.type == MouseEvent::MOUSE_MOVE ||
 				mi.type == MouseEvent::MOUSE_WHEEL_DOWN ||
@@ -1667,5 +1677,27 @@ namespace agui
 
 		return false;
 	}
+
+	void Gui::setTransform( const Transform& transform )
+	{
+		this->transform = transform;
+	}
+
+	const Transform& Gui::getTransform() const
+	{
+		return transform;
+	}
+
+	void Gui::setUseTransform( bool use )
+	{
+		useTransform = use;
+	}
+
+	bool Gui::isUsingTransform() const
+	{
+		return useTransform;
+	}
+
+
 
 }

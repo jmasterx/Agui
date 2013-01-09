@@ -51,6 +51,7 @@
 #include "Agui/KeyboardListener.hpp"
 #include "Agui/MouseListener.hpp"
 #include "Agui/CursorProvider.hpp"
+#include "Agui/Transform.hpp"
 namespace agui
 {
 	class AGUI_CORE_DECLSPEC TopContainer;
@@ -143,6 +144,9 @@ namespace agui
 
 		bool wantWidgetLocationChanged;
 		bool enableExistanceCheck;
+
+		bool useTransform;
+		Transform transform;
 
 	/**
      * Converts the mouse event's position into one that is relative to the parameter widget.
@@ -596,7 +600,7 @@ namespace agui
 		void setToolTipShowLength(double val);
 
 			/**
-	 * @Set the maximum amount of time a ToolTip will show for.
+	 * Invalidates the tooltip time.
      * @since 0.2.0
      */
 		void invalidateToolTip();
@@ -607,6 +611,34 @@ namespace agui
      * @since 0.2.0
      */
 		void setCursorProvider(CursorProvider* provider);
+
+	/**
+	 * @Set the transform to use on the mouse.
+	 * @See setUseTransform
+     * @since 0.2.0
+     */
+		void setTransform(const Transform& transform);
+
+	/**
+	 * @Return the transform to use on the mouse.
+	 * @See setUseTransform
+     * @since 0.2.0
+     */
+		const Transform& getTransform() const;
+
+			/**
+	 * @Set whether or not to use a transformation on the mouse coordinates.
+     * @since 0.2.0
+     */
+		void setUseTransform(bool use);
+
+	/**
+	 * @Return true if the transform is used on the mouse.
+     * @since 0.2.0
+     */
+		bool isUsingTransform() const;
+
+
 
 	
 	/**

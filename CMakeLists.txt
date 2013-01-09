@@ -60,6 +60,7 @@ set(AGUI_SOURCES
 	src/Agui/ResizableText.cpp
 	src/Agui/ResizableBorderLayout.cpp
 	src/Agui/SelectionListener.cpp
+	src/Agui/Transform.cpp
 	src/Agui/TopContainer.cpp
 	src/Agui/Widget.cpp
 	src/Agui/WidgetListener.cpp

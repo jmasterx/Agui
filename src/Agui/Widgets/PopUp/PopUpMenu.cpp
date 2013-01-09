@@ -234,7 +234,7 @@ namespace agui {
 
 	void PopUpMenu::resizeWidthToContents()
 	{
-		size_t w = 0;
+		int w = 0;
 		for(int i = 0; i < getLength(); ++i)
 		{
 			int tempWidth = getItemWidth(items[i]);
