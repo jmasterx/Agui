@@ -1156,7 +1156,7 @@ namespace agui
 			previousWidgetUnderMouse = NULL;
 
 		if(widget == focusMan.getFocusedWidget())
-			focusMan.focusWidgetDestroyed();
+      focusMan.setFocusedWidget(NULL);
 
 		if(widget == controlWithLock)
 			controlWithLock = NULL;
