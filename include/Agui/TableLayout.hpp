@@ -48,7 +48,7 @@ namespace agui
      * Allows to layout widgets in table, row/column dimenensions are dependent on the
      * size of the biggest widget in the corresponding row/column, as in HTML table.
      * Items in the cell have vertical centering.
-     * @TODO rowspan/cellspan
+     * @TODO rowspan/colspan
      * @TODO Specify align for individual cells/rows/columns
      * @author Michal Kovarik
      * @since 0.1.0
