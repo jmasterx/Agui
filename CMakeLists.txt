@@ -60,6 +60,7 @@ set(AGUI_SOURCES
 	src/Agui/ResizableText.cpp
 	src/Agui/ResizableBorderLayout.cpp
 	src/Agui/SelectionListener.cpp
+	src/Agui/TableLayout.cpp
 	src/Agui/Transform.cpp
 	src/Agui/TopContainer.cpp
 	src/Agui/Widget.cpp
@@ -73,6 +74,7 @@ set(AGUI_SOURCES
 	src/Agui/Widgets/DropDown/DropDownListener.cpp
 	src/Agui/Widgets/Frame/Frame.cpp
 	src/Agui/Widgets/Frame/FrameListener.cpp
+	src/Agui/Widgets/ImageWidget/ImageWidget.cpp
 	src/Agui/Widgets/Label/Label.cpp
 	src/Agui/Widgets/Label/LabelListener.cpp
 	src/Agui/Widgets/ListBox/ListBox.cpp
