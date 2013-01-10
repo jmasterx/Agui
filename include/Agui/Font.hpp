@@ -45,6 +45,14 @@
 #include "Agui/Color.hpp"
 namespace agui
 {
+	enum FontFlags
+	{
+		FONT_DEFAULT_FLAGS = 0,
+		FONT_NO_KERNING = 1,
+		FONT_NO_ANTIALIASING = 2,
+		FONT_NO_HINTING = 4
+	};
+
 	class AGUI_CORE_DECLSPEC FontLoader;
 
 	/**
@@ -113,9 +121,9 @@ namespace agui
 	 * @param height The height of the font in pixels.
      * @since 0.1.0
      */
-		static Font* load(const std::string &fileName, int height, int allegroFontFlags = 0, float borderWidth = 0, agui::Color borderColor = agui::Color());
+		static Font* load(const std::string &fileName, int height, FontFlags fontFlags = FONT_DEFAULT_FLAGS, float borderWidth = 0, agui::Color borderColor = agui::Color());
     static Font* loadEmpty();
-    virtual void reload(const std::string &fileName, int height, int allegroFontFlags = 0, float borderWidth = 0, agui::Color borderColor = agui::Color()) = 0;
+    virtual void reload(const std::string &fileName, int height, FontFlags fontFlags = FONT_DEFAULT_FLAGS, float borderWidth = 0, agui::Color borderColor = agui::Color()) = 0;
 	/**
 	 * @return The path of the font.
      * @since 0.1.0

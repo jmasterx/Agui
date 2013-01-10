@@ -61,7 +61,7 @@ namespace agui {
 		Allegro5FontLoader(void) {}
 		~Allegro5FontLoader(void) {}
 
-		virtual Font* loadFont(const std::string &fileName, int height, int allegroFontFlags = 0, float borderWidth = 0, agui::Color borderColor = agui::Color());
+		virtual Font* loadFont(const std::string &fileName, int height, FontFlags fontFlags = FONT_DEFAULT_FLAGS, float borderWidth = 0, agui::Color borderColor = agui::Color());
     virtual Font* loadEmptyFont();
 	};
 }
