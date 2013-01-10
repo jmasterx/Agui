@@ -58,7 +58,7 @@ namespace agui
 		 maxToolTipWidth(300), hasHiddenToolTip(true),
 		 lastToolTipTime(0.0), toolTipShowLength(4.0),
 		 cursorProvider(NULL), wantWidgetLocationChanged(true),
-		 useTransform(false)
+		 useTransform(false),delayMouseDown(true)
 	{
 		
 		baseWidget = new TopContainer(this,&focusMan);
@@ -1325,19 +1325,23 @@ namespace agui
 
 	void Gui::_dispatchMouseEvents()
 	{
-		while(!queuedMouseDown.empty())
+		if(isDelayingMouseDownEvents())
 		{
-			MouseInput mi = queuedMouseDown.back();
-			queuedMouseDown.pop();
-
-			if(mi.type == MouseEvent::MOUSE_DOWN)
+			while(!queuedMouseDown.empty())
 			{
-				_dispatchMousePreview(mi,mi.type);
-				if(!mouseEvent.isConsumed())
-					handleMouseDown(mi);
-			}
-		}
+				MouseInput mi = queuedMouseDown.back();
+				queuedMouseDown.pop();
 
+				if(mi.type == MouseEvent::MOUSE_DOWN)
+				{
+					_dispatchMousePreview(mi,mi.type);
+					if(!mouseEvent.isConsumed())
+						handleMouseDown(mi);
+				}
+			}
+
+		}
+	
 
 		while(!input->isMouseQueueEmpty())
 		{
@@ -1362,13 +1366,23 @@ namespace agui
 			}
 			else if(mi.type == MouseEvent::MOUSE_DOWN)
 			{
-				//queue it for later to fix click bug
-				if(!queuedMouseDown.empty())
+				if(isDelayingMouseDownEvents())
 				{
-					queuedMouseDown.pop();
+					//queue it for later to fix click bug
+					if(!queuedMouseDown.empty())
+					{
+						queuedMouseDown.pop();
+					}
+					queuedMouseDown.push(mi);
+					return;
 				}
-				queuedMouseDown.push(mi);
-				return;
+				else
+				{
+					_dispatchMousePreview(mi,mi.type);
+					if(!mouseEvent.isConsumed())
+						handleMouseDown(mi);
+				}
+				
 			}
 			else if(mi.type == MouseEvent::MOUSE_UP)
 			{
@@ -1695,6 +1709,16 @@ namespace agui
 	bool Gui::isUsingTransform() const
 	{
 		return useTransform;
+	}
+
+	void Gui::setDelayMouseDownEvents( bool delay )
+	{
+		delayMouseDown = delay;
+	}
+
+	bool Gui::isDelayingMouseDownEvents() const
+	{
+		return delayMouseDown;
 	}
 
 

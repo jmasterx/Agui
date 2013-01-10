@@ -148,6 +148,8 @@ namespace agui
 		bool useTransform;
 		Transform transform;
 
+		bool delayMouseDown;
+
 	/**
      * Converts the mouse event's position into one that is relative to the parameter widget.
      * @since 0.1.0
@@ -637,6 +639,19 @@ namespace agui
      * @since 0.2.0
      */
 		bool isUsingTransform() const;
+
+					/**
+	 * @Set whether or not the mouse down events are delayed by 1 logic() update.
+	 * Fixes a small issue on touch pads when enabled.
+     * @since 0.2.0
+     */
+		void setDelayMouseDownEvents(bool delay);
+
+	/**
+	 * @Return true if the mouse down events are delayed by 1 logic() update.
+     * @since 0.2.0
+     */
+		bool isDelayingMouseDownEvents() const;
 
 
 
