@@ -72,7 +72,8 @@ namespace agui {
 	 * @param height The height of the font in pixels.
      * @since 0.1.0
      */
-		virtual Font* loadFont(const std::string &fileName, int height) = 0;
+		virtual Font* loadFont(const std::string &fileName, int height, int allegroFontFlags, float borderWidth, agui::Color borderColor) = 0;
+    virtual Font* loadEmptyFont() = 0;
 	};
 }
 #endif

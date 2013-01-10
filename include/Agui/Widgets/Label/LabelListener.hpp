@@ -54,11 +54,10 @@ namespace agui {
 	{
 	public:
 		LabelListener(void);
-		virtual void alignmentChanged(Label *source, 
-			AreaAlignmentEnum alignment) {};
-		virtual void isAutosizingChanged(Label *source,bool autosizing){}
+		virtual void alignmentChanged(Label *source, AreaAlignmentEnum alignment) { (void)(source); (void)(alignment); };
+		virtual void isAutosizingChanged(Label *source,bool autosizing) { (void)(source); (void)(autosizing);}
 		virtual ~LabelListener(void);
-		virtual void death(Label *source) {(void)source;};
+		virtual void death(Label *source) { (void)(source); };
 	};
 }
 

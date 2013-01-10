@@ -68,7 +68,8 @@ namespace agui
 		virtual int getTextWidth(const std::string &text) const;
 		virtual const std::string& getPath() const;
 		Allegro5Font(void);
-		Allegro5Font(const std::string &fileName, int height);
+    Allegro5Font(const std::string &fileName, int height, int allegroFontFlags = 0, float borderWidth = 0, agui::Color borderColor = agui::Color());
+    virtual void reload(const std::string &fileName, int height, int allegroFontFlags = 0, float borderWidth = 0, agui::Color borderColor = agui::Color());
 		virtual void setFont(ALLEGRO_FONT* font, const std::string &path, bool autoFree = false);
 		virtual ~Allegro5Font(void);
 	};

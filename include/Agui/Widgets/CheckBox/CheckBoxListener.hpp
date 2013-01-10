@@ -54,21 +54,21 @@ namespace agui {
 	public:
 		CheckBoxListener(void);
 	  virtual void checkBoxStateChanged(CheckBox* source,
-		  CheckBox::CheckBoxStateEnum state) {}
+		  CheckBox::CheckBoxStateEnum state) { (void)(source); (void)(state); }
 
 		virtual void checkedStateChanged(CheckBox* source,
-			CheckBox::CheckBoxCheckedEnum state) {}
+			CheckBox::CheckBoxCheckedEnum state) { (void)(source); (void)(state); }
 
-		virtual void death(CheckBox* source) {}
+		virtual void death(CheckBox* source) { (void)(source); }
 
 		virtual void textAlignmentChanged(CheckBox* source,
-			AreaAlignmentEnum alignment) {}
+			AreaAlignmentEnum alignment) { (void)(source); (void)(alignment); }
 
 		virtual void checkBoxAlignmentChanged(CheckBox* source,
-			AreaAlignmentEnum alignment) {}
+			AreaAlignmentEnum alignment) { (void)(source); (void)(alignment); }
 
 		virtual void isAutosizingChanged(CheckBox* source,
-			bool autoSizing) {}
+			bool autoSizing) { (void)(source); (void)(autoSizing); }
 
 		virtual ~CheckBoxListener(void);
 	};

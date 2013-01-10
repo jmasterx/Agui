@@ -97,8 +97,12 @@ namespace agui
 
 	}
 
-	Font* Font::load( const std::string &fileName, int height )
+	Font* Font::load( const std::string &fileName, int height, int allegroFontFlags, float borderWidth, agui::Color borderColor )
 	{
-		return loader->loadFont(fileName,height);
+		return loader->loadFont(fileName,height,allegroFontFlags,borderWidth,borderColor);
 	}
+  Font* Font::loadEmpty()
+  {
+    return loader->loadEmptyFont();
+  }
 }

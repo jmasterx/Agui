@@ -41,8 +41,11 @@
 #include "Agui/Widgets/DropDown/DropDown.hpp"
 
 namespace agui {
+
+  int DropDown::dropDownArrowWidth = 16;
+
 	DropDown::DropDown( ListBox *listbox /*= NULL*/ )
-	: listBoxHeight(400),selIndex(-1),resizeToWidestItem(false),
+	: listBoxHeight(400),selIndex(-1),resizeToWidestItem(true),
 	mouseInside(false)
 	{
 		if(listbox)
@@ -318,7 +321,7 @@ namespace agui {
 		paintEvent.graphics()->drawText(Point(0,rem),getText().c_str(),
 			getFontColor(),getFont());
 
-		int iters = 8;
+    int iters = this->dropDownArrowWidth / 2;
 		int xPos = getInnerWidth() - ( 2 * iters);
 		xPos -= 2;
 		int yPos = (getInnerHeight() - (iters / 2)) / 2;
@@ -636,5 +639,19 @@ namespace agui {
 		return mouseInside;
 	}
 
-
+  void DropDown::resizeToContents()
+  {
+    setSize(getFont()->getTextWidth(getText())
+      + getMargin(SIDE_LEFT) + 2*getMargin(SIDE_RIGHT) + this->dropDownArrowWidth,
+            getFont()->getLineHeight()
+				    + getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM));
+  }
+  int DropDown::getIndexOf(const std::string &item) const
+  {
+    return this->pChildListBox->getIndexOf(item);
+  }
+  std::string DropDown::getItemAt(int index) const
+  {
+    return this->pChildListBox->getItemAt(index);
+  }
 }

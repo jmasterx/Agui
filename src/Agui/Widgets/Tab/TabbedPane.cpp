@@ -118,15 +118,15 @@ namespace agui {
 
     //move the tabs
 
-    int totalWidth = 0;
+    totalTabWidth = 0;
     for(std::vector<std::pair<Tab*,Widget*> >::iterator it =
       tabs.begin(); it != tabs.end(); ++it)
     {
-      it->first->setLocation(totalWidth,
+      it->first->setLocation(totalTabWidth,
         tabContainer->getSize().getHeight() - 
         it->first->getSize().getHeight());
 
-      totalWidth += it->first->getSize().getWidth() + getTabPadding();
+      totalTabWidth += it->first->getSize().getWidth() + getTabPadding();
     }
   }
 
@@ -484,4 +484,27 @@ namespace agui {
     }
   }
 
+  void TabbedPane::resizeToContentsRecursive()
+  {
+    for (int i = 0; i < (int)tabs.size(); ++i)
+    {
+      tabs[i].second->resizeToContentsRecursive();
+      tabs[i].first->resizeToContents();
+    }
+    resizeToContents();
+  }
+
+  void TabbedPane::resizeToContents()
+  {
+    adjustSize();
+
+    int highestWidget = 0;
+    int widestWidget = 0;
+    for (int i = 0; i < (int)tabs.size(); ++i)
+    {
+      highestWidget = std::max(highestWidget, tabs[i].second->getHeight());
+      widestWidget = std::max(widestWidget, tabs[i].second->getWidth());
+    }
+    setSize(std::max(widestWidget, totalTabWidth), highestWidget + highestTab);
+  }
 }

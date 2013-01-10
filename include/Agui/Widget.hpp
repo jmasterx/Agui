@@ -1193,7 +1193,14 @@ namespace agui {
 	*/
 		bool setCursor(CursorProvider::CursorEnum cursor);
 
-
+    virtual void resizeToContents();
+    virtual void resizeToContentsRecursive();
+    virtual void resizeToContentsRecursiveUp();
+    void checkLostFocusRecursive();
+    /** By clearing parent widget, all of my children will lose top.
+     * If the top focus manager poitns to them, they would have no chance to unfocus when they are destroyed,
+     * that would result in the focus manager pointing to deleted widget. */
+    void clearParentWidget();
 	};
 }
 

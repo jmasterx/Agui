@@ -57,7 +57,7 @@ namespace agui {
 	}
 
 	Frame::Frame( Widget *container /*= NULL*/ )
-	: topMargin(16),leftMargin(4),rightMargin(4),bottomMargin(4),
+	: topMargin(16),titleFontMargin(6),leftMargin(4),rightMargin(4),bottomMargin(4),
 	  movable(true),dragX(0),dragY(0),moving(false),resizable(true)
 	{
 		if(container)
@@ -77,7 +77,7 @@ namespace agui {
     setBackColor(Color(196,210,224));
 
 
-		setTopMargin(getFont()->getLineHeight() + 6);
+		setTopMargin(getFont()->getLineHeight() + titleFontMargin);
 		setMargins(1,1,1,1);
 	
 	}
@@ -512,5 +512,14 @@ namespace agui {
   void Frame::setFrontColor(const Color& color)
   {
     this->frontColor = color;
+  }
+
+  void Frame::resizeToContents()
+  {
+    topMargin = getFont()->getLineHeight() + titleFontMargin;
+  }
+  void Frame::setTitleFontMargin(int margin)
+  {
+    titleFontMargin = margin;
   }
 }

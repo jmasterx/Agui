@@ -54,21 +54,21 @@ namespace agui {
 	public:
 		RadioButtonListener(void);
 		virtual void radioButtonStateChanged(RadioButton* source,
-			RadioButton::RadioButtonStateEnum state) {}
+			RadioButton::RadioButtonStateEnum state) { (void)(source); (void)(state); }
 
 		virtual void checkedStateChanged(RadioButton* source,
-			RadioButton::RadioButtonCheckedEnum state) {}
+			RadioButton::RadioButtonCheckedEnum state) { (void)(source); (void)(state); }
 
 		virtual void textAlignmentChanged(RadioButton* source,
-			AreaAlignmentEnum alignment) {}
+			AreaAlignmentEnum alignment) { (void)(source); (void)(alignment); }
 
 		virtual void radioButtonAlignmentChanged(RadioButton* source,
-			AreaAlignmentEnum alignment) {}
+			AreaAlignmentEnum alignment) { (void)(source); (void)(alignment);}
 
 		virtual void isAutosizingChanged(RadioButton* source,
-			bool autoSizing) {}
+			bool autoSizing) { (void)(source); (void)(autoSizing);}
 
-		virtual void death(RadioButton* source) {}
+		virtual void death(RadioButton* source) { (void)(source); }
 
 		virtual ~RadioButtonListener(void);
 	};

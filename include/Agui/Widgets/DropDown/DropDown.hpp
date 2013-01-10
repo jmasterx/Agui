@@ -73,6 +73,7 @@ namespace agui {
 		bool mouseInside;
 		std::vector<SelectionListener*> selectionListeners;
 		std::vector<DropDownListener*> dropDownListeners;
+    static int dropDownArrowWidth;
 	protected:
 	/**
      * Called when the internal ListBox adds an item.
@@ -154,6 +155,14 @@ namespace agui {
      * @since 0.1.0
      */
 		virtual void addItemAt(const std::string& item, int index);
+    /**
+     * @return The string at the specified index
+     */
+    virtual std::string getItemAt(int index) const;
+	/**
+     * @return The index of the first found instance of the parameter string in the internal ListBox, or -1 if not found.
+     */
+    virtual int getIndexOf(const std::string &item) const;
 	/**
      * Removes an item from the internal ListBox.
      * @since 0.1.0
@@ -239,6 +248,7 @@ namespace agui {
      * @since 0.2.0
      */
 		virtual bool isMouseInside() const;
+    virtual void resizeToContents();
 	/**
      * Construct with optional ListBox.
      * @since 0.1.0

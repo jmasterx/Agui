@@ -43,7 +43,7 @@
 namespace agui
 {
 	BlinkingEvent::BlinkingEvent(void)
-	: blinking(true), blinkInterval(0.5),
+	: blinking(true), blinkInterval(0.5), lastBlinkTime(0),
 	blinkNeedsInvalidation(false)
 	{
 	}

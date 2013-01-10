@@ -38,101 +38,97 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef AGUI_FONT_HPP
-#define AGUI_FONT_HPP
-#include "Agui/Platform.hpp"
-#include "Agui/UTF8.hpp"
-#include "Agui/Color.hpp"
-namespace agui
-{
-	class AGUI_CORE_DECLSPEC FontLoader;
+#ifndef AGUI_ImageWidget_HPP
+#define AGUI_ImageWidget_HPP
+
+#include "Agui/Widget.hpp"
+#include "Agui/EmptyWidget.hpp"
+namespace agui {
+	/**
+	 * Class that represents a Image as widget.
+	 *
+	 * Widget
+     * @author Michal Kovarik
+     * @since 0.1.0
+     */
+	class AGUI_CORE_DECLSPEC ImageWidget :
+		public Widget
+	{
+		int topMargin;
+		int leftMargin;
+		int bottomMargin;
+		int rightMargin;
+    agui::Image* image;
+
+	protected:
+		virtual void paintComponent(const PaintEvent &paintEvent);
+    virtual void paintBackground(const PaintEvent&) {}
+	public:
+		virtual void setSize(const Dimension &size);
+		virtual void setSize(int width, int height);
 
 	/**
-     * Abstract base class for all Fonts in Agui.
-	 *
-	 * Certain classes such as the ExtendedTextBox cause Agui not to be with Kerning.
-	 * Please disable Kerning for optimal results.
-	 *
-	 * Must implement:
-	 *
-	 * free
-	 *
-	 * getLineHeight
-	 *
-	 * getHeight
-     *
-	 * getTextWidth
-	 *
-	 * getPath
-     * @author Joshua Larouche
-     * @since 0.1.0
+	 * Sets the size of the content pane to the parameter size and properly factors in margins.
+     * @since 0.2.0
      */
-	class AGUI_CORE_DECLSPEC Font
-	{
-		static FontLoader* loader;
-	public:
+		virtual void setClientSize(const Dimension &size);
 	/**
-	 * Should free the underlying font.
+	 * @return The ImageWidget's top margin (not the same as widget margins).
      * @since 0.1.0
      */
-		virtual void free() = 0;
+		int getTopMargin() const;
 	/**
-	 * @return The font's line height which is usually the height of the highest glyph.
+	 * @return The ImageWidget's left margin (not the same as widget margins).
      * @since 0.1.0
      */
-		virtual int getLineHeight() const = 0;
+		int getLeftMargin() const;
 	/**
-	 * @return The glyph that parameter 'x' is inside of.
-	 *
-	 * If 'x' is before half of the glyph it returns the index of the previous glyph.
-	 *
-	 * Otherwise if 'x' is past half of the glyph it returns the index of the glyph.
-	 * @param str The UTF8 string to verify.
-	 * @param x The relative x-axis line.
+	 * @return The ImageWidget's bottom margin (not the same as widget margins).
      * @since 0.1.0
      */
-		int getStringIndexFromPosition(const std::string &str, int x) const;
+		int getBottomMargin() const;
 	/**
-	 * @return The height specified by the user. This is usually in pixels. It may not be the line height.
+	 * @return The ImageWidget's right margin (not the same as widget margins).
      * @since 0.1.0
      */
-		virtual int getHeight() const = 0;
+		int getRightMargin() const;
 	/**
-	 * @return The width of the parameter UTF-8 string.
+	 * Sets the ImageWidget's top margin (not the same as widget margins).
      * @since 0.1.0
      */
-		virtual int getTextWidth(const std::string &text) const = 0;
+		void setTopMargin(int margin);
 	/**
-	 * Sets the font loader for the back end. This will influence the load method.
+	 * Sets the ImageWidget's left margin (not the same as widget margins).
      * @since 0.1.0
      */
-		static void setFontLoader(FontLoader* manager);
+		void setLeftMargin(int margin);
 	/**
-	 * @return A pointer to the back end specific font or NULL if failed and no exception was thrown.
-	 * @param fileName The path of the font. Must be compatible with the back end loader.
-	 * @param height The height of the font in pixels.
+	 * Sets the ImageWidget's bottom margin (not the same as widget margins).
      * @since 0.1.0
      */
-		static Font* load(const std::string &fileName, int height, int allegroFontFlags = 0, float borderWidth = 0, agui::Color borderColor = agui::Color());
-    static Font* loadEmpty();
-    virtual void reload(const std::string &fileName, int height, int allegroFontFlags = 0, float borderWidth = 0, agui::Color borderColor = agui::Color()) = 0;
+		void setBottomMargin(int margin);
 	/**
-	 * @return The path of the font.
+	 * Sets the ImageWidget's right margin (not the same as widget margins).
      * @since 0.1.0
      */
-		virtual const std::string& getPath() const = 0;
+		void setRightMargin(int margin);
+			/**
+	 * Sets the ImageWidget's margins all at once (not the same as widget margins).
+     * @since 0.1.0
+     */
+		void setMargins(int t, int l, int b, int r);
 	/**
-	 * Default constructor.
+	 * Construct, takes ownership of the image
      * @since 0.1.0
      */
-		Font();
+    ImageWidget(agui::Image* image);
+    void load(agui::Image* image);
+    bool isLoaded() const { return this->image != NULL; }
 	/**
 	 * Default destructor.
      * @since 0.1.0
      */
-		virtual ~Font();
-
+		virtual ~ImageWidget(void);
 	};
 }
-
 #endif

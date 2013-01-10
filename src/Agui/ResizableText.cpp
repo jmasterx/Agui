@@ -305,9 +305,8 @@ namespace agui
 			{
 				continue;
 			}
-			curLetterWidth = font->getTextWidth(curStr);
 
-			if(curLineWidth + curLetterWidth + ellipsisWidth > maxWidth)
+			if(wontFit && font->getTextWidth(textRows.back() + curStr + "...") > maxWidth)
 			{
 				if(wantEllipsis)
 				{
@@ -317,8 +316,8 @@ namespace agui
 			}
 			else
 			{
-				curLineWidth += curLetterWidth;
 				textRows.back() += curStr;
+				curLineWidth = font->getTextWidth(textRows.back());
 			}
 		}
 

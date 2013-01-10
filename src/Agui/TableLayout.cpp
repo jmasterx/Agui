@@ -38,41 +38,41 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "Agui/GridLayout.hpp"
+#include "Agui/TableLayout.hpp"
 #include <math.h>
 
 namespace agui
 {
-	GridLayout::GridLayout(void)
+	TableLayout::TableLayout(void)
 		:horizontalSpacing(5),verticalSpacing(5),
 		rows(1),columns(1)
 	{
 	}
 
-	GridLayout::~GridLayout(void)
+	TableLayout::~TableLayout(void)
 	{
 	}
 
-	void GridLayout::layoutChildren()
+	void TableLayout::layoutChildren()
 	{
 		//dividing by zero is rather silly...
 		//so we won't let it happen!
-		if(rows == 0 && columns == 0)
+		if (rows == 0 && columns == 0)
 		{
 			return;
 		}
 
 		int numChildren = 0;
-		for(WidgetArray::iterator it = getChildBegin(); 
+		for (WidgetArray::iterator it = getChildBegin(); 
 			it != getChildEnd(); ++it)
 		{
-			if((*it)->isVisible())
+			if ((*it)->isVisible())
 			{
 				numChildren++;
 			}
 		}
 
-		if(numChildren == 0)
+		if (numChildren == 0)
 		{
 			return;
 		}
@@ -80,26 +80,24 @@ namespace agui
 
 		int sizeX = 0;
 		int sizeY = 0;
-		int locationX = 0;
-		int locationY = 0;
 
 		int childrenInRow = rows;
 		int childrenInColumn = columns;
-		if(rows == 0)
+		if (rows == 0)
 		{
 			childrenInRow = (int)ceil((double)numChildren / (double)columns);
 		}
-		else if(columns == 0)
+		else if (columns == 0)
 		{
 			childrenInColumn = (int)ceil((double)numChildren / (double)rows);
 		}
 
-		if(childrenInColumn <= 0)
+		if (childrenInColumn <= 0)
 		{
 			childrenInColumn = 1;
 		}
 
-		if(childrenInRow <= 0)
+		if (childrenInRow <= 0)
 		{
 			childrenInRow = 1;
 		}
@@ -107,37 +105,23 @@ namespace agui
 		int xCount = 0;
 		int yCount = 0;
 
-		for(WidgetArray::iterator it = getChildBegin(); 
+    std::vector<int> columnWidths;
+    columnWidths.resize(this->columns);
+
+    int rowsCount = 0;
+    for (WidgetArray::iterator it = getChildBegin(); 
 			it != getChildEnd(); ++it)
 		{
-
-			if(!(*it)->isVisible() && isFilteringVisibility())
+      if (xCount == 0)
+        rowsCount++;
+      if(!(*it)->isVisible() && isFilteringVisibility())
 			{
 				continue;
 			}
 
-			//linearly solve for the locations and size
-			//this ensures that the spacing is respected
+      columnWidths[xCount] = std::max(columnWidths[xCount], (*it)->getWidth());
 
-			locationX = (int)(((double)xCount / (double)childrenInColumn) * 
-				(double)(getInnerWidth() + horizontalSpacing));
-			locationY = (int)(((double)yCount / (double)childrenInRow) * 
-				(double)(getInnerHeight() + verticalSpacing));
-
-			//solve for next location and subtract it from
-			//the current and factor in spacing
-			sizeX = (int)((((double)(xCount + 1) / (double)childrenInColumn) * 
-				(double)(getInnerWidth() + horizontalSpacing)) - 
-				locationX - horizontalSpacing);
-
-			sizeY = (int)((((double)(yCount + 1) / (double)childrenInRow) * 
-				(double)(getInnerHeight() + verticalSpacing)) -
-				locationY - verticalSpacing);
-			
-			(*it)->setSize(sizeX,sizeY);
-			(*it)->setLocation(locationX, locationY);
-
-			xCount++;
+      xCount++;
 
 			//next row
 			if(xCount == childrenInColumn)
@@ -145,12 +129,85 @@ namespace agui
 				xCount = 0;
 				yCount++;
 			}
+    }
+    rows = rowsCount;
 
+    std::vector<int> rowHeights;
+    rowHeights.resize(this->rows);
+
+    xCount = 0;
+    yCount = 0;
+
+    for (WidgetArray::iterator it = getChildBegin(); 
+			it != getChildEnd(); ++it)
+		{
+      if(!(*it)->isVisible() && isFilteringVisibility())
+			{
+				continue;
+			}
+
+      rowHeights[yCount] = std::max(rowHeights[yCount], (*it)->getHeight());
+
+      xCount++;
+
+			//next row
+			if(xCount == childrenInColumn)
+			{
+				xCount = 0;
+				yCount++;
+			}
+    }
+
+    int locationX = 0;
+    int locationY = 0;
+
+    xCount = 0;
+    yCount = 0;
+
+    for (WidgetArray::iterator it = getChildBegin(); 
+			it != getChildEnd(); ++it)
+		{
+			if (!(*it)->isVisible() && isFilteringVisibility())
+			{
+				continue;
+			}
+
+			//linearly solve for the locations and size
+			//this ensures that the spacing is respected
+      if (xCount != 0)
+        locationX += columnWidths[xCount - 1] + this->horizontalSpacing;
+
+      // vertical alignment to center
+      (*it)->setLocation(locationX, locationY + (rowHeights[yCount] - (*it)->getHeight()) / 2);
+
+			xCount++;
+
+			//next row
+			if (xCount == childrenInColumn)
+			{
+        locationX = 0;
+        locationY += rowHeights[yCount] + this->verticalSpacing;
+				xCount = 0;
+				yCount++;
+			}
 		}
 
+    int width = 0;
+    for (size_t i = 0; i < columnWidths.size(); i++)
+      width += columnWidths[i];
+    width += (this->columns - 1) * this->horizontalSpacing;
+
+    int height = 0;
+    for (size_t i = 0; i < rowHeights.size(); i++)
+      height += rowHeights[i];
+    height += (this->rows -1) * this->verticalSpacing;
+
+    // called to prevent to recursively call this function as reaction to set size
+    Widget::setSize(Dimension(width + getMargin(SIDE_LEFT) + getMargin(SIDE_RIGHT),
+                              height + getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM)));
 	}
 
-	void GridLayout::setNumberOfRows( int rows )
+	void TableLayout::setNumberOfRows( int rows )
 	{
 		if(rows < 0)
 		{
@@ -161,9 +218,9 @@ namespace agui
 		updateLayout();
 	}
 
-	void GridLayout::setNumberOfColumns( int columns )
+	void TableLayout::setNumberOfColumns( int columns )
 	{
-		if(columns < 0)
+		if (columns < 0)
 		{
 			columns = 0;
 		}
@@ -171,35 +228,40 @@ namespace agui
 		updateLayout();
 	}
 
-	void GridLayout::setHorizontalSpacing( int spacing )
+	void TableLayout::setHorizontalSpacing( int spacing )
 	{
 		horizontalSpacing = spacing;
 		updateLayout();
 	}
 
-	void GridLayout::setVerticalSpacing( int spacing )
+	void TableLayout::setVerticalSpacing( int spacing )
 	{
 		verticalSpacing = spacing;
 	}
 
-	int GridLayout::getNumberOfRows() const
+	int TableLayout::getNumberOfRows() const
 	{
 		return rows;
 	}
 
-	int GridLayout::getNumberOfColumns() const
+	int TableLayout::getNumberOfColumns() const
 	{
 		return columns;
 	}
 
-	int GridLayout::getHorizontalSpacing() const
+	int TableLayout::getHorizontalSpacing() const
 	{
 		return horizontalSpacing;
 	}
 
-	int GridLayout::getVerticalSpacing() const
+	int TableLayout::getVerticalSpacing() const
 	{
 		return verticalSpacing;
 	}
+
+  void TableLayout::resizeToContents()
+  {
+    this->layoutChildren();
+  }
 
 }

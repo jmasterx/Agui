@@ -107,10 +107,16 @@ namespace agui {
 
 	void Label::resizeToContents()
 	{
-		_setSizeInternal(Dimension(getFont()->getTextWidth(getText()) + getMargin(SIDE_LEFT) + getMargin(SIDE_RIGHT),
-			getFont()->getLineHeight() + getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM)));
+    double computedWidth = getFont()->getTextWidth(getText()) + getMargin(SIDE_LEFT) + getMargin(SIDE_RIGHT);
+    if (this->getMaxSize().getWidth() > computedWidth)
+      computedWidth = this->getMaxSize().getWidth();
+		_setSizeInternal(Dimension(int(computedWidth), getFont()->getLineHeight() * getNumTextLines() + getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM)));
 	}
 
+  void Label::resizeToContentsPreserveWidth()
+	{
+    _setSizeInternal(Dimension(getWidth(), getFont()->getLineHeight() * getNumTextLines() + getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM)));
+	}
 
 	bool Label::isAutosizing()
 	{
@@ -214,7 +220,7 @@ namespace agui {
 		updateLabel();
 	}
 
-	void Label::paintBackground( const PaintEvent &paintEvent )
+	void Label::paintBackground( const PaintEvent &)
 	{
 
 	}

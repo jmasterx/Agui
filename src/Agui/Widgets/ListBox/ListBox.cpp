@@ -62,7 +62,8 @@ namespace agui {
 	ListBox::ListBox( HScrollBar *hScroll /*= NULL*/, VScrollBar *vScroll /*= NULL*/, Widget* scrollInset /*=NULL*/ )
 	: sorted(false), rsorted(false), verticalOffset(0),
 	horizontalOffset(0), lastMouseY(-1), hoveredIndex(-1),hoverSelection(false),
-	firstSelIndex(-1),lastSelIndex(-1),allowRightClick(false)
+	firstSelIndex(-1),lastSelIndex(-1), multiselect(false), multiselectExtended(false), itemHeight(0),
+	widestItem(0), wrapping(false), allowRightClick(false)
 	{
 		if(hScroll)
 		{
@@ -102,8 +103,10 @@ namespace agui {
 		pChildHScroll->addHScrollBarListener(this);
 		pChildVScroll->addVScrollBarListener(this);
 
-		setHScrollPolicy(SHOW_NEVER);
-		setVScrollPolicy(SHOW_AUTO);
+		hScrollPolicy = SHOW_NEVER;
+		vScrollPolicy = SHOW_AUTO;
+    setItemHeight(20);
+		updateScrollBars();
 
 		setBackColor(Color(255,255,255));
 		setFontColor(getFontColor());
@@ -113,16 +116,9 @@ namespace agui {
 		setHKeyScrollRate(6);
 		setVKeyScrollRate(6);
 
-		setItemHeight(20);
-
-		setMultiselect(false);
-		setMultiselectExtended(false);
-		setWrapping(false);
 		setMouseWheelSelection(false);
 		setFocusable(true);
 		setTabable(true);
-		setWidestItem();
-
 	}
 
 	ListBox::~ListBox(void)
@@ -1551,10 +1547,7 @@ namespace agui {
 
 	void ListBox::setMouseWheelSelection( bool mWSelsection )
 	{
-		if(mWSelsection != mouseWheelSelection)
-		{
-			mouseWheelSelection = mWSelsection;
-		}
+    mouseWheelSelection = mWSelsection;
 	}
 
 	void ListBox::mouseDrag( MouseEvent &mouseEvent )

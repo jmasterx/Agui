@@ -70,6 +70,7 @@ namespace agui {
 		Widget *widgetContainer;
 
 		int highestTab;
+    int totalTabWidth;
 		bool isMaintainingWidgetContainer;
 		bool isMaintainingTabContainer;
 		int tabPadding;
@@ -185,6 +186,8 @@ namespace agui {
      * @since 0.1.0
      */
 		void setResizeTabContent(bool resizing);
+    virtual void resizeToContentsRecursive();
+    virtual void resizeToContents();
 	/**
 	 * Construct with optional tab container and content widget container.
      * @since 0.1.0

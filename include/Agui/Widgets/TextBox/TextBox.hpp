@@ -108,6 +108,7 @@ namespace agui {
 		bool selectable;
 		bool wordWrap;
 		bool readOnly;
+		bool drawBorder;
 		int maxLength;
 		bool hotkeys;
 
@@ -547,6 +548,16 @@ namespace agui {
      * @since 0.1.0
      */
 		void setReadOnly(bool readOnly);
+	/**
+	 * @return True if the border will be drawn
+     * @since 0.3.0
+     */
+		bool getDrawBorder() const;
+	/**
+	 * Sets whether or not border is drawn
+     * @since 0.3.0
+     */
+		void setDrawBorder(bool drawBorder);
 	/**
 	 * @return True if the text will be split into lines that fit the width of the TextBox.
      * @since 0.1.0

@@ -187,6 +187,11 @@ namespace agui
      * @since 0.2.0
      */
 		virtual int getContentsHeight() const;
+  	/**
+	 * @return The height of the contents.
+     * @since 0.2.0
+     */
+		virtual int getContentsWidth() const;
 
 	/**
 	 * Resizes to contents.

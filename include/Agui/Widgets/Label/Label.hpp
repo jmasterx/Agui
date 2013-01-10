@@ -153,6 +153,12 @@ namespace agui {
      */
 		std::vector<std::string>& getTextLines();
 
+    /**
+    * Resizes the Label to fit the caption text, adjusts only height.
+    * @since 0.1.0
+    */
+    void resizeToContentsPreserveWidth();
+
 	/**
 	 * Default constructor.
      * @since 0.1.0

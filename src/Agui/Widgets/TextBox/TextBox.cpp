@@ -49,7 +49,7 @@ namespace agui {
 	  hScrollPolicy(SHOW_AUTO), vScrollPolicy(SHOW_AUTO),
 	  horizontalOffset(0),verticalOffset(0), caretRow(0),caretColumn(0),
 	  caretRowLocation(0), caretColumnLocation(0),widestLine(0),
-	  wordWrap(false),readOnly(false),maxSkip(10),numSelLines(0), mouseDownIndex(0),
+	  wordWrap(false),readOnly(false),drawBorder(true),maxSkip(10),numSelLines(0), mouseDownIndex(0),
 	  dragged(false),splittingWords(true),standardArrowKeyRules(true),
 	  textAlignment(ALIGN_LEFT),selectionBackColor(Color(169,193,214)),
 	  hideSelection(true),selfSetText(false),maxLength(100000),selectable(true),
@@ -1552,6 +1552,16 @@ namespace agui {
 		}
 	}
 
+	bool TextBox::getDrawBorder() const
+	{
+		return this->drawBorder;
+	}
+
+	void TextBox::setDrawBorder( bool drawBorder )
+	{
+		this->drawBorder = drawBorder;
+	}
+
 	void TextBox::setMaxCharacterSkip( int val )
 	{
 		if(val < 1)
@@ -1603,6 +1613,9 @@ namespace agui {
 	void TextBox::paintBackground( const PaintEvent &paintEvent )
 	{
 		paintEvent.graphics()->drawFilledRectangle(getSizeRectangle(),getBackColor());
+
+		if(!this->getDrawBorder())
+			return;
 
 		Color  Top = Color(171,171,171);
 		Color  Left = Color(227,227,227);
@@ -2227,6 +2240,7 @@ namespace agui {
 	{
 		int vscroll = 0;
 		int hscroll = 0;
+    updateWidestLine();
 		if(getVScrollPolicy() == SHOW_ALWAYS)
 		{
 			vscroll = pChildVScroll->getWidth();

@@ -58,6 +58,7 @@ namespace agui {
 		public Widget
 	{
 		int topMargin;
+    int titleFontMargin;
 		int leftMargin;
 		int bottomMargin;
 		int rightMargin;
@@ -220,6 +221,8 @@ namespace agui {
      * @since 0.1.0
      */
 		virtual void remove(Widget *widget);
+    virtual void resizeToContents();
+    void setTitleFontMargin(int margin);
 	/**
 	 * Construct with optional Widget for the content pane.
      * @since 0.1.0

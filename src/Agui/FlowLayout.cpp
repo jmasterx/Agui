@@ -99,7 +99,7 @@ namespace agui
 					curY += highestWidget + getVerticalSpacing();
 					highestWidget = 0;
 
-					if(center && curRow.size() > 0)
+					if(center && !curRow.empty())
 					{
 						int x1 = curRow[0]->getLocation().getX();
 						int x2 = curRow.back()->getLocation().getX() +
@@ -148,7 +148,7 @@ namespace agui
 		}
 
 			//code duplication, I know :(
-			if(center && curRow.size() > 0)
+			if(center && !curRow.empty())
 			{
 				if(alignLastRow && numRows > 1 && firstWidget)
 				{
@@ -268,6 +268,11 @@ namespace agui
 		return contentHSz;
 	}
 
+	int FlowLayout::getContentsWidth() const
+	{
+    return this->getWidth() - this->getMargin(SIDE_LEFT) - this->getMargin(SIDE_RIGHT);
+	}
+
 	void FlowLayout::setMaxOnRow( int max )
 	{
 		maxOnRow = max;
@@ -283,6 +288,16 @@ namespace agui
 	{
 		int maxX = 0;
 		int maxY = 0;
+    int minX = 0;
+    int minY = 0;
+
+    WidgetArray::const_iterator it = getChildBegin();
+    if (it != getChildEnd())
+    {
+      minX = (*it)->getLocation().getX();
+      minY = (*it)->getLocation().getY();
+    }
+
 		for(WidgetArray::const_iterator it = getChildBegin();
 			it != getChildEnd(); ++it)
 		{
@@ -292,15 +307,30 @@ namespace agui
 				maxX = tempX;
 			}
 
+      tempX = (*it)->getLocation().getX();
+      if (tempX < minX)
+        minX = tempX;
+
 			int tempY = (*it)->getLocation().getY() + (*it)->getHeight();
 			if(tempY > maxY)
 			{
 				maxY = tempY;
 			}
+      
+      tempY = (*it)->getLocation().getY();
+      if (tempY < minY)
+        minY = tempY;
 		}
 
-		setSize(getMargin(SIDE_LEFT) + getMargin(SIDE_RIGHT) + maxX,
-			getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM) + maxY);
+    for(WidgetArray::const_iterator it = getChildBegin();
+		  	it != getChildEnd(); ++it)
+    {
+      (*it)->setLocation((*it)->getLocation().getX() - minX,
+                         (*it)->getLocation().getY() - minY);
+    }
+
+		setSize(getMargin(SIDE_LEFT) + getMargin(SIDE_RIGHT) + maxX - minX,
+			getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM) + maxY - minY);
 	}
 
 	bool FlowLayout::isResizingRowToWidth() const

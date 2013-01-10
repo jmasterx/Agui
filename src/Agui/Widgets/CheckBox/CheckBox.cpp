@@ -43,7 +43,7 @@
 namespace agui {
 	CheckBox::CheckBox()
 	:	mouseIsDown(false), mouseIsInside(false),isDoingKeyAction(false),
-		sidePadding(6), checkBoxState(DEFAULT)
+		sidePadding(6), checkBoxState(DEFAULT), autosizingCheckbox(false), checkedState(UNCHECKED)
 	{
 		setMargins(1,1,1,1);
 		setBackColor(Color(240,240,240));
@@ -54,8 +54,6 @@ namespace agui {
 
 		positionCheckBox();
 		resizeCaption();
-		setChecked(false);
-		setAutosizing(false);
 		setCheckBoxSize(Dimension(10,10));
 	}
 

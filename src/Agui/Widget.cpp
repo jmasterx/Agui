@@ -65,8 +65,8 @@ namespace agui {
 
 	Widget::~Widget(void)
 	{
-	    Widget* top = getTopWidget();
-		if(top && top->_focusManager)
+	  Widget* top = this->getTopWidget();
+    if(top && top->_focusManager && top->_focusManager->getFocusedWidget() == this)
 			top->_focusManager->setFocusedWidget(NULL);
 
 		for(std::vector<WidgetListener*>::iterator it = 
@@ -93,14 +93,14 @@ namespace agui {
 		for(WidgetArray::iterator it = getPrivateChildBegin();
 			it != getPrivateChildEnd(); ++it)
 		{
-			(*it)->parentWidget = NULL;
+      (*it)->clearParentWidget();
 			(*it)->_container = NULL;
 		}
 
 		for(WidgetArray::iterator it = getChildBegin();
 			it != getChildEnd(); ++it)
 		{
-			(*it)->parentWidget = NULL;
+      (*it)->clearParentWidget();
 			(*it)->_container = NULL;
 		}
 
@@ -224,7 +224,7 @@ namespace agui {
 			std::advance(i,getChildWidgetIndex(widget));
 			children.erase(i);
 
-			widget->parentWidget = NULL;
+      widget->clearParentWidget();
 			widget->_container = NULL;
 
 		}
@@ -237,7 +237,34 @@ namespace agui {
 
 	}
 
+  void Widget::checkLostFocusRecursive()
+  {
+    Widget* top = this->getTopWidget();
+    if(top && top->_focusManager && top->_focusManager->getFocusedWidget() == this)
+    {
+		  top->_focusManager->setFocusedWidget(NULL);
+      return;
+    }
 
+    for(WidgetArray::iterator it = 
+			this->getPrivateChildBegin();
+			it != this->getPrivateChildEnd(); ++it)
+		{
+			(*it)->checkLostFocusRecursive();
+		}
+		for(WidgetArray::iterator it = 
+			this->getChildBegin();
+			it != this->getChildEnd(); ++it)
+		{
+			(*it)->checkLostFocusRecursive();
+		}
+  }
+
+  void Widget::clearParentWidget()
+  {
+    this->checkLostFocusRecursive();
+    this->parentWidget = NULL;
+  }
 
 
 	bool Widget::containsChildWidget( Widget *widget ) const
@@ -1605,7 +1632,7 @@ namespace agui {
 			std::advance(i,getPrivateChildIndex(widget));
 			privateChildren.erase(i);
 
-			widget->parentWidget = NULL;
+      widget->clearParentWidget();
 			widget->_container = NULL;
 		}
 
@@ -2038,6 +2065,26 @@ namespace agui {
 		return layoutWidget;
 	}
 
+  void Widget::resizeToContents()
+  {
+
+  }
+
+  void Widget::resizeToContentsRecursiveUp()
+  {
+    this->resizeToContents();
+    if (getParent())
+      getParent()->resizeToContentsRecursiveUp();
+  }
+
+  void Widget::resizeToContentsRecursive()
+  {
+    for (agui::WidgetArray::iterator i = this->getChildBegin(); i != this->getChildEnd(); i++)
+    {
+      (*i)->resizeToContentsRecursive();
+    }
+    resizeToContents();
+  }
 
 	int Widget::globalFontID = 789;
 

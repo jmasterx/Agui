@@ -38,101 +38,93 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef AGUI_FONT_HPP
-#define AGUI_FONT_HPP
-#include "Agui/Platform.hpp"
-#include "Agui/UTF8.hpp"
-#include "Agui/Color.hpp"
+#ifndef AGUI_TABLE_LAYOUT_HPP
+#define AGUI_TABLE_LAYOUT_HPP
+
+#include "Agui/Layout.hpp"
 namespace agui
 {
-	class AGUI_CORE_DECLSPEC FontLoader;
-
 	/**
-     * Abstract base class for all Fonts in Agui.
-	 *
-	 * Certain classes such as the ExtendedTextBox cause Agui not to be with Kerning.
-	 * Please disable Kerning for optimal results.
-	 *
-	 * Must implement:
-	 *
-	 * free
-	 *
-	 * getLineHeight
-	 *
-	 * getHeight
-     *
-	 * getTextWidth
-	 *
-	 * getPath
+     * Class to layout widgets in an equidistant
+	 * grid where each widget occupies the same amount of room.
      * @author Joshua Larouche
      * @since 0.1.0
      */
-	class AGUI_CORE_DECLSPEC Font
+	class TableLayout :
+		public Layout
 	{
-		static FontLoader* loader;
+		int rows;
+		int columns;
+		int horizontalSpacing;
+		int verticalSpacing;
+	protected:
+	/**
+     * Lays out the children in a grid.
+     * @since 0.1.0
+     */
+		virtual void layoutChildren();
 	public:
 	/**
-	 * Should free the underlying font.
-     * @since 0.1.0
-     */
-		virtual void free() = 0;
-	/**
-	 * @return The font's line height which is usually the height of the highest glyph.
-     * @since 0.1.0
-     */
-		virtual int getLineHeight() const = 0;
-	/**
-	 * @return The glyph that parameter 'x' is inside of.
+     * Sets the number of rows expected to have.
 	 *
-	 * If 'x' is before half of the glyph it returns the index of the previous glyph.
+	 * This can be set to zero if you do not know however 
+	 * either number of rows or number of columns must be non zero.
+	 * They cannot both be zero.
+     * @since 0.1.0
+     */
+		virtual void setNumberOfRows(int rows);
+	/**
+     * Sets the number of columns expected to have.
 	 *
-	 * Otherwise if 'x' is past half of the glyph it returns the index of the glyph.
-	 * @param str The UTF8 string to verify.
-	 * @param x The relative x-axis line.
+	 * This can be set to zero if you do not know however 
+	 * either number of rows or number of columns must be non zero.
+	 * They cannot both be zero.
      * @since 0.1.0
      */
-		int getStringIndexFromPosition(const std::string &str, int x) const;
+		virtual void setNumberOfColumns(int columns);
+		/**
+	 * Sets the horizontal spacing between each widget. The first widget in the row receives no spacing.
+	 * Use the margins for this.
+     * @since 0.1.0
+     */
+		virtual void setHorizontalSpacing(int spacing);
 	/**
-	 * @return The height specified by the user. This is usually in pixels. It may not be the line height.
+	 * Sets the vertical spacing between each widget. The first widget in the column receives no spacing.
+	 * Use the margins for this.
      * @since 0.1.0
      */
-		virtual int getHeight() const = 0;
+		virtual void setVerticalSpacing(int spacing);
 	/**
-	 * @return The width of the parameter UTF-8 string.
+	 * @return The number of rows in the grid or zero if unknown.
      * @since 0.1.0
      */
-		virtual int getTextWidth(const std::string &text) const = 0;
+		virtual int getNumberOfRows() const;
 	/**
-	 * Sets the font loader for the back end. This will influence the load method.
+	 * @return The number of columns in the grid or zero if unknown.
      * @since 0.1.0
      */
-		static void setFontLoader(FontLoader* manager);
+		virtual int getNumberOfColumns() const;
+			/**
+	 * @return The horizontal spacing between widgets.
+     * @since 0.1.0
+     */
+		virtual int getHorizontalSpacing() const;
 	/**
-	 * @return A pointer to the back end specific font or NULL if failed and no exception was thrown.
-	 * @param fileName The path of the font. Must be compatible with the back end loader.
-	 * @param height The height of the font in pixels.
+	 * @return The vertical spacing between widgets.
      * @since 0.1.0
      */
-		static Font* load(const std::string &fileName, int height, int allegroFontFlags = 0, float borderWidth = 0, agui::Color borderColor = agui::Color());
-    static Font* loadEmpty();
-    virtual void reload(const std::string &fileName, int height, int allegroFontFlags = 0, float borderWidth = 0, agui::Color borderColor = agui::Color()) = 0;
-	/**
-	 * @return The path of the font.
-     * @since 0.1.0
-     */
-		virtual const std::string& getPath() const = 0;
+		virtual int getVerticalSpacing() const;
+    virtual void resizeToContents();
 	/**
 	 * Default constructor.
      * @since 0.1.0
      */
-		Font();
-	/**
+		TableLayout(void);
+		/**
 	 * Default destructor.
      * @since 0.1.0
      */
-		virtual ~Font();
-
+		virtual ~TableLayout(void);
 	};
 }
-
 #endif

@@ -41,9 +41,13 @@
 #include "Agui/Backends/Allegro5/Allegro5FontLoader.hpp"
 namespace agui {
 
-	Font* Allegro5FontLoader::loadFont( const std::string &fileName, int height )
+	Font* Allegro5FontLoader::loadFont( const std::string &fileName, int height, int allegroFontFlags, float borderWidth, agui::Color borderColor )
 	{
-		return new Allegro5Font(fileName,height);
+		return new Allegro5Font(fileName,height,allegroFontFlags,borderWidth,borderColor);
 	}
 
+  Font* Allegro5FontLoader::loadEmptyFont()
+  {
+    return new Allegro5Font();
+  }
 }

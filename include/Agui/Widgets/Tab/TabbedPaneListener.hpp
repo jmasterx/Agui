@@ -58,11 +58,11 @@ namespace agui {
 	{
 	public:
 		TabbedPaneListener(void);
-		virtual void selectedTabChanged(TabbedPane* source, Tab *tab) {}
-		virtual void resizingTabContentChanged(TabbedPane* source, bool resizing) {}
-		virtual void tabAdded(TabbedPane* source, Tab *tab, Widget* tabContent){}
-		virtual void tabRemoved(TabbedPane* source, Tab* tab){}
-		virtual void death(TabbedPane* source){}
+		virtual void selectedTabChanged(TabbedPane* source, Tab *tab) { (void)(source); (void)(tab); }
+		virtual void resizingTabContentChanged(TabbedPane* source, bool resizing) { (void)(source); (void)(resizing); }
+		virtual void tabAdded(TabbedPane* source, Tab *tab, Widget* tabContent) { (void)(source); (void)(tab); (void)(tabContent); }
+		virtual void tabRemoved(TabbedPane* source, Tab* tab) { (void)(source); (void)(tab); }
+		virtual void death(TabbedPane* source) { (void)(source); }
 		
 
 		virtual ~TabbedPaneListener(void);

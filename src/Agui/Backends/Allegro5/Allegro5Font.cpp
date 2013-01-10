@@ -55,15 +55,27 @@ namespace agui
 		al_destroy_font(font);
 	}
 
-	Allegro5Font::Allegro5Font( const std::string &fileName, int height )
+  Allegro5Font::Allegro5Font( const std::string &fileName, int height , int allegroFontFlags, float borderWidth, agui::Color borderColor )
 	{
-		font = al_load_font(fileName.c_str(),height,ALLEGRO_TTF_NO_KERNING);
+    font = NULL;
+    reload(fileName, height, allegroFontFlags, borderWidth, borderColor);
+	}
+
+  void Allegro5Font::reload( const std::string &fileName, int height , int allegroFontFlags, float borderWidth, agui::Color borderColor )
+  {
+    if (font)
+      free();
+    font = al_load_font(fileName.c_str(),height,ALLEGRO_TTF_NO_KERNING | allegroFontFlags);
 		if(!font && fileName != "")
 		{
 			throw Exception("Allegro5 Failed to load font");
 		}
 		if(font)
 		{
+			if (allegroFontFlags & ALLEGRO_TTF_RENDER_BORDER)
+			{
+			  al_set_ttf_border(this->font, borderWidth, al_map_rgb(borderColor.getR()*255, borderColor.getG()*255, borderColor.getB()*255));
+			}
 			this->height = height;
 			lineHeight = al_get_font_line_height(font);
 			autoFree = true;
@@ -74,8 +86,7 @@ namespace agui
 			lineHeight = 0;
 			autoFree = false;
 		}
-	
-	}
+  }
 
 	void Allegro5Font::free()
 	{
