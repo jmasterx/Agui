@@ -1325,6 +1325,20 @@ namespace agui
 
 	void Gui::_dispatchMouseEvents()
 	{
+		while(!queuedMouseDown.empty())
+		{
+			MouseInput mi = queuedMouseDown.back();
+			queuedMouseDown.pop();
+
+			if(mi.type == MouseEvent::MOUSE_DOWN)
+			{
+				_dispatchMousePreview(mi,mi.type);
+				if(!mouseEvent.isConsumed())
+					handleMouseDown(mi);
+			}
+		}
+
+
 		while(!input->isMouseQueueEmpty())
 		{
 			MouseInput mi = input->dequeueMouseInput();
@@ -1354,6 +1368,7 @@ namespace agui
 					queuedMouseDown.pop();
 				}
 				queuedMouseDown.push(mi);
+				return;
 			}
 			else if(mi.type == MouseEvent::MOUSE_UP)
 			{
@@ -1361,22 +1376,7 @@ namespace agui
 				if(!mouseEvent.isConsumed())
 				handleMouseUp(mi);
 			}
-		}
-
-    while(!queuedMouseDown.empty())
-		{
-			MouseInput mi = queuedMouseDown.back();
-			queuedMouseDown.pop();
-
-			if(mi.type == MouseEvent::MOUSE_DOWN)
-			{
-				_dispatchMousePreview(mi,mi.type);
-				if(!mouseEvent.isConsumed())
-				handleMouseDown(mi);
-			}
-		}
-
-		
+		}		
 	}
 
 	void Gui::_dispatchWidgetDestroyed( Widget* widget )
