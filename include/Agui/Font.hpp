@@ -43,15 +43,9 @@
 #include "Agui/Platform.hpp"
 #include "Agui/UTF8.hpp"
 #include "Agui/Color.hpp"
+#include "Agui/BaseTypes.hpp"
 namespace agui
 {
-	enum FontFlags
-	{
-		FONT_DEFAULT_FLAGS = 0,
-		FONT_NO_KERNING = 1,
-		FONT_NO_ANTIALIASING = 2,
-		FONT_NO_HINTING = 4
-	};
 
 	class AGUI_CORE_DECLSPEC FontLoader;
 

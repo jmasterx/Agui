@@ -118,7 +118,6 @@ namespace agui {
 		virtual ~NumericStringCompare();
 	};
 
-
 }
 #endif
 
