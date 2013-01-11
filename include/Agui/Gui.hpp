@@ -653,6 +653,13 @@ namespace agui
      */
 		bool isDelayingMouseDownEvents() const;
 
+		
+	/**
+	 * @Return false if the widget under mouse is the top or NULL.
+     * @since 0.2.0
+     */
+		bool isWidgetUnderMouse() const;
+
 
 
 	

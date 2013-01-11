@@ -1721,6 +1721,11 @@ namespace agui
 		return delayMouseDown;
 	}
 
+	bool Gui::isWidgetUnderMouse() const
+	{
+		return getWidgetUnderMouse() != NULL && getWidgetUnderMouse() != getTop();
+	}
+
 
 
 }
