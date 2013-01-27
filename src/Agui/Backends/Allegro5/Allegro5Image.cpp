@@ -110,7 +110,7 @@ namespace agui
 			throw Exception("Cannot set the pixel of a NULL image");
 		}
 
-		ALLEGRO_COLOR c = al_map_rgba(color.getR(),color.getG(),color.getB(),color.getA());
+		ALLEGRO_COLOR c = al_map_rgba_f(color.getR(),color.getG(),color.getB(),color.getA());
 		ALLEGRO_BITMAP* oldBmp = al_get_target_bitmap();
 
 		al_set_target_bitmap(bmp);
