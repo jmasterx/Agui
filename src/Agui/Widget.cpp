@@ -755,16 +755,17 @@ namespace agui {
 	{
 
 		if(_container)
-		return _container;
+			return _container;
 
 		if(getTopWidget())
 		{
-			((Widget*)this)->_container = getTopWidget()->getGui();
-		   return _container;
+			Widget* self = const_cast<Widget*>(this);
+			self->_container = getTopWidget()->getGui();
+			return _container;
 		}
 
 
-		return (Gui*)NULL;
+		return NULL;
 			
 		
 	}
