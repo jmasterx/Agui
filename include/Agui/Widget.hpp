@@ -1110,7 +1110,7 @@ namespace agui {
 		* @return True if public children's logic will not be called.
 		* @since 0.2.0
 		*/
-		virtual bool isChildlogicHandled() const;
+		virtual bool isChildLogicHandled() const;
 
 	/**
 	* @return The number of UTF8 characters in the widget's text.

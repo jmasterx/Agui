@@ -1208,7 +1208,7 @@ namespace agui
 			recursiveDoLogic(*it);
 		}
 
-		if(!baseWidget->isChildlogicHandled())
+		if(!baseWidget->isChildLogicHandled())
 		for(WidgetArray::iterator it = 
 			baseWidget->getChildBegin();
 			it != baseWidget->getChildEnd(); ++it)

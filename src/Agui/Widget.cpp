@@ -2019,7 +2019,7 @@ namespace agui {
 		handlesChildLogic = handled;
 	}
 
-	bool Widget::isChildlogicHandled() const
+	bool Widget::isChildLogicHandled() const
 	{
 		return handlesChildLogic;
 	}
