@@ -70,6 +70,7 @@ using namespace cge;
 	agui::Allegro5Graphics* graphicsHandler = NULL;
 	GuiFontManager* fontMan = NULL;
 	GuiImageManager* imgMan = NULL;
+	GuiFactory m_globalFactory;
 	agui::Allegro5CursorProvider cursor;
 
 	class CalculatorCallback : public agui::ActionListener
@@ -206,9 +207,12 @@ using namespace cge;
 
 		imgMan = new GuiImageManager("data/gui_image_mapping.conf","data/");
 
+		m_globalFactory.setImageManager(imgMan);
+		m_globalFactory.setFontManager(fontMan);
+		//set the global ToolTip
+		gui->setToolTip(m_globalFactory.createToolTip());
+
 		calcCallback = new CalculatorCallback();
-
-
 	}
 
 	void cleanUp()
@@ -247,7 +251,6 @@ int main(int argc, char *argv[])
 	initializeAgui();
 	bool needRedraw = true;
 	// Start the event queue to handle keyboard input, mouse and our timer
-
 	al_register_event_source(queue, (ALLEGRO_EVENT_SOURCE*)al_get_keyboard_event_source());
 	al_register_event_source(queue, (ALLEGRO_EVENT_SOURCE*)al_get_mouse_event_source());
 	al_register_event_source(queue, (ALLEGRO_EVENT_SOURCE*)timer);
@@ -263,8 +266,6 @@ int main(int argc, char *argv[])
 
 		//Handle rendering and logic
 		if (needRedraw && al_event_queue_is_empty(queue)) {
-
-
 			gui->logic();
 			calcCallback->logic();
 			render();

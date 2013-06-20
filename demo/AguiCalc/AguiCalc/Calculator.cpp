@@ -65,7 +65,18 @@ namespace cge
 	void Calculator::makeUI()
 	{
 		std::stringstream ss;
+		std::string backuni = "";
+		std::string sqrtuni = "";
+		std::string pmuni = "";
 
+		//back symbol
+		backuni += (char)0xE2; backuni +=  + (char)0x86; backuni += (char)0x90;
+		//sqrt symbol
+		sqrtuni += (char)0xE2l; sqrtuni +=  + (char)0x88; sqrtuni += (char)0x9A;
+		//sqrt symbol
+		pmuni += (char)0xC2; pmuni +=  + (char)0xB1;
+
+		//create the edit field using the factory
 		m_edit = m_factory.createTextField();
 		m_edit->setReadOnly(true);
 		m_edit->setTextAlignment(agui::ALIGN_RIGHT);
@@ -74,7 +85,9 @@ namespace cge
 		m_border = m_factory.createBorderLayout();
 		m_border->setResizable(false);
 	
-		float relativeFontRatio = m_factory.getFontManager()->getDefaultFont()->getLineHeight() / 19.0f;
+		const float relativeFontRatio = m_factory.getFontManager()->getDefaultFont()->getLineHeight() / 19.0f;
+
+		//create a frame with size constraints
 		m_frame = m_factory.createFrame(m_border);
 		m_frame->setSize(260 * relativeFontRatio,325 * relativeFontRatio);
 		m_frame->setMinSize(agui::Dimension(260 * relativeFontRatio,325 * relativeFontRatio));
@@ -83,9 +96,11 @@ namespace cge
 		m_grid = m_factory.createGridLayout();
 	    m_grid->setMargins(2,8,4,4);
 
+		//create a grid with 4 columns and unknown rows
 	    m_grid->setNumberOfColumns(4);
 		m_grid->setNumberOfRows(0);
 
+		//make the number buttons
 		for(int i = 0; i < NUM_BTN_SIZE; ++i)
 		{
 			ss.str("");
@@ -94,26 +109,23 @@ namespace cge
 			m_numBtn[i] = makeButton(ss.str());
 		}
 
+		//make the other buttons
 		m_fullStop = makeButton(".");
 		m_equals = makeButton("=",true);
 		m_clear = makeButton("C",true);
-		std::string backuni = "";
-		//back symbol
-		backuni += (char)0xE2; backuni +=  + (char)0x86; backuni += (char)0x90;
+		m_clear->setToolTipText("Clear");
+	
 		m_back = makeButton(backuni,true);
-		std::string sqrtuni = "";
-		//sqrt symbol
-		sqrtuni += (char)0xE2l; sqrtuni +=  + (char)0x88; sqrtuni += (char)0x9A;
+
 		m_sqrt = makeButton(sqrtuni,true);
 	    m_add = makeButton("+",true);
 		m_subtract = makeButton("-",true);
 		m_multiply = makeButton("*",true);
 		m_divide = makeButton("/",true);
-		std::string pmuni = "";
-		//sqrt symbol
-		pmuni += (char)0xC2; pmuni +=  + (char)0xB1;
+
 	    m_plusMinus = makeButton(pmuni,true);
 
+		//add buttons to the grid from top left to bottom right
 		m_grid->add(m_back);
 		m_grid->add(m_clear);
 		m_grid->add(m_plusMinus);
@@ -140,18 +152,26 @@ namespace cge
 		m_grid->add(m_add);
 
 		m_border->add(m_edit,agui::BorderLayout::NORTH);
+		//the center will grow both horizontally and vertically
 		m_border->add(m_grid,agui::BorderLayout::CENTER);
 		getGui().add(m_frame);
 
-		m_close = makeButton("x",false);
+		//add a close button that will be hooked into by a parent class
+		m_close = makeButton("x");
 		m_close->setFont(m_factory.getFontManager()->getFont(0.75f));
+		//adjust the size to fit the text
 		m_close->resizeToContents();
+		//adjust the height to match the parent's inner height
 		m_close->setSize(m_close->getWidth(),m_edit->getInnerHeight());
+		//ToolTip text will work with the ToolTip that was set on the Gui
+		m_close->setToolTipText("Close");
+		//add the close to the edit
 		m_edit->add(m_close);
 	}
 
 	void Calculator::actionPerformed( const agui::ActionEvent &evt )
 	{
+		//add the number to the accumulation string
 		for(int i = 0; i < NUM_BTN_SIZE; ++i)
 		{
 			if(m_numBtn[i] == evt.getSource())
@@ -160,6 +180,7 @@ namespace cge
 			}
 		}
 
+		//add the full stop to the accumulator string
 		if(m_fullStop == evt.getSource())
 		{
 			appendAccumulator(".");
@@ -216,6 +237,7 @@ namespace cge
 	Button* Calculator::makeButton( const std::string& text /*= ""*/, bool white)
 	{
 		Button* b = white ? m_factory.createWhiteButton() : m_factory.createButton();
+		//set a relative font that is relative to the global font
 		b->setFont(m_factory.getFontManager()->getFont(1.1f));
 		b->setText(text);
 		b->addActionListener(this);
@@ -230,6 +252,7 @@ namespace cge
 
 	void Calculator::appendAccumulator( const std::string& val )
 	{
+		//sanity checks
 		if(m_state == STATE_SILLY_USER || m_accStr.length() == MAX_DECIMALS)
 		{
 			return;
@@ -239,7 +262,7 @@ namespace cge
 		{
 			m_state = STATE_ACC2;
 		}
-
+		//toggle full stop button enabled
 		if(hasFullStop() && val == ".")
 		{
 			doFullStopCheck();
@@ -274,6 +297,8 @@ namespace cge
 		switch(m_state)
 		{
 		case STATE_SILLY_USER:
+			//ONE DOES NOT SIMPLY
+			//DIVIDE BY ZERO
 			result = "Inf";
 			break;
 		case STATE_ACC1:

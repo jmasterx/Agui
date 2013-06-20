@@ -1193,13 +1193,30 @@ namespace agui {
 	*/
 		bool setCursor(CursorProvider::CursorEnum cursor);
 
+    /** Implementation differs per widget. Will resize the Widget to fit its contents.
+	* ex: Button will resize to fit its text.
+	* @since 0.2.0
+	*/
     virtual void resizeToContents();
+	    /** Implementation differs per widget. Will resize the Widget to fit its contents recursively.
+	* ex: Button will resize to fit its text.
+	* @since 0.2.0
+	*/
     virtual void resizeToContentsRecursive();
+	    /** Implementation differs per widget. Will resize the Widget to fit its contents recursively.
+	* ex: Button will resize to fit its text.
+	* @since 0.2.0
+	*/
     virtual void resizeToContentsRecursiveUp();
+	  /** Clears focus recursively.
+	* @since 0.2.0
+	*/
     void checkLostFocusRecursive();
-    /** By clearing parent widget, all of my children will lose top.
-     * If the top focus manager poitns to them, they would have no chance to unfocus when they are destroyed,
-     * that would result in the focus manager pointing to deleted widget. */
+    /** By clearing parent widget, all children will lose top.
+     * If the top focus manager points to them, they would have no chance to unfocus when they are destroyed,
+     * that would result in the focus manager pointing to deleted widget. 
+	* @since 0.2.0
+	*/
     void clearParentWidget();
 	};
 }

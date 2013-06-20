@@ -60,6 +60,7 @@ namespace cge
 		setOpacity(0.0f);
 	}
 
+	//sample of using logic to affect opening opacity
 	void PopUpMenu::logic( double timeElapsed )
 	{
 		agui::PopUpMenu::logic(timeElapsed);

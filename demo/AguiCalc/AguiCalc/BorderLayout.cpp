@@ -40,6 +40,7 @@
 
 #include "BorderLayout.hpp"
 
+
 namespace cge
 {
 	BorderLayout::BorderLayout( agui::Image* horzImg, agui::Image* vertImg, agui::Image* vertFlipImg )
@@ -57,6 +58,7 @@ namespace cge
 
 	}
 
+	//sample code to draw borders on the border layout
 	void BorderLayout::paintComponent( const agui::PaintEvent &paintEvent )
 	{
 		if(!m_paint)

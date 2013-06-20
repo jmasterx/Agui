@@ -66,14 +66,34 @@ namespace agui {
 		virtual void paintBackground(const PaintEvent &paintEvent);
 	public:
 		ToolTip();
+    /** Returns each line of text. One line per string.
+	* @since 0.2.0
+	*/
 		const std::vector<std::string>& getAreaText() const;
+    /** Shows the ToolTip at x and y relative to the invoker. Text will wrap to the specified width.
+	* A width of 0 can be passed for a single line of with up to 1000px.
+	* @see Gui for using a ToolTip as a Gui-Wide object. Every Widget has custom ToolTip text.
+	* @since 0.2.0
+	*/
 		virtual void showToolTip(const std::string& text, int width, int x, int y, Widget* invoker);
+		    /** Hides the ToolTip
+	* @since 0.2.0
+	*/
 		virtual void hideToolTip();
 		virtual void mouseClick(MouseEvent &mouseEvent);
 		virtual void setTextAlignment(AreaAlignmentEnum alignment);
 		virtual AreaAlignmentEnum getTextAlignment() const;
+      /** Sets an offset from the top left location of the ToolTip when it is shown.
+	* @since 0.2.0
+	*/
 		virtual void setPreferredOffset(Point offset);
+		     /** @return The offset from the top left location of the ToolTip when it is shown.
+	* @since 0.2.0
+	*/
 		virtual Point getPreferredOffset() const;
+		     /** @return The invoker passed when the ToolTip was shown.
+	* @since 0.2.0
+	*/
 		Widget* getInvoker() const;
 
 	};

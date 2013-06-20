@@ -49,6 +49,7 @@ namespace cge
 
 	CalculatorManager::~CalculatorManager(void)
 	{
+		//clean up
 		for(std::vector<Calculator*>::iterator it = m_calcs.begin(); it != m_calcs.end(); ++it)
 		{
 				delete (*it);
@@ -63,12 +64,15 @@ namespace cge
 	void CalculatorManager::createCalc( GuiFontManager* font, GuiImageManager* img, agui::Gui* gui )
 	{
 		m_calcs.push_back(new Calculator(img,font,gui));
+		//hook into its close button
 		m_calcs.back()->getCloseButton()->addActionListener(this);
+		//set a very lazy "random" location
 		m_calcs.back()->setLocation(rand() % gui->getTop()->getWidth(),rand() % gui->getTop()->getHeight());
 	}
 
 	void CalculatorManager::destroyDeadCalcs()
 	{
+		//ALL YOUR CALCULATORS ARE BELONG TO US
 		while(!m_deadCalcs.empty())
 		{
 			for(std::vector<Calculator*>::iterator it = m_calcs.begin(); it != m_calcs.end(); ++it)
