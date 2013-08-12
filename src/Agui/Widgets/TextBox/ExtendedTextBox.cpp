@@ -164,6 +164,39 @@ namespace agui {
 		{
 			mousePositionCaret(columnRowFromIndex(getTextLength()));
 		}
+
+		if(!isEditingText && textColors.size() == 0)
+		{
+			size_t uniPos = 0;
+			int bytesSkipped = 0;
+			std::string newStr;
+			std::string curChar;
+			size_t textLen = unicodeFunctions.length(text);
+
+
+			for(size_t i = 0; i < textLen && (getTextLength() + i) < (size_t)getMaxLength(); ++i)
+			{
+				//get length of unichar
+				int curLen = unicodeFunctions.bringToNextUnichar(uniPos,text);
+				curStr = text.substr(bytesSkipped,curLen);
+				bytesSkipped += curLen;
+
+				Image* emoticon = getEmoticon(curStr);
+
+				if(emoticon)
+				{
+					newStr += emoticonChar;
+				}
+				else
+				{
+					newStr += curStr;
+				}
+
+				textColors.insert(textColors.begin() + (i),std::make_pair(currentColor,emoticon));
+			}
+
+		}
+	
 	}
 
 	int ExtendedTextBox::removeLastCharacter()
