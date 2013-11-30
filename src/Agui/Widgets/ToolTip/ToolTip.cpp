@@ -64,7 +64,7 @@ namespace agui {
 	{
 		this->invoker = invoker;
 
-		setLocation(x,y);
+		
 		int w = width <= 0 ? 1000 : width;
 		resizableText.makeTextLines(getFont(),text,wrappedText,w);
 
@@ -89,7 +89,19 @@ namespace agui {
 		newHeight += getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM);
 
 		setSize(newWidth,newHeight);
+		if(getParent())
+		{
+			int extraX = (x + newWidth) - getParent()->getWidth();
+			int extraY = (y + newHeight) - getParent()->getHeight();
 
+			if(extraX > 0)
+				x -= extraX;
+
+			if(extraY > 0)
+				y -= extraY;
+		}
+
+		setLocation(x,y);
 		setVisibility(true);
 	}
 
