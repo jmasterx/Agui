@@ -145,16 +145,6 @@ namespace agui {
      * @since 0.1.0
      */
 		virtual void relocateCaret();
-	/**
-	 * Removes the character behind the caret.
-     * @since 0.1.0
-     */
-		virtual void removeLastCharacter();
-	/**
-	 * Removes the character in front of the caret.
-     * @since 0.1.0
-     */
-		virtual void removeNextCharacter();
 
 	/**
 	 * Adds the UTF32 character, as UTF8, after the caret.
@@ -218,6 +208,18 @@ namespace agui {
      * @since 0.1.1
      */
 		virtual bool wantsHotkeys() const;
+
+			/**
+	 * Removes the character behind the caret.
+     * @since 0.1.0
+     */
+		virtual void removeLastCharacter();
+	/**
+	 * Removes the character in front of the caret.
+     * @since 0.1.0
+     */
+		virtual void removeNextCharacter();
+
 	/**
 	 * Sets whether or not this TextField will be used to store a password.
      * @since 0.1.0
