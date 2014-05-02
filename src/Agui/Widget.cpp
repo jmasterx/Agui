@@ -949,23 +949,26 @@ namespace agui {
 
 	bool Widget::requestModalFocus()
 	{
-		Widget* top = getTopWidget();
-		if(top)
+		if(isFocusable())
 		{
-			if(top->_focusManager)
+			Widget* top = getTopWidget();
+			if(top)
 			{
-				bool r = top->_focusManager->requestModalFocus(this);
-
-				if(r && getGui())
+				if(top->_focusManager)
 				{
-					getGui()->_modalChanged();
+					bool r = top->_focusManager->requestModalFocus(this);
+
+					if(r && getGui())
+					{
+						getGui()->_modalChanged();
+					}
+
+					return r;
+
 				}
-
-				return r;
-
 			}
 		}
-
+	
 		return false;
 	}
 
