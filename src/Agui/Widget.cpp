@@ -867,16 +867,17 @@ namespace agui {
 
 	void Widget::focus()
 	{
-		
-		Widget* top = getTopWidget();
-		if(top)
+		if(isFocusable())
 		{
-			if(top->_focusManager)
+			Widget* top = getTopWidget();
+			if(top)
 			{
-				top->_focusManager->setFocusedWidget(this);
+				if(top->_focusManager)
+				{
+					top->_focusManager->setFocusedWidget(this);
+				}
 			}
-		}
-		
+		}	
 	}
 
 	void Widget::mouseHover( MouseEvent &mouseEvent )
