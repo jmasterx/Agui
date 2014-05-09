@@ -915,6 +915,11 @@ namespace agui
 
 	bool Gui::widgetExists(const Widget* root, const Widget* target ) const
 	{
+		if(target == NULL)
+		{
+			return false;
+		}
+
 		if(!enableExistanceCheck)
 		{
 			return true;
