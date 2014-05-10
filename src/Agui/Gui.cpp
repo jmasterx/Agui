@@ -1455,6 +1455,9 @@ namespace agui
 
 	bool Gui::handleTabbing()
 	{
+		if(!isTabbingEnabled())
+			return false;
+
 		if((tabNextKey != KEY_NONE && keyEvent.getKey() == tabNextKey ||
 			tabNextExtKey != EXT_KEY_NONE && 
 			keyEvent.getExtendedKey() == tabNextExtKey) &&
