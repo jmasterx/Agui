@@ -168,6 +168,14 @@ namespace agui {
 		pChildListBox->show();
 		positionListBox();
 		resizeListBox();
+		if(pChildListBox->getLocation().getY() + pChildListBox->getHeight() > 
+			pChildListBox->getParent()->getHeight())
+		{
+			pChildListBox->setLocation(getAbsolutePosition().getX() + getListPositionOffset().getX(),
+				getAbsolutePosition().getY() + getListPositionOffset().getY() - 
+				pChildListBox->getHeight());
+
+		}
 		pChildListBox->setSelectedIndex(getSelectedIndex());
 		if(getSelectedIndex() <= -1)
 		{
