@@ -104,6 +104,7 @@ namespace agui {
 
 		positionCaret(0,0);
 
+		setText("");
 	}
 
 
