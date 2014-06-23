@@ -246,6 +246,18 @@ namespace agui {
 
 		pChildListBox->setSize(
 			sizeX + getListSizePadding().getWidth(),sizeY + getListSizePadding().getHeight());
+
+		if(pChildListBox->getLocation().getY() + pChildListBox->getHeight() > 
+			pChildListBox->getParent()->getHeight())
+		{
+			if(getAbsolutePosition().getY() + getListPositionOffset().getY() - 
+				pChildListBox->getHeight() < 0)
+			{
+				pChildListBox->setSize(
+					sizeX + getListSizePadding().getWidth(), 
+					getAbsolutePosition().getY() + getListPositionOffset().getY());
+			}
+		}
 	}
 
 	void DropDown::modalMouseDownCB( MouseEvent &mouseEvent )
@@ -355,7 +367,13 @@ namespace agui {
 	{
 		pChildListBox->setSelectedIndex(index);
 		selIndex = pChildListBox->getSelectedIndex();
+		if(selIndex > -1)
 		setText(pChildListBox->getItemAt(selIndex));
+		else if(getNoSelectionText().length() > 0 && selIndex == -1)
+		setText(getNoSelectionText());
+		else
+		setText(pChildListBox->getItemAt(selIndex));
+
 		dispatchSelectionEvent();
 	}
 
@@ -649,7 +667,16 @@ namespace agui {
 
   void DropDown::resizeToContents()
   {
-    setSize(getFont()->getTextWidth(getText())
+	  int width = pChildListBox->getContentWidth();
+	  int txtW = getFont()->getTextWidth(getText());
+	  int selW = getFont()->getTextWidth(getNoSelectionText());
+
+	  if(txtW > width)
+		  width = txtW;
+	  if(selW > width)
+		  width = selW;
+
+    setSize(width
       + getMargin(SIDE_LEFT) + 2*getMargin(SIDE_RIGHT) + this->dropDownArrowWidth,
             getFont()->getLineHeight()
 				    + getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM));
@@ -662,4 +689,17 @@ namespace agui {
   {
     return this->pChildListBox->getItemAt(index);
   }
+
+  const std::string& DropDown::getNoSelectionText() const
+  {
+	  return noSelectionText;
+  }
+
+  void DropDown::setNoSelectionText( const std::string& text )
+  {
+	  noSelectionText = text;
+	  if(getSelectedIndex() == -1)
+		  setSelectedIndex(-1);
+  }
+
 }
