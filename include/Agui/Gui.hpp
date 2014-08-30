@@ -45,6 +45,7 @@
 #include "Agui/Widget.hpp"
 #include "Agui/EventArgs.hpp"
 #include <stack>
+#include <queue>
 #include "Agui/Input.hpp"
 #include "Agui/BaseTypes.hpp"
 #include "Agui/FocusManager.hpp"
@@ -149,6 +150,11 @@ namespace agui
 		Transform transform;
 
 		bool delayMouseDown;
+
+		std::queue<Widget*> frontWidgets;
+		std::queue<Widget*> backWidgets;
+
+
 
 	/**
      * Converts the mouse event's position into one that is relative to the parameter widget.
@@ -684,6 +690,10 @@ namespace agui
      */
 
 		void toggleWidgetLocationChanged(bool on);
+
+
+		void bringWidgetToFront(Widget* w);
+		void sendWidgetToBack(Widget* w);
 	/**
 	 * Default destructor.
      * @since 0.1.0

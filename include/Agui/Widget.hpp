@@ -1218,6 +1218,9 @@ namespace agui {
 	* @since 0.2.0
 	*/
     void clearParentWidget();
+
+	virtual void _bringToFront();
+	virtual void _sendToBack();
 	};
 }
 

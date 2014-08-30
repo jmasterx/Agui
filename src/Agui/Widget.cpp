@@ -1423,17 +1423,17 @@ namespace agui {
 
 	void Widget::bringToFront()
 	{
-		if(getParent())
+		if(getGui())
 		{
-			getParent()->setFrontWidget(this);
+			getGui()->bringWidgetToFront(this);
 		}
 	}
 
 	void Widget::sendToBack()
 	{
-		if(getParent())
+		if(getGui())
 		{
-			getParent()->setBackWidget(this);
+			getGui()->sendWidgetToBack(this);
 		}
 	}
 
@@ -2089,6 +2089,22 @@ namespace agui {
       (*i)->resizeToContentsRecursive();
     }
     resizeToContents();
+  }
+
+  void Widget::_bringToFront()
+  {
+	  if(getParent())
+	  {
+		  getParent()->setFrontWidget(this);
+	  }
+  }
+
+  void Widget::_sendToBack()
+  {
+	  if(getParent())
+	  {
+		  getParent()->setBackWidget(this);
+	  }
   }
 
 	int Widget::globalFontID = 789;

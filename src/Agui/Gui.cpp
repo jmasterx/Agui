@@ -1196,6 +1196,27 @@ namespace agui
 		handleTimedEvents();
 		currentTime = input->getTime();
 		recursiveDoLogic(baseWidget);
+		while(!frontWidgets.empty())
+		{
+			Widget* w = frontWidgets.front();
+			frontWidgets.pop();
+
+			if(widgetExists(w) && w && w->getParent())
+			{
+				w->_bringToFront();
+			}
+		}
+
+		while(!backWidgets.empty())
+		{
+			Widget* w = backWidgets.front();
+			backWidgets.pop();
+
+			if(widgetExists(w) && w && w->getParent())
+			{
+				w->_sendToBack();
+			}
+		}
 		if(destroyingFlaggedWidgets)
 		{
 			destroyFlaggedWidgets();
@@ -1732,6 +1753,16 @@ namespace agui
 	bool Gui::isWidgetUnderMouse() const
 	{
 		return getWidgetUnderMouse() != NULL && getWidgetUnderMouse() != getTop();
+	}
+
+	void Gui::bringWidgetToFront( Widget* w )
+	{
+		frontWidgets.push(w);
+	}
+
+	void Gui::sendWidgetToBack( Widget* w )
+	{
+		backWidgets.push(w);
 	}
 
 
