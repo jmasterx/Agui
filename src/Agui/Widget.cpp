@@ -51,7 +51,7 @@ namespace agui {
 	   isWidgetFocusable(false),isWidgetTabable(false), paintingChildren(false),
 	   tMargin(1),lMargin(1),bMargin(1),rMargin(1), textLen(0),
 	   flaggedForDestruction(false),handlesChildLogic(false),prevTabable(true),
-	   layoutWidget(false)
+	   layoutWidget(false),globalOpacity(1.0f)
 	{
 		setLocation(Point(0,0));
 		setMargins(1,1,1,1);
@@ -1760,12 +1760,18 @@ namespace agui {
 	{
 		stackOffset = paintEvent.graphics()->getOffset();
 		stackRects = paintEvent.graphics()->getClippingStack();
-		_recursivePaintChildren(this,isEnabled(),paintEvent.graphics());
+		if(getParent())
+		{
+			_recursivePaintChildren(this,isEnabled(), getParent()->getGlobalOpacity(),paintEvent.graphics());
+		}
+		else
+		{
+			_recursivePaintChildren(this,isEnabled(), 1.0f,paintEvent.graphics());
+		}
 		paintEvent.graphics()->setClippingStack(stackRects,stackOffset);
 	}
 
-	void Widget::_recursivePaintChildren( Widget *root, bool enabled,
-										   Graphics *graphicsContext )
+	void Widget::_recursivePaintChildren( Widget *root, bool enabled, float globalOpacity, Graphics *graphicsContext )
 	{
 		//recursively calls itself to render widgets from back to front
 
@@ -1783,6 +1789,8 @@ namespace agui {
 
 		if(root != this)
 		{
+			globalOpacity *= root->getGlobalOpacity();
+			graphicsContext->setGlobalOpacity(globalOpacity);
 			root->clip(PaintEvent(widgetEnabled,graphicsContext));
 
 			root->paint(PaintEvent(widgetEnabled,graphicsContext));
@@ -1797,13 +1805,13 @@ namespace agui {
 			root->getPrivateChildBegin();
 			it != root->getPrivateChildEnd(); ++it)
 		{
-			_recursivePaintChildren(*it,widgetEnabled,graphicsContext);
+			_recursivePaintChildren(*it,widgetEnabled,globalOpacity,graphicsContext);
 		}
 		for(WidgetArray::iterator it = 
 			root->getChildBegin();
 			it != root->getChildEnd(); ++it)
 		{
-			_recursivePaintChildren(*it,widgetEnabled,graphicsContext);
+			_recursivePaintChildren(*it,widgetEnabled,globalOpacity,graphicsContext);
 		}
 
 	}
@@ -2105,6 +2113,16 @@ namespace agui {
 	  {
 		  getParent()->setBackWidget(this);
 	  }
+  }
+
+  void Widget::setGlobalOpacity( float o )
+  {
+	  globalOpacity = o;
+  }
+
+  float Widget::getGlobalOpacity() const
+  {
+	  return globalOpacity;
   }
 
 	int Widget::globalFontID = 789;

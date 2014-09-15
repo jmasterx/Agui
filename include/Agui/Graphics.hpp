@@ -93,6 +93,7 @@ namespace agui {
 		int T, L, B, R;
 		Rectangle workingRect;
 		Point offset;
+		float globalOpacity;
 	protected:
 		virtual void setClippingRectangle(const Rectangle &rect) = 0;
 
@@ -120,7 +121,7 @@ namespace agui {
 	/**
 	 * Default constructor.
      */
-		Graphics() {}
+		Graphics() : globalOpacity(1.0f) {}
 	/**
 	 * Default destructor.
      */
@@ -265,6 +266,9 @@ namespace agui {
 	 * Sets the image that the drawing operations will draw into to the default backbuffer.
      */
 		virtual void resetTargetImage() = 0;
+
+		void setGlobalOpacity(float o);
+		float getGlobalOpacity() const;
 
 	};
 }

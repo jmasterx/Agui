@@ -109,6 +109,7 @@ namespace agui {
 		bool handlesChildLogic;
 		bool prevTabable;
 		bool layoutWidget;
+		float globalOpacity;
 
 
 		std::vector<MouseListener*> mouseListeners;
@@ -335,8 +336,7 @@ namespace agui {
 	*Called by the Gui to paint all the widgets.
 	* @since 0.1.0
 	*/
-		void _recursivePaintChildren(Widget *root, bool enabled,
-			Graphics *graphicsContext);
+		void _recursivePaintChildren(Widget *root, bool enabled, float globalOpacity, Graphics *graphicsContext);
 	/**
 	* If it is flagged, the Gui it belongs to will delete it in the next logic loop
 	* unless it was not part of a Gui when it was flagged or a flag in the Gui
@@ -1221,6 +1221,9 @@ namespace agui {
 
 	virtual void _bringToFront();
 	virtual void _sendToBack();
+
+	virtual void setGlobalOpacity(float o);
+	virtual float getGlobalOpacity() const;
 	};
 }
 

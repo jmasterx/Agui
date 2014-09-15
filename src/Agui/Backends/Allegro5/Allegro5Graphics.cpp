@@ -56,7 +56,7 @@ namespace agui {
 	{
 		if(((Allegro5Image*)bmp)->getBitmap())
 			al_draw_tinted_bitmap(((Allegro5Image*)bmp)->getBitmap(),
-			al_map_rgba_f(opacity,opacity,opacity,opacity),
+			al_map_rgba_f(opacity * getGlobalOpacity(),opacity  * getGlobalOpacity(),opacity  * getGlobalOpacity(),opacity  * getGlobalOpacity()),
 			position.getX() + getOffset().getX(),position.getY() + getOffset().getY(),0);
 	}
 
@@ -68,7 +68,7 @@ namespace agui {
 	{
 		if(((Allegro5Image*)bmp)->getBitmap())
 		al_draw_tinted_bitmap_region(((Allegro5Image*)bmp)->getBitmap(),
-			al_map_rgba_f(opacity,opacity,opacity,opacity),
+			al_map_rgba_f(opacity  * getGlobalOpacity(),opacity  * getGlobalOpacity(),opacity  * getGlobalOpacity(),opacity  * getGlobalOpacity()),
 			regionStart.getX(),regionStart.getY(),
 			regionSize.getWidth(),regionSize.getHeight(),
 			position.getX() + getOffset().getX(),position.getY() + getOffset().getY(), 0);
@@ -96,7 +96,7 @@ namespace agui {
 	{
 		if(((Allegro5Image*)bmp)->getBitmap())
 		al_draw_tinted_scaled_bitmap(((Allegro5Image*)bmp)->getBitmap(),
-			al_map_rgba_f(opacity,opacity,opacity,opacity),
+			al_map_rgba_f(opacity  * getGlobalOpacity(),opacity  * getGlobalOpacity(),opacity  * getGlobalOpacity(),opacity  * getGlobalOpacity()),
 			regionStart.getX(),regionStart.getY(),
 			regionScale.getWidth(),regionScale.getHeight(),
 			position.getX() + getOffset().getX(),position.getY() + getOffset().getY(),
@@ -158,8 +158,8 @@ namespace agui {
 
 	ALLEGRO_COLOR Allegro5Graphics::getColor( const Color &color )
 	{
-		return al_map_rgba_f(color.getR(),color.getG(),
-			color.getB(),color.getA());
+		return al_map_rgba_f(color.getR()  * getGlobalOpacity(),color.getG()  * getGlobalOpacity(),
+			color.getB()  * getGlobalOpacity(),color.getA()  * getGlobalOpacity());
 	}
 
 	Dimension Allegro5Graphics::getDisplaySize()

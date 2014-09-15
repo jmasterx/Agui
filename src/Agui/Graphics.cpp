@@ -250,6 +250,17 @@ namespace agui {
 			opacity);
 
 	}
+
+	void Graphics::setGlobalOpacity( float o )
+	{
+		globalOpacity = o;
+	}
+
+	float Graphics::getGlobalOpacity() const
+	{
+		return globalOpacity;
+	}
+
 }
 
 

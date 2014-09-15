@@ -1271,7 +1271,7 @@ namespace agui
 	{
 		graphicsContext->clearClippingStack();
 
-		baseWidget->_recursivePaintChildren(baseWidget,true,graphicsContext);
+		baseWidget->_recursivePaintChildren(baseWidget,true,1.0f,graphicsContext);
 		graphicsContext->clearClippingStack();
 		graphicsContext->setOffset(Point(0,0));
 		graphicsContext->pushClippingRect(Rectangle(Point(0,0),baseWidget->getSize()));
