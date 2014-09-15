@@ -470,6 +470,12 @@ namespace agui {
      * @since 0.1.0
      */
 		virtual void clearItems();
+
+		/**
+	 * @return Number of items in ListBox.
+     * @since 0.2.0
+     */
+		virtual int getItemCount() const;
 	/**
 	 * Sets the selected index to -1. No item will be selected.
      * @since 0.1.0

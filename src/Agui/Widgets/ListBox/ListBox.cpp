@@ -1801,5 +1801,10 @@ namespace agui {
 		widestItem = widest;
 	}
 
+	int ListBox::getItemCount() const
+	{
+		return items.size();
+	}
+
 }
 

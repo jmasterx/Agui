@@ -702,4 +702,17 @@ namespace agui {
 		  setSelectedIndex(-1);
   }
 
+  void DropDown::clearItems()
+  {
+	  while(getItemCount() > 0)
+	  {
+		  removeItemAt(0);
+	  }
+  }
+
+  int DropDown::getItemCount() const
+  {
+	  return pChildListBox->getItemCount();
+  }
+
 }

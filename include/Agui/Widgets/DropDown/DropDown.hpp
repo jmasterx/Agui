@@ -168,11 +168,24 @@ namespace agui {
      * Removes an item from the internal ListBox.
      * @since 0.1.0
      */
-		virtual void removeItem(const std::string& item);
+	virtual void removeItem(const std::string& item);
 	/**
      * Removes an item from the internal ListBox at the specified index.
      * @since 0.1.0
      */
+
+	virtual void clearItems();
+	/**
+     * Removes all items from the internal ListBox.
+     * @since 0.2.0
+     */
+
+	virtual int getItemCount() const;
+	/**
+     * @return Number of items in DropDown.
+     * @since 0.2.0
+     */
+
 		virtual void removeItemAt(int index);
 	/**
      * @return True if the internal ListBox is visible.
