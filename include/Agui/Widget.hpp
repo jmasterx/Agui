@@ -56,7 +56,7 @@
 
 
 namespace agui {
-	typedef std::vector<Widget*> WidgetArray;
+	typedef std::list<Widget*> WidgetArray;
 	class AGUI_CORE_DECLSPEC Gui;
 
 	 /**
