@@ -1270,11 +1270,12 @@ namespace agui
 	void Gui::render()
 	{
 		graphicsContext->clearClippingStack();
-
+		graphicsContext->_beginPaint();
 		baseWidget->_recursivePaintChildren(baseWidget,true,1.0f,graphicsContext);
 		graphicsContext->clearClippingStack();
 		graphicsContext->setOffset(Point(0,0));
 		graphicsContext->pushClippingRect(Rectangle(Point(0,0),baseWidget->getSize()));
+		graphicsContext->_endPaint();
 
 	}
 
