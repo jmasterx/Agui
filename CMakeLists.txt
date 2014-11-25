@@ -6,6 +6,8 @@ OPTION(WANT_SHARED "Build agui and the backend as a shared library" OFF)
 
 OPTION(WANT_ALLEGRO5_BACKEND "Build the Allegro 5 backend" ON) 
 
+OPTION(WANT_SFML2_BACKEND "Build the SFML2 backend" OFF) 
+
 if(APPLE AND NOT IPHONE)
     set(MACOSX 1)
 endif(APPLE AND NOT IPHONE)
@@ -111,6 +113,15 @@ set(ALLEGRO5_BACKEND_SOURCES
 	src/Agui/Backends/Allegro5/Allegro5Input.cpp
 	src/Agui/Backends/Allegro5/Allegro5CursorProvider.cpp
 	)
+	
+set(SFML2_BACKEND_SOURCES
+	src/Agui/Backends/SFML2/SFML2Font.cpp
+	src/Agui/Backends/SFML2/SFML2FontLoader.cpp
+	src/Agui/Backends/SFML2/SFML2Graphics.cpp
+	src/Agui/Backends/SFML2/SFML2Image.cpp
+	src/Agui/Backends/SFML2/SFML2ImageLoader.cpp
+	src/Agui/Backends/SFML2/SFML2Input.cpp
+	)
 
 	include_directories (./include) 
 if(WANT_SHARED)
@@ -121,11 +132,19 @@ if(WANT_SHARED)
   endif(MACOSX)
   
   set_target_properties(agui PROPERTIES DEFINE_SYMBOL "AGUI_BUILD")
+  
   if(WANT_ALLEGRO5_BACKEND)
     add_library(agui_allegro5 SHARED ${ALLEGRO5_BACKEND_SOURCES})
   set_target_properties(agui_allegro5 PROPERTIES DEFINE_SYMBOL "AGUI_BACKEND_BUILD")
   target_link_libraries (agui_allegro5 agui)
   endif()
+  
+    if(WANT_SFML2_BACKEND)
+    add_library(agui_sfml2 SHARED ${SFML2_BACKEND_SOURCES})
+  set_target_properties(agui_sfml2 PROPERTIES DEFINE_SYMBOL "AGUI_BACKEND_BUILD")
+  target_link_libraries (agui_sfml2 agui)
+  endif()
+  
 else()
   add_library(agui STATIC ${AGUI_SOURCES})
   
@@ -135,7 +154,12 @@ else()
   
     if(WANT_ALLEGRO5_BACKEND)
     add_library(agui_allegro5 STATIC ${ALLEGRO5_BACKEND_SOURCES})
-   set_target_properties(agui_allegro5 PROPERTIES COMPILE_DEFINITIONS "ALLEGRO_STATICLINK")
+    set_target_properties(agui_allegro5 PROPERTIES COMPILE_DEFINITIONS "ALLEGRO_STATICLINK")
+  endif()
+  
+    if(WANT_ALLEGRO5_BACKEND)
+    add_library(agui_sfml2 STATIC ${SFML2_BACKEND_SOURCES})
+    set_target_properties(agui_sfml2 PROPERTIES COMPILE_DEFINITIONS "SFML_STATIC")
   endif()
 endif()
  
