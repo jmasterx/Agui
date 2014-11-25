@@ -157,7 +157,7 @@ else()
     set_target_properties(agui_allegro5 PROPERTIES COMPILE_DEFINITIONS "ALLEGRO_STATICLINK")
   endif()
   
-    if(WANT_ALLEGRO5_BACKEND)
+    if(WANT_SFML2_BACKEND)
     add_library(agui_sfml2 STATIC ${SFML2_BACKEND_SOURCES})
     set_target_properties(agui_sfml2 PROPERTIES COMPILE_DEFINITIONS "SFML_STATIC")
   endif()
