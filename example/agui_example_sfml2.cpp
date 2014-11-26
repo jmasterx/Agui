@@ -264,7 +264,7 @@ void cleanUp()
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(640, 480), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(640, 480), "Agui - SFML2 Example");
 
 	initializeAgui(window);
 	addWidgets();
@@ -278,8 +278,6 @@ int main()
 			else if (event.type == sf::Event::Resized)
 			{
 				// adjust the viewport when the window is resized
-				//window.setView(sf::View(sf::FloatRect(0, 0, event.size.width,event.size.height)));
-
 				gui->resizeToDisplay();
 			}
 
