@@ -214,36 +214,6 @@ namespace agui
 		void handleTimedEvents();
 
 	/**
-     * Allows you to manually null the Widget under the mouse.
-     * @since 0.2.1
-     */
-		void setWidgetUnderMouseToNull();
-
-	/**
-     * @return True if widget location changes are tracked accurately.
-     * @since 0.2.1
-     */
-		bool isWidgetLocationChangesEnabled() const;
-
-	/**
-     * @return The Input set for this Gui.
-     * @since 0.2.1
-     */
-		Input* getInput();
-
-	/**
-     * @return The Graphics set for this Gui.
-     * @since 0.2.1
-     */
-		Graphics* getGraphics();
-
-	/**
-     * Teleport the mouse position of this Gui. Forces a logic call.
-     * @since 0.2.1
-     */
-		void teleportMouse(int x, int y);
-
-	/**
      * Handles the ToolTip hide logic.
      * @since 0.2.0
      */
@@ -710,6 +680,36 @@ namespace agui
      */
 
 		Widget* getLockWidget();
+
+			/**
+     * Allows you to manually null the Widget under the mouse.
+     * @since 0.2.1
+     */
+		void setWidgetUnderMouseToNull();
+
+	/**
+     * @return True if widget location changes are tracked accurately.
+     * @since 0.2.1
+     */
+		bool isWidgetLocationChangesEnabled() const;
+
+	/**
+     * @return The Input set for this Gui.
+     * @since 0.2.1
+     */
+		Input* getInput();
+
+	/**
+     * @return The Graphics set for this Gui.
+     * @since 0.2.1
+     */
+		Graphics* getGraphics();
+
+	/**
+     * Teleport the mouse position of this Gui. Forces a logic call.
+     * @since 0.2.1
+     */
+		void teleportMouse(int x, int y);
 
 			/**
 	 * Sets whether or not the expensive call to check if the widget
