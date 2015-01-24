@@ -154,8 +154,6 @@ namespace agui
 		std::queue<Widget*> frontWidgets;
 		std::queue<Widget*> backWidgets;
 
-
-
 	/**
      * Converts the mouse event's position into one that is relative to the parameter widget.
      * @since 0.1.0
@@ -215,7 +213,37 @@ namespace agui
      */
 		void handleTimedEvents();
 
-		/**
+	/**
+     * Allows you to manually null the Widget under the mouse.
+     * @since 0.2.1
+     */
+		void setWidgetUnderMouseToNull();
+
+	/**
+     * @return True if widget location changes are tracked accurately.
+     * @since 0.2.1
+     */
+		bool isWidgetLocationChangesEnabled() const;
+
+	/**
+     * @return The Input set for this Gui.
+     * @since 0.2.1
+     */
+		Input* getInput();
+
+	/**
+     * @return The Graphics set for this Gui.
+     * @since 0.2.1
+     */
+		Graphics* getGraphics();
+
+	/**
+     * Teleport the mouse position of this Gui. Forces a logic call.
+     * @since 0.2.1
+     */
+		void teleportMouse(int x, int y);
+
+	/**
      * Handles the ToolTip hide logic.
      * @since 0.2.0
      */

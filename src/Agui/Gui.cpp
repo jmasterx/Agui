@@ -1766,6 +1766,35 @@ namespace agui
 		backWidgets.push(w);
 	}
 
+	void Gui::setWidgetUnderMouseToNull()
+	{
+		widgetUnderMouse = NULL;
+	}
+
+	bool Gui::isWidgetLocationChangesEnabled() const
+	{
+		return wantWidgetLocationChanged;
+	}
+
+	Input* Gui::getInput()
+	{
+		return input;
+	}
+
+	Graphics* Gui::getGraphics()
+	{
+		return graphicsContext;
+	}
+
+	void Gui::teleportMouse( int x, int y )
+	{
+		if(input)
+		{
+			input->pushMouseEvent(MouseInput(MouseEvent::MOUSE_MOVE,MOUSE_BUTTON_NONE,x,y,0,1.0f,input->getTime(),false,false,false));
+			logic();
+		}
+	}
+
 
 
 }

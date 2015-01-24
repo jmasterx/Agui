@@ -60,7 +60,7 @@ namespace agui {
      * @author Joshua Larouche
      * @since 0.1.0
      */
-	class ExtendedTextBox : public TextBox
+	class AGUI_CORE_DECLSPEC ExtendedTextBox : public TextBox
 	{
 	private:
 		bool currentColorChanged;
