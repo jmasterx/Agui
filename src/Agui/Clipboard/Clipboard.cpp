@@ -39,13 +39,25 @@
  */
 
 
+#ifdef __APPLE__
+#include "TargetConditionals.h"
+#if TARGET_IPHONE_SIMULATOR
+// iOS Simulator
+#elif TARGET_OS_IPHONE
+// iOS device
+#elif TARGET_OS_MAC
+#ifndef AGUI_OSX
+#define AGUI_OSX
+#endif
+#else
+// Unsupported platform
+#endif
+
 #include "Agui/Clipboard/Clipboard.hpp"
 #if defined(_WIN32)
 #include "Agui/Clipboard/WinClipboard.hpp"
-// TODO This was not working for us because of some Cocoa issues.
-// So far the clipboard is not needed anyway.
-// #elif defined(__APPLE__)
-// #include "Agui/Clipboard/OSXClipboard.hpp"
+#elif defined(AGUI_OSX)
+#include "Agui/Clipboard/OSXClipboard.hpp"
 #else
 #endif
 
@@ -64,8 +76,8 @@ namespace agui
 
 #if defined(_WIN32)
 		WinClipboard::copy(input);
-// #elif defined(__APPLE__)
-// 		OSXClipboard::copy(input);
+#elif defined(AGUI_OSX)
+ 		OSXClipboard::copy(input);
 #else
 		inClipboard = input;
 #endif
@@ -75,8 +87,8 @@ namespace agui
 	{
 #if defined(_WIN32)
 		return _filter(WinClipboard::paste());
-// #elif defined(__APPLE__)
-// 		return _filter(OSXClipboard::paste());
+#elif defined(AGUI_OSX)
+ 		return _filter(OSXClipboard::paste());
 #else
 		return inClipboard;
 #endif

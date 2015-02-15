@@ -477,6 +477,9 @@ namespace agui {
      * @since 0.1.0
      */
 		virtual int getCaretPosition() const;
+    
+        virtual bool canAcceptKeyInput() const;
+        virtual bool isTextField() const;
 
 	/**
 	 * Appends the text either at the current position or at the end of the string.

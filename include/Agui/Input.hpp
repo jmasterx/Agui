@@ -73,6 +73,7 @@ namespace agui
 		std::queue<KeyboardInput> keyboardEvents;
 		bool mouseEnabled;
 		bool keyboardEnabled;
+        bool touchCompatibility;
 	protected:
 	/**
 	 * Default constructor.
@@ -129,6 +130,15 @@ namespace agui
 	 * @return True if keyboard input is enabled for the Gui.
      */
 		bool isKeyboardEnabled() const;
+   /**
+   * Set whether or not mouse events will be injected for touch compatibility.
+   */
+   void setTouchCompatibility(bool enabled);
+   /**
+   * @return True if mouse events will be injected for touch compatibility.
+   */
+    bool isUsingTouchCompatibility() const;
+            
 	/**
 	 * Default destructor.
      */

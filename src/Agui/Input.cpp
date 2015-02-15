@@ -46,7 +46,7 @@ namespace agui
 	Input::Input(void)
 		: startTime( std::clock() / 1000),
 		keyboardEnabled(true),
-		mouseEnabled(true)
+		mouseEnabled(true),touchCompatibility(false)
 	{
 	}
 
@@ -118,6 +118,16 @@ namespace agui
 	{
 		return mouseEnabled;
 	}
+    
+    void Input::setTouchCompatibility( bool enabled )
+    {
+        touchCompatibility = enabled;
+    }
+    
+    bool Input::isUsingTouchCompatibility() const
+    {
+        return touchCompatibility;
+    }
 
 	bool Input::isKeyboardEnabled() const
 	{

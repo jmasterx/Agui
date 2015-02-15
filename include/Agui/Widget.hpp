@@ -1208,7 +1208,7 @@ namespace agui {
 	* @since 0.2.0
 	*/
     virtual void resizeToContentsRecursiveUp();
-	  /** Clears focus recursively.
+    /** Clears focus recursively.
 	* @since 0.2.0
 	*/
     void checkLostFocusRecursive();
@@ -1218,6 +1218,26 @@ namespace agui {
 	* @since 0.2.0
 	*/
     void clearParentWidget();
+    
+    /** @return True if the Widget is a TextField or TextBox subclass.
+    * @since 0.2.0
+    */
+    virtual bool isTextComponent() const;
+    
+    /** @return True if the Widget is a TextField subclass.
+    * @since 0.2.0
+    */
+    virtual bool isTextField() const;
+    
+    /** @return True if the Widget is a TextBox subclass.
+    * @since 0.2.0
+    */
+    virtual bool isTextBox() const;
+    
+    /** @return True if the Widget accepts input from the keyboard.
+    * @since 0.2.0
+    */
+    virtual bool canAcceptKeyInput() const;
 
 	virtual void _bringToFront();
 	virtual void _sendToBack();

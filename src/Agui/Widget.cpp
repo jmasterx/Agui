@@ -2124,6 +2124,27 @@ namespace agui {
   {
 	  return globalOpacity;
   }
+    
+
+  bool Widget::isTextComponent() const
+  {
+      return isTextBox() || isTextField();
+  }
+
+  bool Widget::isTextField() const
+  {
+      return false;
+  }
+    
+  bool Widget::isTextBox() const
+  {
+      return false;
+  }
+
+  bool Widget::canAcceptKeyInput() const
+  {
+      return false;
+  }
 
 	int Widget::globalFontID = 789;
 

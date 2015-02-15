@@ -1344,6 +1344,16 @@ namespace agui {
 			positionCaret(caretPosition + length);
 		}
 	}
+    
+    bool TextField::canAcceptKeyInput() const
+    {
+        return !isReadOnly();
+    }
+    
+    bool TextField::isTextField() const
+    {
+        return true;
+    }
 
 	void TextField::appendText( const std::string& text, bool atCurrentPosition /*= true*/ )
 	{

@@ -58,7 +58,7 @@ namespace agui
 		 maxToolTipWidth(300), hasHiddenToolTip(true),
 		 lastToolTipTime(0.0), toolTipShowLength(4.0),
 		 cursorProvider(NULL), wantWidgetLocationChanged(true),
-		 useTransform(false),delayMouseDown(true)
+		 useTransform(false),delayMouseDown(true),focusEnabled(true)
 	{
 		
 		baseWidget = new TopContainer(this,&focusMan);
@@ -349,6 +349,11 @@ namespace agui
 	{
 		//handle the mouse down event
 
+        if(input->isUsingTouchCompatibility())
+        {
+            handleMouseAxes(mouse);
+        }
+        
 		//if there is a locked control, leave
 		if(controlWithLock && mouse.button != lastMouseButton)
 		{
@@ -393,7 +398,7 @@ namespace agui
 			if(widgetUnderMouse != focusMan.getFocusedWidget())
 			{
 				//set focus
-				if(!controlWithLock && widgetUnderMouse->isFocusable() && mouseEvent.getButton() == MOUSE_BUTTON_LEFT)
+				if(!controlWithLock && widgetUnderMouse->isFocusable() && isFocusEnabled() && mouseEvent.getButton() == MOUSE_BUTTON_LEFT)
 				focusMan.setFocusedWidget(widgetUnderMouse);
 			}
 			//send a mouse down
@@ -449,6 +454,11 @@ namespace agui
 
 	void Gui::handleMouseUp(const MouseInput &mouse)
 	{
+        if(input->isUsingTouchCompatibility())
+        {
+          //  handleMouseAxes(mouse);
+        }
+        
 		//handles the mouse up and click events
 		if(mouse.button != lastMouseButton)
 		{
@@ -492,6 +502,16 @@ namespace agui
 					widgetUnderMouse->_dispatchMouseListenerEvent(
 						MouseEvent::MOUSE_CLICK,relArgs);
 				}
+                
+                if(!tapListeners.empty() && widgetExists(baseWidget,widgetUnderMouse))
+                {
+                    for(std::vector<TapListener*>::iterator it =
+                        tapListeners.begin();
+                        it != tapListeners.end(); ++it)
+                    {
+                        (*it)->widgetTapped(widgetUnderMouse,relArgs);
+                    }
+                }
 			}
 
 			//send mouse up
@@ -592,6 +612,15 @@ namespace agui
 		{
 			controlWithLock = NULL;
 		}
+        
+        if(input->isUsingTouchCompatibility())
+        {
+            MouseInput m = mouse;
+            m.x = -9999;
+            m.y = -9999;
+            m.button = MOUSE_BUTTON_NONE;
+            handleMouseAxes(m);
+        }
 	}
 
 
@@ -972,7 +1001,7 @@ namespace agui
 
 		if(target)
 		if(target != focused && target->isFocusable() 
-			&& target->isTabable() && passedFocus)
+			&& target->isTabable() && passedFocus && isFocusEnabled())
 		{
 			target->focus();
 			return true;
@@ -1024,7 +1053,7 @@ namespace agui
 		if(focusMan.getModalWidget())
 		{
 			if(focusMan.getModalWidget()->isFocusable() && focusMan.getModalWidget()->isTabable()
-				&& !focusMan.getModalWidget()->isFocused())
+				&& !focusMan.getModalWidget()->isFocused() && isFocusEnabled())
 			{
 				focusMan.getModalWidget()->focus();
 			}
@@ -1038,9 +1067,6 @@ namespace agui
 			passedFocus = true;
 			recursiveFocusNext(baseWidget,focusMan.getFocusedWidget());
 		}
-		
-
-
 	}
 
 	bool Gui::recursiveFocusPrevious( Widget* target, 
@@ -1075,7 +1101,7 @@ namespace agui
 
 				if(target)
 					if(target != focused && target->isFocusable() 
-						&& target->isTabable() && passedFocus)
+						&& target->isTabable() && passedFocus && isFocusEnabled())
 					{
 						//tabbed panes should not be previously tabbed
 						//to avoid circular dependency
@@ -1105,7 +1131,7 @@ namespace agui
 		if(focusMan.getModalWidget())
 		{
 			if(focusMan.getModalWidget()->isFocusable() && focusMan.getModalWidget()->isTabable()
-				&& !focusMan.getModalWidget()->isFocused())
+				&& !focusMan.getModalWidget()->isFocused() && isFocusEnabled())
 			{
 				focusMan.getModalWidget()->focus();
 			}
@@ -1480,9 +1506,9 @@ namespace agui
 		if(!isTabbingEnabled())
 			return false;
 
-		if((tabNextKey != KEY_NONE && keyEvent.getKey() == tabNextKey ||
-			tabNextExtKey != EXT_KEY_NONE && 
-			keyEvent.getExtendedKey() == tabNextExtKey) &&
+		if(((tabNextKey != KEY_NONE && keyEvent.getKey() == tabNextKey) ||
+			(tabNextExtKey != EXT_KEY_NONE && 
+			keyEvent.getExtendedKey() == tabNextExtKey)) &&
 			keyEvent.shift() == tabNextShift &&
 			keyEvent.control() == tabNextControl &&
 			keyEvent.alt() == tabNextAlt)
@@ -1490,9 +1516,9 @@ namespace agui
 			focusNextTabableWidget();
 			return true;
 		}
-		else if((tabPreviousKey != KEY_NONE && keyEvent.getKey() == tabPreviousKey ||
-			tabPreviousExtKey != EXT_KEY_NONE && 
-			keyEvent.getExtendedKey() == tabPreviousExtKey) &&
+		else if(((tabPreviousKey != KEY_NONE && keyEvent.getKey() == tabPreviousKey) ||
+			(tabPreviousExtKey != EXT_KEY_NONE && 
+			keyEvent.getExtendedKey() == tabPreviousExtKey)) &&
 			keyEvent.shift() == tabPreviousShift &&
 			keyEvent.control() == tabPreviousControl &&
 			keyEvent.alt() == tabPreviousAlt)
@@ -1663,6 +1689,17 @@ namespace agui
 		mousePreviewListeners.erase(std::remove(mousePreviewListeners.begin(),
 			mousePreviewListeners.end(), listener), mousePreviewListeners.end());
 	}
+    
+    void Gui::addTapListener( TapListener* listener )
+    {
+        tapListeners.push_back(listener);
+    }
+    
+    void Gui::removeTapListener( TapListener* listener )
+    {
+        tapListeners.erase(std::remove(tapListeners.begin(),
+                                                tapListeners.end(), listener), tapListeners.end());
+    }
 
 	void Gui::invalidateToolTip()
 	{
@@ -1775,6 +1812,16 @@ namespace agui
 	{
 		return wantWidgetLocationChanged;
 	}
+    
+    void Gui::setFocusEnabled(bool enabled)
+    {
+        focusEnabled = enabled;
+    }
+    
+    bool Gui::isFocusEnabled() const
+    {
+        return focusEnabled;
+    }
 
 	Input* Gui::getInput()
 	{

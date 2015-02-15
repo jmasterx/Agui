@@ -710,7 +710,7 @@ namespace agui {
      * @since 0.1.0
      */
 		int getCaretRow() const;
-			/**
+	/**
 	 * @return The caret column.
      * @since 0.1.0
      */
@@ -719,6 +719,11 @@ namespace agui {
 	 * @return The caret location on the Y axis (Used for rendering).
      * @since 0.1.0
      */
+        
+
+        virtual bool isTextBox() const;
+        virtual bool canAcceptKeyInput() const;
+        
 		int getCaretRowLocation() const;
 		/**
 	 * @return The caret location on the X axis (Used for rendering).

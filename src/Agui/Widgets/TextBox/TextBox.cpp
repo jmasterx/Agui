@@ -2323,8 +2323,17 @@ namespace agui {
 		}
 
 		return true;
-
 	}
+    
+    bool TextBox::canAcceptKeyInput() const
+    {
+        return !isReadOnly();
+    }
+    
+    bool TextBox::isTextBox() const
+    {
+        return true;
+    }
 
 	void TextBox::cut()
 	{
