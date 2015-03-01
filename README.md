@@ -8,3 +8,5 @@ Agui is an Object Oriented Graphical User Interface library for games written in
 Agui uses the CMAKE build system.
 
 Currently Allegro5 and SFML2 backends are implemented and supported.
+
+Agui  is used in the popular commercial game Factorio: http://www.factorio.com/credits
