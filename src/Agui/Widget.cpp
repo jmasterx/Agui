@@ -51,7 +51,7 @@ namespace agui {
 	   isWidgetFocusable(false),isWidgetTabable(false), paintingChildren(false),
 	   tMargin(1),lMargin(1),bMargin(1),rMargin(1), textLen(0),
 	   flaggedForDestruction(false),handlesChildLogic(false),prevTabable(true),
-	   layoutWidget(false),globalOpacity(1.0f)
+	   layoutWidget(false),globalOpacity(1.0f),causesLocationChange(false)
 	{
 		setLocation(Point(0,0));
 		setMargins(1,1,1,1);
@@ -2144,6 +2144,16 @@ namespace agui {
   bool Widget::canAcceptKeyInput() const
   {
       return false;
+  }
+    
+  void Widget::setCausesLocationChange(bool causes)
+  {
+      causesLocationChange = true;
+  }
+    
+  bool Widget::isCausingLocationChange() const
+  {
+      return causesLocationChange;
   }
 
 	int Widget::globalFontID = 789;

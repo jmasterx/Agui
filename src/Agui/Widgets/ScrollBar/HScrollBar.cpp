@@ -95,6 +95,10 @@ namespace agui {
 		pChildRightArrow->setBackColor(Color(80,160,200));
 		pChildLeftArrow->setBackColor(Color(80,160,200));
 		pChildThumb->setBackColor(Color(60,140,180));
+        
+        pChildLeftArrow->setCausesLocationChange(true);
+        pChildThumb->setCausesLocationChange(true);
+        pChildRightArrow->setCausesLocationChange(true);
 
 		addPrivateChild(pChildThumb);
 		addPrivateChild(pChildLeftArrow);
@@ -105,6 +109,8 @@ namespace agui {
 		setArrowWidth(16);
 		setSize(400,16);
 		setMargins(0,0,0,0);
+        
+        setCausesLocationChange(true);
 
 		setBackColor(Color(200,200,201));
 	}

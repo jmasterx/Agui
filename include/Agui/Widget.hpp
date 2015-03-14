@@ -110,6 +110,7 @@ namespace agui {
 		bool prevTabable;
 		bool layoutWidget;
 		float globalOpacity;
+        bool causesLocationChange;
 
 
 		std::vector<MouseListener*> mouseListeners;
@@ -1233,6 +1234,16 @@ namespace agui {
     * @since 0.2.0
     */
     virtual bool isTextBox() const;
+        
+    /** Sets whether this Widget causes a location change when draged or pressed.
+    * @since 0.2.0
+    */
+    virtual void setCausesLocationChange(bool causes);
+        
+    /** @return True if this Widget causes a location change when draged or pressed.
+    * @since 0.2.0
+    */
+    virtual bool isCausingLocationChange() const;
     
     /** @return True if the Widget accepts input from the keyboard.
     * @since 0.2.0

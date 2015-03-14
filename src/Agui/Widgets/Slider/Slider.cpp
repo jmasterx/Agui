@@ -66,9 +66,12 @@ namespace agui {
 		pChildMarker->setSize(16,16);
 		setSize(16,16);
 		pChildMarker->setBackColor(Color(60,140,180));
+        pChildMarker->setCausesLocationChange(true);
 		setValue(getMinValue());
 
 		setBackColor(Color(200,200,200));
+        pChildMarker->setCausesLocationChange(true);
+        setCausesLocationChange(true);
 	}
 
 	Slider::~Slider(void)

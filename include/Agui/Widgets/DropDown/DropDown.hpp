@@ -217,6 +217,7 @@ namespace agui {
      */
 		virtual int getSelectedIndex() const;
 		virtual void mouseDown(MouseEvent &mouseEvent);
+        virtual void mouseClick(MouseEvent &mouseEvent);
 		virtual void mouseClickCB(MouseEvent &mouseEvent);
 		virtual void setSize(const Dimension &size);
 		virtual void setSize(int width, int height);

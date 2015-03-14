@@ -124,8 +124,6 @@ namespace agui {
 		return createAlignedPosition(align,getInnerRectangle(),Dimension(w,h));
 	}
 
-
-
 	void PopUpMenu::setIconWidth( int width )
 	{
 		iconWidth = width;
@@ -290,6 +288,9 @@ namespace agui {
 
 	void PopUpMenu::mouseLeave( MouseEvent &mouseEvent )
 	{
+        if(getGui()->getInput()->isUsingTouchCompatibility())
+            return;
+        
 		Widget::mouseLeave(mouseEvent);
 		if(getGui())
 		{
@@ -331,6 +332,10 @@ namespace agui {
 
 	void PopUpMenu::mouseUp( MouseEvent &mouseEvent )
 	{
+        
+        if(getGui()->getInput()->isUsingTouchCompatibility())
+            return;
+        
 		setSelectedIndex(getIndexAtPoint(mouseEvent.getPosition()));
 
 		if((childMenu && !childMenu->isVisible()) || !childMenu) 
@@ -339,6 +344,24 @@ namespace agui {
 
 	void PopUpMenu::mouseClick( MouseEvent &mouseEvent )
 	{
+        
+        if(getGui()->getInput()->isUsingTouchCompatibility())
+        {
+            if(indexExists(getSelectedIndex()))
+            {
+                PopUpMenuItem* item = items[getSelectedIndex()];
+                
+                if(item->isSeparator() || item->isSubMenu())
+                {
+                    return;
+                }
+                
+                needsToMakeSelecton = true;
+            }
+            
+            return;
+        }
+        
 		if(mouseEvent.getButton() != MOUSE_BUTTON_LEFT)
 		{
 			return;
@@ -387,6 +410,7 @@ namespace agui {
 		setVisibility(false);
 		setBackColor(Color(234,237,255));
 		setMargins(3,3,3,3);
+        setCausesLocationChange(true);
 
 	}
 

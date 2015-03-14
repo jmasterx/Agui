@@ -153,9 +153,21 @@ namespace agui
 		Transform transform;
 
 		bool delayMouseDown;
+        
+        Point lastDragPos;
+        Point startDragPos;
+        double downTime;
+        double touchInertia;
+        double lastInertiaTime;
+        Widget* inertiaReceiver;
 
 		std::queue<Widget*> frontWidgets;
 		std::queue<Widget*> backWidgets;
+        
+    
+        void haltInertia();
+        void processInertia();
+        void beginInertia(Widget* target, float speed);
 
 	/**
      * Converts the mouse event's position into one that is relative to the parameter widget.

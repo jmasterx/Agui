@@ -46,7 +46,8 @@ namespace agui
 	Input::Input(void)
 		: startTime( std::clock() / 1000),
 		keyboardEnabled(true),
-		mouseEnabled(true),touchCompatibility(false)
+		mouseEnabled(true),touchCompatibility(false),
+        wheelOnDrag(false),wantIneria(false)
 	{
 	}
 
@@ -128,6 +129,16 @@ namespace agui
     {
         return touchCompatibility;
     }
+    
+    void Input::setMouseWheelOnDrag( bool enabled )
+    {
+        wheelOnDrag = enabled;
+    }
+    
+    bool Input::wantMouseWheelOnDrag() const
+    {
+        return wheelOnDrag;
+    }
 
 	bool Input::isKeyboardEnabled() const
 	{
@@ -138,6 +149,19 @@ namespace agui
 	{
 
 	}
+    
+    /**
+     * Set whether or not touch inertia will be simulated as mousewheel events.
+     */
+    void Input::setInertiaScrolling(bool enabled) {
+        wantIneria = enabled;
+    }
+    /**
+     * @return True if inertia scrolling will be simulated as mousewheel events.
+     */
+    bool Input::wantInertiaScrolling() const {
+        return wantIneria;
+    }
 
 }
 

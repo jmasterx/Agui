@@ -110,7 +110,7 @@ namespace agui {
 	( const Point &position,const char* text,const Color &color, 
 	 const Font *font, AlignmentEnum align /*= ALIGN_LEFT*/ )
 	{
-		if( font && ((Allegro5Font*)font)->getFont())
+		if( font && ((Allegro5Font*)font)->getFont() && position.getY() <= getDisplaySize().getHeight())
 		al_draw_text(((Allegro5Font*)font)->getFont(),getColor(color),
 			position.getX() + getOffset().getX(),position.getY() + getOffset().getY(),align,text);
 	}

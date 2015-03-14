@@ -271,6 +271,9 @@ namespace agui {
 
 	void DropDown::mouseDown( MouseEvent &mouseEvent )
 	{
+        if(getGui()->getInput()->isUsingTouchCompatibility())
+        return;
+        
 		if(mouseEvent.getButton() == MOUSE_BUTTON_LEFT)
 		{
 			showDropDown();
@@ -278,6 +281,18 @@ namespace agui {
 		}
 		
 	}
+    
+    void DropDown::mouseClick(MouseEvent &mouseEvent)
+    {
+        if(getGui()->getInput()->isUsingTouchCompatibility())
+        {
+            if(mouseEvent.getButton() == MOUSE_BUTTON_LEFT)
+            {
+                showDropDown();
+                mouseEvent.consume();
+            }
+        }
+    }
 
 	void DropDown::mouseClickCB( MouseEvent &mouseEvent )
 	{

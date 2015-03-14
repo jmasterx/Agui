@@ -58,7 +58,8 @@ namespace agui
 		 maxToolTipWidth(300), hasHiddenToolTip(true),
 		 lastToolTipTime(0.0), toolTipShowLength(4.0),
 		 cursorProvider(NULL), wantWidgetLocationChanged(true),
-		 useTransform(false),delayMouseDown(true),focusEnabled(true)
+		 useTransform(false),delayMouseDown(true),focusEnabled(true),
+         downTime(0.0f),touchInertia(0.0),lastInertiaTime(0.0),inertiaReceiver(NULL)
 	{
 		
 		baseWidget = new TopContainer(this,&focusMan);
@@ -106,14 +107,16 @@ namespace agui
 
 		resetHoverTime();
 		
-		
 		//if the mouse wheel has changed, it is a mouse wheel event
 		if(mouseEvent.getMouseWheelChange() != 0 && !isLocationEvent)
 		{
-			if(widgetUnderMouse && widgetExists(baseWidget,widgetUnderMouse))
+            Widget* wheelWidget = widgetUnderMouse;
+            if(getInput()->isUsingTouchCompatibility() && controlWithLock)
+                wheelWidget = controlWithLock;
+			if(wheelWidget && widgetExists(baseWidget,wheelWidget))
 			{
 				//prevent non modal event
-				if(focusMan.getModalWidget() && !widgetIsModalChild(widgetUnderMouse) && !controlWithLock)
+				if(focusMan.getModalWidget() && !widgetIsModalChild(wheelWidget) && !controlWithLock)
 				{
 					return;
 				}
@@ -121,35 +124,33 @@ namespace agui
 				if(mouseEvent.getMouseWheelChange() > 0)
 				{
 					
-					if( widgetExists(baseWidget,widgetUnderMouse))
+					if( widgetExists(baseWidget,wheelWidget))
 					{
-						makeRelArgs(widgetUnderMouse);
-						widgetUnderMouse->mouseWheelUp(relArgs);
+						makeRelArgs(wheelWidget);
+						wheelWidget->mouseWheelUp(relArgs);
 						
 					}
-					if(widgetExists(baseWidget,widgetUnderMouse))
+					if(widgetExists(baseWidget,wheelWidget))
 					{
-						widgetUnderMouse->_dispatchMouseListenerEvent(
+						wheelWidget->_dispatchMouseListenerEvent(
 							MouseEvent::MOUSE_WHEEL_UP,relArgs);
 						
 					}
 				}
 				else
 				{
-					
-					if( widgetExists(baseWidget,widgetUnderMouse))
+					if( widgetExists(baseWidget,wheelWidget))
 					{
 						makeRelArgs(widgetUnderMouse);
-						widgetUnderMouse->mouseWheelDown(relArgs);
+						wheelWidget->mouseWheelDown(relArgs);
 					}
-					if(widgetExists(baseWidget,widgetUnderMouse))
+					if(widgetExists(baseWidget,wheelWidget))
 					{	
-						widgetUnderMouse->_dispatchMouseListenerEvent(
+						wheelWidget->_dispatchMouseListenerEvent(
 							MouseEvent::MOUSE_WHEEL_DOWN,relArgs);
 					}
 				}
-					
-
+                
 				return;
 			}
 		}
@@ -173,7 +174,6 @@ namespace agui
 		other widgets from receiving events until mouse up */
 		if(!controlWithLock)
 		{
-
 			if(previousWidgetUnderMouse != widgetUnderMouse || (focusMan.getModalWidget() && !widgetIsModalChild(widgetUnderMouse) 
 				&& !controlWithLock))
 			{
@@ -216,6 +216,7 @@ namespace agui
 						
 						makeRelArgs(previousWidgetUnderMouse);
 						previousWidgetUnderMouse->mouseLeave(relArgs);
+                        if(!input->isUsingTouchCompatibility())
 						hideToolTip();
 					}
 					if(widgetExists(baseWidget,previousWidgetUnderMouse))
@@ -265,8 +266,7 @@ namespace agui
 				widgetUnderMouse->_dispatchMouseListenerEvent(
 					MouseEvent::MOUSE_MOVE,relArgs);
 			}
-
-		}
+        }
 
 		}
 		else //send a mouse dragged to the locked control
@@ -328,21 +328,42 @@ namespace agui
 
 			if(!isLocationEvent)
 			{
-				if( widgetExists(baseWidget,controlWithLock))
-				{
-					makeRelArgs(controlWithLock);
-					controlWithLock->mouseDrag(relArgs);
-				}
-
-				if(widgetExists(baseWidget,controlWithLock))
-				{			
-					controlWithLock->_dispatchMouseListenerEvent(
-						MouseEvent::MOUSE_DRAG,relArgs);
-				}
+                if(input->wantMouseWheelOnDrag() && widgetExists(baseWidget,controlWithLock) &&
+                   !controlWithLock->isCausingLocationChange())
+                {
+                    int delta = mouse.y - lastDragPos.getY();
+                    if(delta != 0)
+                    {
+                        MouseInput moi = mouse;
+                        if(delta < 0)
+                            moi.type = MouseEvent::MOUSE_WHEEL_DOWN;
+                        else
+                            moi.type = MouseEvent::MOUSE_WHEEL_UP;
+                        moi.wheel = delta;
+                        handleMouseAxes(moi);
+                    }
+                }
+                else
+                {
+                    if( widgetExists(baseWidget,controlWithLock))
+                    {
+                        makeRelArgs(controlWithLock);
+                        controlWithLock->mouseDrag(relArgs);
+                    }
+                    
+                    if(widgetExists(baseWidget,controlWithLock))
+                    {			
+                        controlWithLock->_dispatchMouseListenerEvent(
+                                    MouseEvent::MOUSE_DRAG,relArgs);
+                    }
+                }
+                
+                lastDragPos.setX(mouse.x);
+                lastDragPos.setY(mouse.y);
 			}
 		}
 
-		}
+    }
 		
 
 	void Gui::handleMouseDown(const MouseInput &mouse)
@@ -359,6 +380,11 @@ namespace agui
 		{
 			return;
 		}
+        
+        if(input->wantInertiaScrolling())
+        {
+            haltInertia();
+        }
 		
 		//obtain mouse data
 		setMouseEvent(mouse);
@@ -429,6 +455,12 @@ namespace agui
 			mouseUpControl = widgetUnderMouse;
 		}
 
+        lastDragPos.setX(mouse.x);
+        lastDragPos.setY(mouse.y);
+        
+        startDragPos = lastDragPos;
+        
+        downTime = getInput()->getTime();
 
 		if(wum != widgetUnderMouse && 
 			widgetExists(baseWidget,widgetUnderMouse) && 
@@ -486,8 +518,17 @@ namespace agui
 
 		if(widgetUnderMouse  && widgetExists(baseWidget,widgetUnderMouse))
 		{
+            bool clickAllowed = true;
+            
+            if(getInput()->isUsingTouchCompatibility() && input->getTime() - downTime >= 0.2f)
+                clickAllowed = false;
+            
+            float delta = abs(mouse.y - startDragPos.getY());
+            if(delta > 30)
+                clickAllowed = false;
+            
 
-			if(lastMouseDownControl == widgetUnderMouse && widgetUnderMouse == controlWithLock)
+			if(lastMouseDownControl == widgetUnderMouse && widgetUnderMouse == controlWithLock && clickAllowed)
 			{
 				/* send a click event if the widget hasn't
 				changed since mouse down */
@@ -559,9 +600,6 @@ namespace agui
 						MouseEvent::MOUSE_UP,relArgs);
 				}
 			}
-			
-			
-			
 		}
 
 		//unlock the control
@@ -600,6 +638,36 @@ namespace agui
 				}
 			
 			}
+        
+        if(controlWithLock && input->wantInertiaScrolling() && !controlWithLock->isCausingLocationChange())
+        {
+            double deltaY = mouse.y - startDragPos.getY();
+            double timeDifference = input->getTime() - downTime;
+            
+            double maxSpeed = 90;
+            
+            if(abs(deltaY) > 80)
+            {
+                if (timeDifference < 0.081 && abs(deltaY) > 138) {
+                    maxSpeed = 350;
+                    deltaY = (mouse.y - startDragPos.getY()) / (timeDifference * 5);
+                }
+                
+                if      (deltaY > maxSpeed)         { deltaY =  maxSpeed; }
+                else if (deltaY < -maxSpeed)        { deltaY = -maxSpeed; }
+                else if (deltaY > -15 && deltaY < 15) { deltaY = 0; }
+                
+                if(timeDifference > 0.35f)
+                    deltaY = 0;
+                
+                double finalSpeed = deltaY * 15;
+                
+                if(finalSpeed != 0)
+                {
+                    beginInertia(controlWithLock, finalSpeed);
+                }
+            }
+        }
 		
 		if(controlWithLock && widgetExists(baseWidget,controlWithLock))
 		{
@@ -837,6 +905,9 @@ namespace agui
 		{
 			return;
 		}
+        
+        if(input->isUsingTouchCompatibility())
+            return;
 
 		//dispatches a hover event
 		if(input->getTime() > timeUntilNextHover)
@@ -1197,6 +1268,9 @@ namespace agui
 
 		if(widget == focusMan.getModalWidget())
 			focusMan.releaseModalFocus(widget);
+        
+        if(widget == inertiaReceiver)
+            inertiaReceiver = NULL;
 	}
 
 
@@ -1473,6 +1547,7 @@ namespace agui
 		handleHover();
 		handleDoubleClick();
 		handleToolTip();
+        processInertia();
 	}
 
 	void Gui::setTabNextKey( KeyEnum key,
@@ -1652,6 +1727,10 @@ namespace agui
 			}
 		}
 
+        if(type == MouseEvent::MOUSE_DOWN && getInput()->isUsingTouchCompatibility())
+        {
+            widgetUnderMouse = recursiveGetWidgetUnderMouse(baseWidget, mouseEvent);
+        }
 		for(std::vector<MouseListener*>::iterator it =
 			mousePreviewListeners.begin();
 			it != mousePreviewListeners.end(); ++it)
@@ -1841,7 +1920,87 @@ namespace agui
 			logic();
 		}
 	}
+    
+    void Gui::haltInertia() {
+        inertiaReceiver = NULL;
+        lastInertiaTime = 0;
+        touchInertia = 0.0;
+        
+    }
+    void Gui::processInertia() {
+        if(inertiaReceiver) {
+            if(abs(touchInertia) < 0.1)
+            {
+                haltInertia();
+            }
+            else
+            {
+                double delta = input->getTime() - lastInertiaTime;
+                lastInertiaTime = input->getTime();
+                int change = (int)(delta * touchInertia);
+                double lossRate = 2.4 * delta;
+                double loss = 1.0 - lossRate;
+                if(loss < 0)
+                    loss = 0;
+                
+                touchInertia *= loss;
+                
+                if(change != 0)
+                {
+                    MouseEvent::MouseEventEnum type;
+                    if(change > 0)
+                    {
+                        type = MouseEvent::MOUSE_WHEEL_UP;
+                    }
+                    else
+                    {
+                        type = MouseEvent::MOUSE_WHEEL_DOWN;
+                    }
+                    
+                    MouseInput mi = MouseInput(type, agui::MOUSE_BUTTON_NONE, -1, -1, change, 0.0f, input->getTime(), false, false, false);
+                    Widget* wheelWidget = inertiaReceiver;
+                    setMouseEvent(mi);
+                    if(wheelWidget && widgetExists(baseWidget,wheelWidget))
+                    {
+                        if(mouseEvent.getMouseWheelChange() > 0)
+                        {
+                            
+                            if( widgetExists(baseWidget,wheelWidget))
+                            {
+                                makeRelArgs(wheelWidget);
+                                wheelWidget->mouseWheelUp(relArgs);
+                                
+                            }
+                            if(widgetExists(baseWidget,wheelWidget))
+                            {
+                                wheelWidget->_dispatchMouseListenerEvent(
+                                                                         MouseEvent::MOUSE_WHEEL_UP,relArgs);
+                                
+                            }
+                        }
+                        else
+                        {
+                            if(widgetExists(baseWidget,wheelWidget))
+                            {
+                                makeRelArgs(widgetUnderMouse);
+                                wheelWidget->mouseWheelDown(relArgs);
+                            }
+                            if(widgetExists(baseWidget,wheelWidget))
+                            {
+                                wheelWidget->_dispatchMouseListenerEvent(
+                                                                         MouseEvent::MOUSE_WHEEL_DOWN,relArgs);
+                            }
+                        }
+                    }
 
-
+                }
+            }
+        }
+    }
+    void Gui::beginInertia(Widget* target, float speed) {
+        inertiaReceiver = target;
+        lastInertiaTime = input->getTime();
+        touchInertia = speed;
+    }
 
 }

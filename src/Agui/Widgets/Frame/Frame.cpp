@@ -73,12 +73,14 @@ namespace agui {
 		addPrivateChild(pChildContainer);
 		setFocusable(true);
 
-    setFrontColor(Color(240,240,240));
-    setBackColor(Color(196,210,224));
+        setFrontColor(Color(240,240,240));
+        setBackColor(Color(196,210,224));
 
 
 		setTopMargin(getFont()->getLineHeight() + titleFontMargin);
 		setMargins(1,1,1,1);
+        
+        setCausesLocationChange(true);
 	
 	}
 
