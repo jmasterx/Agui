@@ -523,7 +523,7 @@ namespace agui
             if(getInput()->isUsingTouchCompatibility() && input->getTime() - downTime >= 0.2f)
                 clickAllowed = false;
             
-            float delta = abs(mouse.y - startDragPos.getY());
+            float delta = (float)abs(mouse.y - startDragPos.getY());
             if(delta > 30)
                 clickAllowed = false;
             
@@ -664,7 +664,7 @@ namespace agui
                 
                 if(finalSpeed != 0)
                 {
-                    beginInertia(controlWithLock, finalSpeed);
+                    beginInertia(controlWithLock, (float)finalSpeed);
                 }
             }
         }
