@@ -346,7 +346,7 @@ namespace agui {
 		
 
 		isEditingText = true;
-		TextBox::appendText(newStr,atCurrentPosition);
+		TextBox::appendText(newStr,atCurrentPosition,repositionCaret);
 		isEditingText = false;
 
 		if(textLen > 0)
