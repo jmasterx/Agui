@@ -260,16 +260,6 @@ namespace agui {
      */
 		virtual void updateWidestLine();
 	/**
-     * Removes the UTF8 character behind the caret.
-     * @since 0.1.0
-     */
-		virtual int removeLastCharacter();
-	/**
-     * Removes the UTF8 character in front of the caret.
-     * @since 0.1.0
-     */
-		virtual int removeNextCharacter();
-	/**
      * Adds the UTF32 character, as UTF8, in front of the caret.
      * @since 0.1.0
      */
@@ -337,6 +327,19 @@ namespace agui {
      */
 
 		virtual void paste();
+        
+    /**
+    * Removes the UTF8 character behind the caret.
+    * @since 0.1.0
+    */
+        virtual int removeLastCharacter();
+    
+    /**
+    * Removes the UTF8 character in front of the caret.
+    * @since 0.1.0
+    */
+        virtual int removeNextCharacter();
+        
 	/**
 	 * Sets whether or not this TextField will respond to ctrl a, c, x, v.
      * @since 0.1.1
