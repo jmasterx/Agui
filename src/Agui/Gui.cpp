@@ -520,10 +520,10 @@ namespace agui
 		{
             bool clickAllowed = true;
             
-            if(getInput()->isUsingTouchCompatibility() && input->getTime() - downTime >= 0.2f)
+            if(getInput()->isUsingTouchCompatibility() && input->getTime() - downTime >= 0.3f)
                 clickAllowed = false;
             
-            float delta = (float)abs(mouse.y - startDragPos.getY());
+            float delta = abs(mouse.y - startDragPos.getY());
             if(delta > 30)
                 clickAllowed = false;
             
@@ -544,7 +544,7 @@ namespace agui
 						MouseEvent::MOUSE_CLICK,relArgs);
 				}
                 
-                if(!tapListeners.empty() && widgetExists(baseWidget,widgetUnderMouse))
+                if(!tapListeners.empty() && widgetExists(baseWidget,widgetUnderMouse) && lastMouseDownControl == widgetUnderMouse)
                 {
                     for(std::vector<TapListener*>::iterator it =
                         tapListeners.begin();
@@ -664,7 +664,7 @@ namespace agui
                 
                 if(finalSpeed != 0)
                 {
-                    beginInertia(controlWithLock, (float)finalSpeed);
+                    beginInertia(controlWithLock, finalSpeed);
                 }
             }
         }
