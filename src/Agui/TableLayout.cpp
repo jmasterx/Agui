@@ -66,7 +66,7 @@ namespace agui
 		for (WidgetArray::iterator it = getChildBegin(); 
 			it != getChildEnd(); ++it)
 		{
-			if ((*it)->isVisible())
+            if ((*it)->isVisible() || !isFilteringVisibility())
 			{
 				numChildren++;
 			}
@@ -77,94 +77,81 @@ namespace agui
 			return;
 		}
 
-
-		int sizeX = 0;
-		int sizeY = 0;
-
-		int childrenInRow = rows;
-		int childrenInColumn = columns;
-		if (rows == 0)
+        int childrenInRow = columns;
+        if (columns == 0)
 		{
-			childrenInRow = (int)ceil((double)numChildren / (double)columns);
-		}
-		else if (columns == 0)
-		{
-			childrenInColumn = (int)ceil((double)numChildren / (double)rows);
+            childrenInRow = (int)ceil((double)numChildren / (double)rows);
 		}
 
-		if (childrenInColumn <= 0)
+        if (childrenInRow <= 0)
 		{
-			childrenInColumn = 1;
-		}
-
-		if (childrenInRow <= 0)
-		{
-			childrenInRow = 1;
+            childrenInRow = 1;
 		}
 
 		int xCount = 0;
 		int yCount = 0;
 
-    std::vector<int> columnWidths;
-    columnWidths.resize(this->columns);
+        std::vector<int> columnWidths;
+        columnWidths.resize(this->columns);
 
-    int rowsCount = 0;
-    for (WidgetArray::iterator it = getChildBegin(); 
-			it != getChildEnd(); ++it)
+        int rowsCount = 0;
+        for (WidgetArray::iterator it = getChildBegin();
+                it != getChildEnd(); ++it)
 		{
-      if (xCount == 0)
-        rowsCount++;
-      if(!(*it)->isVisible() && isFilteringVisibility())
-			{
-				continue;
-			}
+            if(!(*it)->isVisible() && isFilteringVisibility())
+            {
+                continue;
+            }
 
-      columnWidths[xCount] = std::max(columnWidths[xCount], (*it)->getWidth());
+            if (xCount == 0)
+                rowsCount++;
 
-      xCount++;
+            columnWidths[xCount] = std::max(columnWidths[xCount], (*it)->getWidth());
+
+            xCount++;
 
 			//next row
-			if(xCount == childrenInColumn)
+            if(xCount == childrenInRow)
 			{
 				xCount = 0;
 				yCount++;
 			}
-    }
-    rows = rowsCount;
+        }
+        rows = rowsCount;
 
-    std::vector<int> rowHeights;
-    rowHeights.resize(this->rows);
+        std::vector<int> rowHeights;
+        rowHeights.resize(this->rows);
 
-    xCount = 0;
-    yCount = 0;
+        xCount = 0;
+        yCount = 0;
 
-    for (WidgetArray::iterator it = getChildBegin(); 
-			it != getChildEnd(); ++it)
-		{
-      if(!(*it)->isVisible() && isFilteringVisibility())
-			{
-				continue;
-			}
+        for (WidgetArray::iterator it = getChildBegin();
+                it != getChildEnd(); ++it)
+        {
+            if(!(*it)->isVisible() && isFilteringVisibility())
+            {
+                continue;
+            }
 
-      rowHeights[yCount] = std::max(rowHeights[yCount], (*it)->getHeight());
+            rowHeights[yCount] = std::max(rowHeights[yCount], (*it)->getHeight());
 
-      xCount++;
+            xCount++;
 
 			//next row
-			if(xCount == childrenInColumn)
+            if(xCount == childrenInRow)
 			{
 				xCount = 0;
 				yCount++;
 			}
-    }
+        }
 
-    int locationX = 0;
-    int locationY = 0;
+        int locationX = 0;
+        int locationY = 0;
 
-    xCount = 0;
-    yCount = 0;
+        xCount = 0;
+        yCount = 0;
 
-    for (WidgetArray::iterator it = getChildBegin(); 
+        for (WidgetArray::iterator it = getChildBegin();
 			it != getChildEnd(); ++it)
 		{
 			if (!(*it)->isVisible() && isFilteringVisibility())
@@ -172,39 +159,39 @@ namespace agui
 				continue;
 			}
 
-			//linearly solve for the locations and size
-			//this ensures that the spacing is respected
-      if (xCount != 0)
-        locationX += columnWidths[xCount - 1] + this->horizontalSpacing;
+            //linearly solve for the locations and size
+            //this ensures that the spacing is respected
+            if (xCount != 0)
+                locationX += columnWidths[xCount - 1] + this->horizontalSpacing;
 
-      // vertical alignment to center
-      (*it)->setLocation(locationX, locationY + (rowHeights[yCount] - (*it)->getHeight()) / 2);
+            // vertical alignment to center
+            (*it)->setLocation(locationX, locationY + (rowHeights[yCount] - (*it)->getHeight()) / 2);
 
 			xCount++;
 
 			//next row
-			if (xCount == childrenInColumn)
+            if (xCount == childrenInRow)
 			{
-        locationX = 0;
-        locationY += rowHeights[yCount] + this->verticalSpacing;
-				xCount = 0;
-				yCount++;
+                locationX = 0;
+                locationY += rowHeights[yCount] + this->verticalSpacing;
+                xCount = 0;
+                yCount++;
 			}
 		}
 
-    int width = 0;
-    for (size_t i = 0; i < columnWidths.size(); i++)
-      width += columnWidths[i];
-    width += (this->columns - 1) * this->horizontalSpacing;
+        int width = 0;
+        for (size_t i = 0; i < columnWidths.size(); i++)
+            width += columnWidths[i];
+        width += (this->columns - 1) * this->horizontalSpacing;
 
-    int height = 0;
-    for (size_t i = 0; i < rowHeights.size(); i++)
-      height += rowHeights[i];
-    height += (this->rows -1) * this->verticalSpacing;
+        int height = 0;
+        for (size_t i = 0; i < rowHeights.size(); i++)
+            height += rowHeights[i];
+        height += (this->rows -1) * this->verticalSpacing;
 
-    // called to prevent to recursively call this function as reaction to set size
-    Widget::setSize(Dimension(width + getMargin(SIDE_LEFT) + getMargin(SIDE_RIGHT),
-                              height + getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM)));
+        // called to prevent to recursively call this function as reaction to set size
+        Widget::setSize(Dimension(width + getMargin(SIDE_LEFT) + getMargin(SIDE_RIGHT),
+                                  height + getMargin(SIDE_TOP) + getMargin(SIDE_BOTTOM)));
 	}
 
 	void TableLayout::setNumberOfRows( int rows )
@@ -259,9 +246,9 @@ namespace agui
 		return verticalSpacing;
 	}
 
-  void TableLayout::resizeToContents()
-  {
-    this->layoutChildren();
-  }
+    void TableLayout::resizeToContents()
+    {
+        this->layoutChildren();
+    }
 
 }

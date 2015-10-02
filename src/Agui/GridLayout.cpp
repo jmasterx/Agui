@@ -83,25 +83,25 @@ namespace agui
 		int locationX = 0;
 		int locationY = 0;
 
-		int childrenInRow = rows;
-		int childrenInColumn = columns;
+        int childrenInColumn = rows;
+        int childrenInRow = columns;
 		if(rows == 0)
 		{
-			childrenInRow = (int)ceil((double)numChildren / (double)columns);
+            childrenInColumn = (int)ceil((double)numChildren / (double)columns);
 		}
 		else if(columns == 0)
 		{
-			childrenInColumn = (int)ceil((double)numChildren / (double)rows);
+            childrenInRow = (int)ceil((double)numChildren / (double)rows);
 		}
 
-		if(childrenInColumn <= 0)
+        if(childrenInRow <= 0)
 		{
-			childrenInColumn = 1;
+            childrenInRow = 1;
 		}
 
-		if(childrenInRow <= 0)
+        if(childrenInColumn <= 0)
 		{
-			childrenInRow = 1;
+            childrenInColumn = 1;
 		}
 
 		int xCount = 0;
@@ -119,18 +119,18 @@ namespace agui
 			//linearly solve for the locations and size
 			//this ensures that the spacing is respected
 
-			locationX = (int)(((double)xCount / (double)childrenInColumn) * 
+            locationX = (int)(((double)xCount / (double)childrenInRow) *
 				(double)(getInnerWidth() + horizontalSpacing));
-			locationY = (int)(((double)yCount / (double)childrenInRow) * 
+            locationY = (int)(((double)yCount / (double)childrenInColumn) *
 				(double)(getInnerHeight() + verticalSpacing));
 
 			//solve for next location and subtract it from
 			//the current and factor in spacing
-			sizeX = (int)((((double)(xCount + 1) / (double)childrenInColumn) * 
+            sizeX = (int)((((double)(xCount + 1) / (double)childrenInRow) *
 				(double)(getInnerWidth() + horizontalSpacing)) - 
 				locationX - horizontalSpacing);
 
-			sizeY = (int)((((double)(yCount + 1) / (double)childrenInRow) * 
+            sizeY = (int)((((double)(yCount + 1) / (double)childrenInColumn) *
 				(double)(getInnerHeight() + verticalSpacing)) -
 				locationY - verticalSpacing);
 			
@@ -140,7 +140,7 @@ namespace agui
 			xCount++;
 
 			//next row
-			if(xCount == childrenInColumn)
+            if(xCount == childrenInRow)
 			{
 				xCount = 0;
 				yCount++;

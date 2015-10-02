@@ -528,7 +528,7 @@ namespace agui
 	 * Useful for timed events.
      * @since 0.1.0
      */
-		const double getElapsedTime() const;
+        double getElapsedTime() const;
 	/**
 	 * Default constructor.
      * @since 0.1.0

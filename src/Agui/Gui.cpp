@@ -1378,7 +1378,7 @@ namespace agui
 
 	}
 
-	const double Gui::getElapsedTime() const
+    double Gui::getElapsedTime() const
 	{
 		return input->getTime();
 	}
