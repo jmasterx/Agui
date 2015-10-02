@@ -1022,7 +1022,7 @@ namespace agui {
 		for(size_t i = 0; i < textRows.size(); ++i)
 		{
 			//get length of row
-			rowLen = rowLen = rowLengths[i];
+            rowLen = rowLengths[i];
 
 			//handle -1th case
 

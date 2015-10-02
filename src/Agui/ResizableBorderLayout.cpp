@@ -44,9 +44,9 @@ namespace agui
 {
 	ResizableBorderLayout::ResizableBorderLayout(void)
 		: resizingNorth(true), resizingSouth(true),
-		resizingWest(true), resizingEast(true),
-		dragX(0), dragY(0), mouseResult(CENTER), oldMargin(0),
-		constrainToCenter(true), resizing(true)
+        resizingEast(true), resizingWest(true),
+        resizing(true), constrainToCenter(true),
+        mouseResult(CENTER), oldMargin(0), dragX(0), dragY(0)
 	{
 	}
 

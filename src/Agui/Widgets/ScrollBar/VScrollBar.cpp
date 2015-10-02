@@ -43,10 +43,11 @@ namespace agui {
 	VScrollBar::VScrollBar( Widget *thumb /*= NULL*/, 
 								   Widget *topArrow /*= NULL*/,
 								   Widget *bottomArrow /*= NULL*/ )
-	:downThumbPos(0), downMousePos(0),
-	 autoScrollStartInterval(0.35f), largeAmount(10), minValue(0), maxValue(100),
-	 currentValue(0),minThumbSize(10),stickToBottom(false),wheelSpeed(1),
-	 topArrowDown(false), bottomArrowDown(false),lastArrowTick(0.0)
+    : largeAmount(10), lastArrowTick(0.0), minValue(0), maxValue(100),
+      wheelSpeed(1),currentValue(0), downThumbPos(0), downMousePos(0),
+      topArrowDown(false), bottomArrowDown(false),
+      autoScrollStartInterval(0.35f),
+      minThumbSize(10),stickToBottom(false)
 	{
 		if(thumb)
 		{

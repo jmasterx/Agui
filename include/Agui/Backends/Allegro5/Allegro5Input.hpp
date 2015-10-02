@@ -51,8 +51,8 @@ namespace agui
 		public Input
 	{
 		bool shift;
-		bool alt;
 		bool control;
+		bool alt;
 		bool meta;
 
 		ALLEGRO_KEYBOARD_EVENT prevEvent;

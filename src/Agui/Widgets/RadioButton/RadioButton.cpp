@@ -42,8 +42,8 @@
 #include "Agui/Widgets/RadioButton/RadioButtonListener.hpp"
 namespace agui {
 	RadioButton::RadioButton()
-	:	mouseIsDown(false), mouseIsInside(false),isDoingKeyAction(false),
-	sidePadding(6), radioButtonState(DEFAULT)
+    :	sidePadding(6), radioButtonState(DEFAULT),
+        mouseIsInside(false), mouseIsDown(false), isDoingKeyAction(false)
 	{
 
 		setMargins(1,1,1,1);
@@ -202,6 +202,7 @@ namespace agui {
 			sizeX += getSidePadding();
 			x += getSidePadding();
 			break;
+        default: break; // ALIGN_MIDDLE_CENTER?
 		}
 
 		sizeX -= x;

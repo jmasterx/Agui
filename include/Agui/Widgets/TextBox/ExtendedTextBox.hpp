@@ -63,12 +63,12 @@ namespace agui {
 	class AGUI_CORE_DECLSPEC ExtendedTextBox : public TextBox
 	{
 	private:
-		bool currentColorChanged;
+		bool isEditingText;
 		Color currentColor;
 		std::string curStr;
 		Point colorIndexStart;
+		bool currentColorChanged;
 		int lastVisibleIndex;
-		bool isEditingText;
 		std::vector<std::pair<Color,Image*> > textColors;
 		std::map<std::string,Image*> icons;
 		std::map<Image*,std::string> iconClipboardText;

@@ -44,8 +44,8 @@ namespace agui
 {
 	Layout::Layout(void)
 	:isLayingOut(false), resizeToParent(true),
-	filterVisibility(true),updateOnChildRelocation(true),
-	updateOnChildResize(true),updateOnChildAddRemove(true)
+    filterVisibility(true),updateOnChildResize(true),
+    updateOnChildRelocation(true), updateOnChildAddRemove(true)
 	{
 		setIsLayout(true);
 	}

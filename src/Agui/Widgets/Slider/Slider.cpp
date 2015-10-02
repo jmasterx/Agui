@@ -41,8 +41,9 @@
 #include "Agui/Widgets/Slider/Slider.hpp"
 namespace agui {
 	Slider::Slider( Widget *marker /*= NULL*/ )
-	: isMaintainingMarker(false),min(0),max(30),value(0),
-	  orientation(HORIZONTAL),change(1),centerRatio(0.5f)
+    : orientation(HORIZONTAL),centerRatio(0.5f),
+      value(0),min(0),max(30),change(1),
+      isMaintainingMarker(false)
 	{
 		isMaintainingMarker = marker == NULL;
 

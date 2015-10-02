@@ -68,8 +68,8 @@ namespace agui {
 		int selectedIndex;
 		PopUpMenu* parentMenu;
 		PopUpMenu* childMenu;
-		bool mouseInside;
 		Widget* invoker;
+		bool mouseInside;
 		bool needsClosure;
 		Point childOffset;
 		bool needsToMakeSelecton;

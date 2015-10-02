@@ -55,10 +55,10 @@ namespace agui
 	class Allegro5Image :
 		public Image
 	{
-		bool autoFree;
 		ALLEGRO_BITMAP *bmp;
 		int width;
 		int height;
+		bool autoFree;
 	public:
 		Allegro5Image(void);
 		virtual int getWidth() const;

@@ -43,9 +43,10 @@ namespace agui {
 	HScrollBar::HScrollBar( Widget *thumb /*= NULL*/,
 		Widget *leftArrow /*= NULL*/, 
 		Widget *rightArrow /*= NULL*/ )
-		: downThumbPos(0), downMousePos(0), lastArrowTick(0.0),
-		autoScrollStartInterval(0.35f), largeAmount(10), minValue(0), maxValue(100),
-		currentValue(0), minThumbSize(10),leftArrowDown(false),rightArrowDown(false)
+        : lastArrowTick(0.0),largeAmount(10), minValue(0), maxValue(100),
+        currentValue(0), downThumbPos(0), downMousePos(0),
+        leftArrowDown(false),rightArrowDown(false),
+        autoScrollStartInterval(0.35f),minThumbSize(10)
 	{
 
 		if(thumb)

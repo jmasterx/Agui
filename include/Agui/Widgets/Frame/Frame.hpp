@@ -58,11 +58,11 @@ namespace agui {
 		public Widget
 	{
 		int topMargin;
-    int titleFontMargin;
+		int titleFontMargin;
 		int leftMargin;
-		int bottomMargin;
 		int rightMargin;
-    Color frontColor;
+		int bottomMargin;
+		Color frontColor;
 
 		bool movable;
 		bool resizable;

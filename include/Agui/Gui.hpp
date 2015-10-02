@@ -97,6 +97,8 @@ namespace agui
 		double lasttickTime;
 		double lastToolTipTime;
 		double toolTipShowLength;
+		ToolTip* toolTip;
+		int maxToolTipWidth;
 		bool hasHiddenToolTip;
 		std::stack<Widget*> q;
 		std::queue<MouseInput> queuedMouseDown;
@@ -142,9 +144,6 @@ namespace agui
 
 		KeyEvent keyEvent;
 		MouseButtonEnum lastMouseButton;
-
-		ToolTip* toolTip;
-		int maxToolTipWidth;
 
 		bool wantWidgetLocationChanged;
 		bool enableExistanceCheck;

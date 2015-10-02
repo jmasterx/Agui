@@ -73,47 +73,47 @@ namespace agui {
 		protected VScrollBarListener
 	{
 	private:
-		bool selfSetText;
-		bool hideSelection;
-		bool standardArrowKeyRules;
-		bool splittingWords;
-		bool dragged;
-		AlignmentEnum textAlignment;
-		int mouseDownIndex;
-		int widestLine;
-		int numSelLines;
-		std::vector<std::string> textRows;
-		std::vector<int> lineOffset;
-		std::vector<std::pair<Point,Point> > selPts;
-		std::vector<int> rowLengths;
-		Point selectionIndexes;
-		Color selectionBackColor;
-    Color frameColor;
 		int topPadding;
 		int leftPadding;
 		int bottomPadding;
 		int rightPadding;
 
-		int verticalOffset;
+		ScrollPolicy hScrollPolicy;
+		ScrollPolicy vScrollPolicy;
+
 		int horizontalOffset;
+		int verticalOffset;
 
 		int caretRow;
 		int caretColumn;
-
 		int caretRowLocation;
 		int caretColumnLocation;
+		int widestLine;
 
-		int maxSkip;
-
-		bool selectable;
 		bool wordWrap;
 		bool readOnly;
 		bool drawBorder;
-		int maxLength;
-		bool hotkeys;
+		int maxSkip;
+		int numSelLines;
+		int mouseDownIndex;
+		bool dragged;
+		bool splittingWords;
+		bool standardArrowKeyRules;
+		AlignmentEnum textAlignment;
+		Color selectionBackColor;
+		Color frameColor;
 
-		ScrollPolicy hScrollPolicy;
-		ScrollPolicy vScrollPolicy;
+		bool hideSelection;
+		bool selfSetText;
+		std::vector<std::string> textRows;
+		std::vector<int> lineOffset;
+		std::vector<std::pair<Point,Point> > selPts;
+		std::vector<int> rowLengths;
+		Point selectionIndexes;
+
+		int maxLength;
+		bool selectable;
+		bool hotkeys;
 
 		HScrollBar *pChildHScroll;
 		VScrollBar *pChildVScroll;

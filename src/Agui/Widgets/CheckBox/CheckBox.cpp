@@ -42,8 +42,9 @@
 #include "Agui/Widgets/CheckBox/CheckBoxListener.hpp"
 namespace agui {
 	CheckBox::CheckBox()
-	:	mouseIsDown(false), mouseIsInside(false),isDoingKeyAction(false),
-		sidePadding(6), checkBoxState(DEFAULT), autosizingCheckbox(false), checkedState(UNCHECKED)
+    :	sidePadding(6), autosizingCheckbox(false), checkBoxState(DEFAULT),
+        checkedState(UNCHECKED), mouseIsInside(false), mouseIsDown(false),
+        isDoingKeyAction(false)
 	{
 		setMargins(1,1,1,1);
 		setBackColor(Color(240,240,240));
@@ -197,6 +198,7 @@ namespace agui {
 			sizeX += getSidePadding();
 			x += getSidePadding();
 			break;
+        default: break;
 		}
 
 			sizeX -= x;

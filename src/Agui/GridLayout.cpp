@@ -44,8 +44,8 @@
 namespace agui
 {
 	GridLayout::GridLayout(void)
-		:horizontalSpacing(5),verticalSpacing(5),
-		rows(1),columns(1)
+        : rows(1),columns(1),
+          horizontalSpacing(5),verticalSpacing(5)
 	{
 	}
 

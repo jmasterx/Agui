@@ -45,7 +45,7 @@ namespace agui {
   int DropDown::dropDownArrowWidth = 16;
 
 	DropDown::DropDown( ListBox *listbox /*= NULL*/ )
-	: listBoxHeight(400),selIndex(-1),resizeToWidestItem(true),
+    : selIndex(-1),listBoxHeight(400),resizeToWidestItem(true),
 	mouseInside(false)
 	{
 		if(listbox)

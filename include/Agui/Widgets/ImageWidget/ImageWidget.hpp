@@ -54,11 +54,11 @@ namespace agui {
 	class AGUI_CORE_DECLSPEC ImageWidget :
 		public Widget
 	{
+		agui::Image* image;
 		int topMargin;
 		int leftMargin;
-		int bottomMargin;
 		int rightMargin;
-    agui::Image* image;
+		int bottomMargin;
 
 	protected:
 		virtual void paintComponent(const PaintEvent &paintEvent);

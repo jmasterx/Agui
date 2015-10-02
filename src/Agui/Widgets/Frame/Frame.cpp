@@ -58,7 +58,7 @@ namespace agui {
 
 	Frame::Frame( Widget *container /*= NULL*/ )
 	: topMargin(16),titleFontMargin(6),leftMargin(4),rightMargin(4),bottomMargin(4),
-	  movable(true),dragX(0),dragY(0),moving(false),resizable(true)
+      movable(true),resizable(true),dragX(0),dragY(0),moving(false)
 	{
 		if(container)
 		{

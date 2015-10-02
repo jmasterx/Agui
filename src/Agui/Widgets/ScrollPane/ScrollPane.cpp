@@ -512,6 +512,7 @@ namespace agui {
 			pChildVScroll->setValue(pChildVScroll->getValue() -
 				pChildVScroll->getLargeAmount());
 				break;
+        default: break;
 		}
 
 	}

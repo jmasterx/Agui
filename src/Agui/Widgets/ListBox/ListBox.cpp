@@ -60,10 +60,10 @@ namespace agui {
 	};
 
 	ListBox::ListBox( HScrollBar *hScroll /*= NULL*/, VScrollBar *vScroll /*= NULL*/, Widget* scrollInset /*=NULL*/ )
-	: sorted(false), rsorted(false), verticalOffset(0),
-	horizontalOffset(0), lastMouseY(-1), hoveredIndex(-1),hoverSelection(false),
-	firstSelIndex(-1),lastSelIndex(-1), multiselect(false), multiselectExtended(false), itemHeight(0),
-	widestItem(0), wrapping(false), allowRightClick(false)
+    : firstSelIndex(-1),lastSelIndex(-1),lastMouseY(-1),verticalOffset(0),
+      horizontalOffset(0),  sorted(false), rsorted(false), multiselect(false),
+      multiselectExtended(false), hoverSelection(false), itemHeight(0),
+      hoveredIndex(-1),	widestItem(0), wrapping(false), allowRightClick(false)
 	{
 		if(hScroll)
 		{
@@ -817,6 +817,7 @@ namespace agui {
 
 			
 			break;
+        default: break;
 		}
 
 	}

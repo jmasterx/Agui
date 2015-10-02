@@ -50,16 +50,15 @@ namespace agui
 
 	//Gui CTOR
 	Gui::Gui()
-		: timerInterval(0.05), emptyMouse(MouseEvent::MOUSE_DOWN,
-		MOUSE_BUTTON_NONE,
-		0,0,0,0,0,false,false,false),
-		 input(NULL),graphicsContext(NULL),
-		 destroyingFlaggedWidgets(true), toolTip(NULL),
-		 maxToolTipWidth(300), hasHiddenToolTip(true),
-		 lastToolTipTime(0.0), toolTipShowLength(4.0),
-		 cursorProvider(NULL), wantWidgetLocationChanged(true),
-		 useTransform(false),delayMouseDown(true),focusEnabled(true),
-         downTime(0.0f),touchInertia(0.0),lastInertiaTime(0.0),inertiaReceiver(NULL)
+        :input(NULL), graphicsContext(NULL), lastToolTipTime(0.0),
+         toolTipShowLength(4.0), toolTip(NULL), maxToolTipWidth(300),
+         hasHiddenToolTip(true), emptyMouse(MouseEvent::MOUSE_DOWN,
+           MOUSE_BUTTON_NONE, 0,0,0,0,0,false,false,false),
+         destroyingFlaggedWidgets(true), cursorProvider(NULL),
+         timerInterval(0.05), focusEnabled(true),
+         wantWidgetLocationChanged(true), useTransform(false),
+         delayMouseDown(true), downTime(0.0f), touchInertia(0.0),
+         lastInertiaTime(0.0), inertiaReceiver(NULL)
 	{
 		
 		baseWidget = new TopContainer(this,&focusMan);

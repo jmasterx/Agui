@@ -45,13 +45,13 @@ namespace agui {
 	Font* Widget::globalFont = NULL;
 
 	Widget::Widget(void)
-	: font(getGlobalFont()),_container(NULL), _focusManager(NULL), parentWidget(NULL),
-	   usingGlobalFont(true),previousFontNum(678),
-	   isWidgetVisible(true),isWidgetEnabled(true),
-	   isWidgetFocusable(false),isWidgetTabable(false), paintingChildren(false),
-	   tMargin(1),lMargin(1),bMargin(1),rMargin(1), textLen(0),
-	   flaggedForDestruction(false),handlesChildLogic(false),prevTabable(true),
-	   layoutWidget(false),globalOpacity(1.0f),causesLocationChange(false)
+    : flaggedForDestruction(false), font(getGlobalFont()),textLen(0),
+    tMargin(1),lMargin(1),bMargin(1),rMargin(1),
+    isWidgetEnabled(true), isWidgetVisible(true), isWidgetFocusable(false),
+    isWidgetTabable(false), usingGlobalFont(true), paintingChildren(false),
+    previousFontNum(678), handlesChildLogic(false), prevTabable(true),
+    layoutWidget(false), globalOpacity(1.0f),causesLocationChange(false),
+    parentWidget(NULL), _focusManager(NULL), _container(NULL)
 	{
 		setLocation(Point(0,0));
 		setMargins(1,1,1,1);

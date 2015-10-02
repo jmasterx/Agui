@@ -84,7 +84,6 @@ namespace agui {
 	private:
 		int firstSelIndex;
 		int lastSelIndex;
-		bool hoverSelection;
 		int lastMouseY;
 		int verticalOffset;
 		int horizontalOffset;
@@ -92,6 +91,7 @@ namespace agui {
 		bool rsorted;
 		bool multiselect;
 		bool multiselectExtended;
+		bool hoverSelection;
 		int itemHeight;
 		int hoveredIndex;
 		int hKeyScrollRate;

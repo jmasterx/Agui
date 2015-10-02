@@ -43,8 +43,8 @@ namespace agui
 {
 
 	FlowLayout::FlowLayout(void)
-		:verticalSpacing(10),
-		horizontalSpacing(10),
+        : horizontalSpacing(10),
+        verticalSpacing(10),
 		topToBottom(true),leftToRight(true),
 		singleRow(false), center(false),
 		alignLastRow(false),contentHSz(0),

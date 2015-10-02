@@ -45,9 +45,9 @@ namespace agui
 {
 	Input::Input(void)
 		: startTime( std::clock() / 1000),
-		keyboardEnabled(true),
-		mouseEnabled(true),touchCompatibility(false),
-        wheelOnDrag(false),wantIneria(false)
+        mouseEnabled(true), keyboardEnabled(true),
+        touchCompatibility(false), wheelOnDrag(false),
+        wantIneria(false)
 	{
 	}
 

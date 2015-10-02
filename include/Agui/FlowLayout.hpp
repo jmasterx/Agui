@@ -53,10 +53,10 @@ namespace agui
 	{
 		int horizontalSpacing;
 		int verticalSpacing;
-		bool leftToRight;
-		bool center;
 		bool topToBottom;
+		bool leftToRight;
 		bool singleRow;
+		bool center;
 		bool alignLastRow;
 		int contentHSz;
 		int maxOnRow;

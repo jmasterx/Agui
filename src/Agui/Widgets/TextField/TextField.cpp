@@ -41,15 +41,14 @@
 #include "Agui/Widgets/TextField/TextField.hpp"
 namespace agui {
 	TextField::TextField(void)
-	: caretLocation(0),caretPosition(0), showCaret(false),
-	 textOffset(0),leftPadding(5),rightPadding(5), maxCharacterSkip(8),
-	 selfSetText(false), maxLength(100),selStart(0),selEnd(0),
-	 internalSelStart(0), selWidth(0),selLength(0),dragged(false),
-	 selectable(true),readOnly(false),numeric(false),wantDecimal(false),
-	 wantNegetive(false), hideSelection(true), alignOffset(0),tOffset(0),
-	 textAlign(ALIGN_LEFT),selectionBackColor(Color(169,193,214)),
-	 password(false), hotkeys(true), frameColor(Color(180,180,180))
-
+    :maxCharacterSkip(8),maxLength(100),caretPosition(0),caretLocation(0),
+    textOffset(0),leftPadding(5),rightPadding(5),showCaret(false),
+    selfSetText(false), internalSelStart(0), dragged(false),
+    selectable(true),readOnly(false),wantDecimal(false),wantNegetive(false),
+    numeric(false),hideSelection(true),selectionBackColor(Color(169,193,214)),
+    password(false), alignOffset(0),textAlign(ALIGN_LEFT),tOffset(0),
+    hotkeys(true), frameColor(Color(180,180,180)),selStart(0),selEnd(0),
+    selWidth(0),selLength(0)
 	{
 		setFocusable(true);
 		setTabable(true);
@@ -666,6 +665,7 @@ namespace agui {
 			setBlinking(true);
 			invalidateBlink();
 			break;
+        default: break;
 		}
 
 	}

@@ -70,7 +70,7 @@ namespace agui {
 		Widget *widgetContainer;
 
 		int highestTab;
-    int totalTabWidth;
+		int totalTabWidth;
 		bool isMaintainingWidgetContainer;
 		bool isMaintainingTabContainer;
 		int tabPadding;

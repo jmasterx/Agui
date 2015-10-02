@@ -43,9 +43,9 @@
 
 namespace agui {
 	Button::Button()
-	: isDoingKeyAction(false),mouseIsDown(false),mouseIsInside(false),
-	isButtonToggleButton(false),toggled(false), buttonState(DEFAULT),
-	mouseLeaveState(HOVERED), autoUntoggle(true)
+    : buttonState(DEFAULT), mouseIsInside(false),mouseIsDown(false),
+      isDoingKeyAction(false), isButtonToggleButton(false),toggled(false),
+      autoUntoggle(true), mouseLeaveState(HOVERED)
 	{
 		setFocusable(true);
 		setTabable(true);
