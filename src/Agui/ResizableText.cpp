@@ -261,8 +261,6 @@ namespace agui
 			return;
 		}
 
-		int curLetterWidth = 0;
-		int curLineWidth = 0;
 
 		int len = int(utf8Manager.length(text));
 		int bytesSkipped = 0;
@@ -271,7 +269,6 @@ namespace agui
 		std::string::const_iterator it = text.begin();
 		std::string::const_iterator last = text.end();
 
-		int ellipsisWidth = 0;
 		int textWidth = 0;
 		if(wantEllipsis)
 		{
@@ -279,10 +276,6 @@ namespace agui
 		}
 
 		bool wontFit = textWidth > maxWidth;
-		if(wantEllipsis && wontFit)
-		{
-			ellipsisWidth = font->getTextWidth("...");
-		}
 
 		for(int i = 0; i < len; ++i)
 		{
@@ -317,8 +310,7 @@ namespace agui
 			else
 			{
 				textRows.back() += curStr;
-				curLineWidth = font->getTextWidth(textRows.back());
-			}
+            }
 		}
 
 	}

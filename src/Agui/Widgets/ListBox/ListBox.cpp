@@ -407,11 +407,6 @@ namespace agui {
 		
 		int itemsSkipped = getVisibleItemStart();
 
-		int hScrollHeight = 0;
-		if(pChildHScroll->isVisible())
-		{
-			hScrollHeight = pChildHScroll->getHeight();
-		}
 		int maxitems = getVisibleItemCount();
 
 		int h = getItemHeight() * itemsSkipped;

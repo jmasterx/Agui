@@ -710,7 +710,6 @@ namespace agui {
 		if(item->getIcon())
 		{
 			int h = item->getIcon()->getHeight();
-			int height = (getItemHeight() - h) / 2;
 
 			return Point(0,h);
 		}

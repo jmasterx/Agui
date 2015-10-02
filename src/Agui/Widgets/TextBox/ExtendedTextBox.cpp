@@ -72,9 +72,6 @@ namespace agui {
 			voffset = getVScrollSize().getWidth();
 		}
 
-		int linesSkipped = getVisibleLineStart();
-		int maxitems = getVisibleLineCount();
-
 
 		paintEvent.graphics()->pushClippingRect(Rectangle(getLeftPadding(),
 			getTopPadding(), getAdjustedWidth() - voffset + 1, getAdjustedHeight() - hoffset));
@@ -114,7 +111,6 @@ namespace agui {
 			return;
 		}
 		textColors.clear();
-		int textLen = getTextLength();
 
 		for(size_t i = 0; i < textColors.size(); ++i)
 		{

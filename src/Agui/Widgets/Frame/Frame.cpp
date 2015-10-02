@@ -274,11 +274,6 @@ namespace agui {
 
 		Rectangle topRect = Rectangle(getMargin(SIDE_LEFT),getMargin(SIDE_TOP),
 			getInnerSize().getWidth(), getTopMargin());
-		Rectangle rightBottomRect = Rectangle(
-			getWidth() - (int)(getRightMargin() * 3.0),
-			getHeight() - (int)(getBottomMargin() * 3.0),
-			(int)(getRightMargin() * 3.0),
-			(int)(getBottomMargin() * 3.0));
 
 		if(isResizable())
 		{
