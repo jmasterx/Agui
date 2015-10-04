@@ -73,7 +73,8 @@ namespace agui
 
 		NSPasteboard *pasteBoard = [NSPasteboard generalPasteboard];
 		NSString* clipboardString = [pasteBoard  stringForType:NSPasteboardTypeString];
-		retString = std::string([clipboardString UTF8String]);
+		if(clipboardString != nil)
+			retString = std::string([clipboardString UTF8String]);
 			
 		[pool release];
 
