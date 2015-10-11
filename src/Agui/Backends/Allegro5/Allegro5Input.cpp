@@ -98,7 +98,7 @@ namespace agui
 					alt = true;
 				}
 
-				if(event.keyboard.keycode == ALLEGRO_KEY_LWIN || event.keyboard.keycode == ALLEGRO_KEY_RWIN)
+                if(event.keyboard.keycode == ALLEGRO_KEY_COMMAND || event.keyboard.keycode == ALLEGRO_KEY_LWIN || event.keyboard.keycode == ALLEGRO_KEY_RWIN)
 				{
 					meta = true;
 				}
@@ -130,7 +130,7 @@ namespace agui
 				alt = false;
 			}
 
-			if(event.keyboard.keycode == ALLEGRO_KEY_LWIN || event.keyboard.keycode == ALLEGRO_KEY_RWIN)
+			if(event.keyboard.keycode == ALLEGRO_KEY_COMMAND || event.keyboard.keycode == ALLEGRO_KEY_LWIN || event.keyboard.keycode == ALLEGRO_KEY_RWIN)
 			{
 				meta = false;
 			}
