@@ -727,7 +727,7 @@ namespace agui
 					mouse.getPosition().getY() - currentNode->getAbsolutePosition().getY())))
 					&& currentNode->isEnabled() && currentNode->isVisible()))
 				{
-					for (WidgetArray::const_reverse_iterator rit = 
+					for (WidgetArray::reverse_iterator rit =
 						currentNode->getChildRBegin();
 						rit != currentNode->getChildREnd(); ++rit) 
 					{ 
@@ -735,7 +735,7 @@ namespace agui
 
 					} 
 
-					for (WidgetArray::const_reverse_iterator rit = 
+					for (WidgetArray::reverse_iterator rit =
 						currentNode->getPrivateChildRBegin();
 						rit != currentNode->getPrivateChildREnd(); ++rit) 
 					{ 
@@ -1036,7 +1036,7 @@ namespace agui
 			if(widgetExists((*it),target)) {return true;}
 		}
 
-		for(WidgetArray::const_iterator it 
+		for(WidgetArray::const_iterator it
 			= root->getChildBegin(); 
 			it != root->getChildEnd(); ++it)
 		{
@@ -1092,7 +1092,7 @@ namespace agui
 		{
 
 		
-			for(WidgetArray::const_iterator it = 
+			for(WidgetArray::iterator it =
 				target->getPrivateChildBegin(); 
 				it != target->getPrivateChildEnd(); ++it)
 			{
@@ -1102,7 +1102,7 @@ namespace agui
 				}
 			}
 
-			for(WidgetArray::const_iterator it = 
+			for(WidgetArray::iterator it =
 				target->getChildBegin(); 
 				it != target->getChildEnd(); ++it)
 			{
@@ -1149,7 +1149,7 @@ namespace agui
 
 			if(target && target->isVisible() && target->isEnabled())
 			{
-				for(WidgetArray::const_reverse_iterator it = 
+				for(WidgetArray::reverse_iterator it =
 					target->getPrivateChildRBegin(); 
 					it != target->getPrivateChildREnd(); ++it)
 				{
@@ -1158,7 +1158,7 @@ namespace agui
 						return true;
 					}
 				}
-				for(WidgetArray::const_reverse_iterator it = 
+				for(WidgetArray::reverse_iterator it =
 					target->getChildRBegin(); 
 					it != target->getChildREnd(); ++it)
 				{
