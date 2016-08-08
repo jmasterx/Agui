@@ -53,7 +53,7 @@ namespace agui
      * @author Michal Kovarik
      * @since 0.1.0
      */
-	class TableLayout :
+	class AGUI_CORE_DECLSPEC TableLayout :
 		public Layout
 	{
 		int rows;

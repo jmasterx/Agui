@@ -50,7 +50,7 @@ namespace agui
      * @author Joshua Larouche
      * @since 0.1.0
      */
-	class GridLayout :
+	class AGUI_CORE_DECLSPEC GridLayout :
 		public Layout
 	{
 		int rows;
