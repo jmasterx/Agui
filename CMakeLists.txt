@@ -123,9 +123,9 @@ set(SFML2_BACKEND_SOURCES
 	src/Agui/Backends/SFML2/SFML2Input.cpp
 	)
 
-	include_directories (./include) 
 if(WANT_SHARED)
   add_library(agui SHARED ${AGUI_SOURCES})
+  target_include_directories(agui PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
   
    if(MACOSX)
   target_link_libraries (agui ${COCOA_LIBRARY} )
@@ -147,6 +147,7 @@ if(WANT_SHARED)
   
 else()
   add_library(agui STATIC ${AGUI_SOURCES})
+  target_include_directories(agui PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
   
   if(MACOSX)
   target_link_libraries (agui ${COCOA_LIBRARY} )
